@@ -40,6 +40,12 @@ public class Vector {
                 .collect(Collectors.toList()));
     }
 
+    public static Vector of(Integer... features) {
+        return new Vector(Stream.of(features)
+                .map(Integer::doubleValue)
+                .collect(Collectors.toList()));
+    }
+
     public Double norm() {
         return Math.sqrt(
                 features.stream()
@@ -51,7 +57,7 @@ public class Vector {
     public Double cosine(Vector another) throws VectorException {
         Double denominator = norm() * another.norm();
         if (denominator == 0) {
-            throw new VectorException("Error: Norm cannot be zero");
+            return 0.0;
         }
         return dot(another) / denominator;
     }
@@ -89,7 +95,7 @@ public class Vector {
         }
     }
 
-    private Stream<Tuple<Double, Double>> zip(Vector another) {
+    public Stream<Tuple<Double, Double>> zip(Vector another) {
         return IntStream.range(0, size)
                 .mapToObj(i -> Tuple.of(features.get(i), another.features.get(i)));
     }

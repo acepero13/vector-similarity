@@ -12,6 +12,7 @@ public class UserProfile implements Vectorizable {
     private final boolean userLikesToBuyEcoProducts;
     private final boolean userIsInterestedInEcoProducts;
     private final boolean userDrivesInEcoMode;
+    private final double percentageOfEcoFriendlyProductsBought;
     private final Gender gender;
 
     @Override

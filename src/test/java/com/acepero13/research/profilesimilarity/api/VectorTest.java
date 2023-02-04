@@ -3,6 +3,8 @@ package com.acepero13.research.profilesimilarity.api;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VectorTest {
 
     private final Vector vector1 = Vector.of(1.0, 2.0, 3.0, 4.0, 5.0);
-    private final Vector vector2 = Vector.of(10.0, 20.0, 30.0, 40.0, 50.0);
+    private final Vector vector2 = Vector.of(List.of(10.0, 20.0, 30.0, 40.0, 50.0));
 
     @Test
     void multiply() {
@@ -85,11 +87,7 @@ class VectorTest {
 
     @Test
     void cosineSimilarityNormIsZero() {
-        VectorException thrown = assertThrows(VectorException.class, () -> {
-            vector1.cosine(Vector.of(0.0));
-        });
-
-        assertThat(thrown.getMessage(), containsString("Error: Norm cannot be zero"));
+       assertThat(vector1.cosine(Vector.of(0.0)), closeTo(0.0, 0.1));
     }
 
     @Test
