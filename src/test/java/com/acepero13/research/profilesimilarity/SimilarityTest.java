@@ -24,9 +24,9 @@ class SimilarityTest {
     @Test void usersWithOppositeProfilesHasZeroScore(){
         var userProfile1 = createEcoProfile();
         var userProfile2 = UserProfile.builder()
-                .userIsInterestedInEcoProducts(false)
-                .userDrivesInEcoMode(false)
-                .userLikesToBuyEcoProducts(false)
+                .isInterestedInEcoProducts(false)
+                .drivesInEcoMode(false)
+                .likesToBuyEcoProducts(false)
                 .gender(UserProfile.Gender.FEMALE)
                 .build();
 
@@ -37,9 +37,9 @@ class SimilarityTest {
 
     private static UserProfile createEcoProfile() {
         return UserProfile.builder()
-                .userIsInterestedInEcoProducts(true)
-                .userDrivesInEcoMode(true)
-                .userLikesToBuyEcoProducts(true)
+                .isInterestedInEcoProducts(true)
+                .drivesInEcoMode(true)
+                .likesToBuyEcoProducts(true)
                 .gender(UserProfile.Gender.MALE)
                 .build();
     }

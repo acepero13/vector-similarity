@@ -1,6 +1,12 @@
 package com.acepero13.research.profilesimilarity.api;
 
+import com.acepero13.research.profilesimilarity.api.features.IntegerFeature;
+
 public interface Feature<T> {
+
+    static Feature<Integer> integerFeature(int value, String name) {
+        return new IntegerFeature(value, name);
+    }
 
     double featureValue();
 

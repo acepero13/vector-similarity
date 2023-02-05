@@ -1,11 +1,11 @@
 package com.acepero13.research.profilesimilarity.scores;
 
+import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class VectorWrapper implements Vectorizable {
@@ -19,12 +19,13 @@ public class VectorWrapper implements Vectorizable {
 
     @Override
     public Vector vector() {
-        return vector.normalizeWith(normalizer);
+        return vector;
     }
 
     @Override
-    public void setNormalizer(List<UnaryOperator<Double>> normalizer) {
-        this.normalizer = normalizer;
+    public Vector vector(Normalizer normalizer) {
+        return normalizer.normalize(vector);
     }
+
 
 }

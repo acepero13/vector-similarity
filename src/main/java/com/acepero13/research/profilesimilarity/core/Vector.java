@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.api.Feature;
+import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -126,13 +127,10 @@ public class Vector {
         return new MinMax(min, max);
     }
 
-    public Vector normalizeWith(List<UnaryOperator<Double>> normalizer) {
-        // TODO: Check same size
-        if(normalizer.isEmpty()) {
-            return this;
-        }
+
+    public Vector mapEach(List<UnaryOperator<Double>> mapper) {
         return new Vector(IntStream.range(0, size)
-                .mapToObj(i -> Tuple.of(features.get(i), normalizer.get(i)))
+                .mapToObj(i -> Tuple.of(features.get(i), mapper.get(i)))
                 .map(t -> t.second().apply(t.first()))
                 .collect(Collectors.toList()));
     }
