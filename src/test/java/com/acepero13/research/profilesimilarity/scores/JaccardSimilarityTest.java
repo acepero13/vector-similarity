@@ -18,7 +18,7 @@ class JaccardSimilarityTest {
         var vec1 = new VectorWrapper(v1);
         var vec2 = new VectorWrapper(v2);
 
-        double score = similarityScorer.similarityScore(vec1, vec2);
+        double score = similarityScorer.similarityScore(vec1.vector(), vec2.vector());
 
         assertThat(score, closeTo(0.25, 0.01));
 

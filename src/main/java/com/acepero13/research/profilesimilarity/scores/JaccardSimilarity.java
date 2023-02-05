@@ -2,13 +2,11 @@ package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
 import com.acepero13.research.profilesimilarity.core.Vector;
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
 
 public class JaccardSimilarity implements Similarity {
     @Override
-    public Double similarityScore(Vectorizable vectorizable, Vectorizable another) {
-        var vector = vectorizable.vector();
-        var anotherVector = another.vector();
+    public Double similarityScore(Vector vector, Vector anotherVector) {
+
         int a = numberOfAttributesEqualToOne(vector, anotherVector);
         int b = numberOfAttributesEqualToZeroForFirstAndOneForTheOther(vector, anotherVector);
         int c = numberOfAttributesEqualToOneForFirstAndAndZeroForTheOther(vector, anotherVector);

@@ -16,7 +16,7 @@ class SimilarityTest {
         var userProfile1 = createEcoProfile();
         var userProfile2 = createEcoProfile();
 
-        var result = scorer.similarityScore(userProfile1, userProfile2);
+        var result = scorer.similarityScore(userProfile1.vector(), userProfile2.vector());
 
         assertThat(result, closeTo(1.0, 0.1));
     }
@@ -30,7 +30,7 @@ class SimilarityTest {
                 .gender(UserProfile.Gender.FEMALE)
                 .build();
 
-        var result = scorer.similarityScore(userProfile1, userProfile2);
+        var result = scorer.similarityScore(userProfile1.vector(), userProfile2.vector());
 
         assertThat(result, closeTo(0.0, 0.1));
     }

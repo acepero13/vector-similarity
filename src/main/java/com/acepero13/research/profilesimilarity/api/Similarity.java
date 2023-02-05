@@ -1,7 +1,8 @@
 package com.acepero13.research.profilesimilarity.api;
 
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.core.Vector;
 
 public interface Similarity {
-    Double similarityScore(Vectorizable vectorizable, Vectorizable another);
+    Double similarityScore(Vector vectorizable, Vector another);
 }

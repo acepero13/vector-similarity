@@ -26,9 +26,11 @@ public class DataSet {
 
 
     public Vectorizable mostSimilarTo(Vectorizable vectorizable) {
+        Vector source = normalizer.normalize(vectorizable.vector());
         List<Tuple<Vectorizable, Double>> mostSimilar = this.vectorizables.stream()
-                .map(v -> Tuple.of(v, similarityScorer.similarityScore(v, vectorizable)))
-                .sorted(Comparator.comparingDouble(Tuple::second))
+                .map(v -> Tuple.of(v, similarityScorer.similarityScore(normalizer.normalize(v.vector()), source)))
+                .sorted((f, s) -> Double.compare(s.second(), f.second()))
+
                 .collect(Collectors.toList());
 
         return mostSimilar.get(0).first();
@@ -59,10 +61,10 @@ public class DataSet {
         }
 
         private static UnaryOperator<Double> minMax(MinMax minMax) {
-            if (minMax.difference() < 3) {
+            if (minMax.difference() == 0) {
                 return v -> v;
             }
-            return v -> (v - minMax.getMin()) / (minMax.getMax() - minMax.getMin());
+            return v -> (v - minMax.getMin()) / minMax.difference();
         }
 
         private static List<Vector> getColumVectorsFrom(List<Vector> vectors) {

@@ -19,7 +19,7 @@ class CombinedSimilarityTest {
         var vec1 = new VectorWrapper(v1);
         var vec2 = new VectorWrapper(v2);
 
-        double score = scorer.similarityScore(vec1, vec2);
+        double score = scorer.similarityScore(vec1.vector(), vec2.vector());
 
         assertThat(score, closeTo(0.62, 0.01));
     }
