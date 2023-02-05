@@ -3,6 +3,7 @@ package com.acepero13.research.profilesimilarity;
 import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.core.DoubleVector;
 import com.acepero13.research.profilesimilarity.core.Vector;
 import lombok.Builder;
 import lombok.Data;
@@ -26,8 +27,8 @@ public class UserProfile implements Vectorizable {
     private List<UnaryOperator<Double>> normalizer;
 
     @Override
-    public Vector vector() {
-        return Vector.of(
+    public DoubleVector vector() {
+        return DoubleVector.of(
                 Feature.booleanFeature(drivesInEcoMode, "user drives in eco mode"),
                 Feature.booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"),
                 Feature.booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"),

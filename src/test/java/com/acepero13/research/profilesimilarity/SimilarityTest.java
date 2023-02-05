@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
+import com.acepero13.research.profilesimilarity.core.NormalizedVector;
 import com.acepero13.research.profilesimilarity.scores.CosineSimilarity;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class SimilarityTest {
         var userProfile1 = createEcoProfile();
         var userProfile2 = createEcoProfile();
 
-        var result = scorer.similarityScore(userProfile1.vector(), userProfile2.vector());
+        var result = scorer.similarityScore(NormalizedVector.of(userProfile1.vector()), NormalizedVector.of(userProfile2.vector()));
 
         assertThat(result, closeTo(1.0, 0.1));
     }
@@ -30,7 +31,7 @@ class SimilarityTest {
                 .gender(UserProfile.Gender.FEMALE)
                 .build();
 
-        var result = scorer.similarityScore(userProfile1.vector(), userProfile2.vector());
+        var result = scorer.similarityScore(NormalizedVector.of(userProfile1.vector()), NormalizedVector.of(userProfile2.vector()));
 
         assertThat(result, closeTo(0.0, 0.1));
     }

@@ -11,4 +11,12 @@ public class MinMax {
     public double difference() {
         return max - min;
     }
+
+    public double min() {
+        return min;
+    }
+
+    public double max() {
+        return max;
+    }
 }

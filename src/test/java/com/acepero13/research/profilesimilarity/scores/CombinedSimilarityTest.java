@@ -1,7 +1,8 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
-import com.acepero13.research.profilesimilarity.core.Vector;
+import com.acepero13.research.profilesimilarity.core.DoubleVector;
+import com.acepero13.research.profilesimilarity.core.NormalizedVector;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,13 +14,13 @@ class CombinedSimilarityTest {
 
     @Test
     void computeSimilarity() {
-        var v1 = Vector.of(0, 1, 0, 0, 0, 1, 0, 0, 1);
-        var v2 = Vector.of(0, 0, 1, 0, 0, 0, 0, 0, 1);
+        var v1 = DoubleVector.of(0, 1, 0, 0, 0, 1, 0, 0, 1);
+        var v2 = DoubleVector.of(0, 0, 1, 0, 0, 0, 0, 0, 1);
 
         var vec1 = new VectorWrapper(v1);
         var vec2 = new VectorWrapper(v2);
 
-        double score = scorer.similarityScore(vec1.vector(), vec2.vector());
+        double score = scorer.similarityScore(NormalizedVector.of(vec1.vector()), NormalizedVector.of(vec2.vector()));
 
         assertThat(score, closeTo(0.62, 0.01));
     }
