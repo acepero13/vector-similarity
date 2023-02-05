@@ -6,7 +6,9 @@ public interface Feature<T> {
 
     T originalValue();
 
-    static Feature<Boolean> booleanFeature(boolean value) {
+    String name();
+
+    static Feature<Boolean> booleanFeature(boolean value, String name) {
         return new Feature<>() {
             @Override
             public double featureValue() {
@@ -16,6 +18,11 @@ public interface Feature<T> {
             @Override
             public Boolean originalValue() {
                 return value;
+            }
+
+            @Override
+            public String name() {
+                return name;
             }
         };
     }

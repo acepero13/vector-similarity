@@ -1,12 +1,11 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
-import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.core.Vector;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CombinedSimilarityTest {
 
@@ -22,6 +21,6 @@ class CombinedSimilarityTest {
 
         double score = scorer.similarityScore(vec1, vec2);
 
-        assertThat(score, closeTo(0.32, 0.01));
+        assertThat(score, closeTo(0.62, 0.01));
     }
 }

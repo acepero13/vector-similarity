@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity.api;
 
+import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import org.junit.jupiter.api.Test;
 

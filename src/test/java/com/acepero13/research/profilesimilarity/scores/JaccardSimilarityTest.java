@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
-import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.core.Vector;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

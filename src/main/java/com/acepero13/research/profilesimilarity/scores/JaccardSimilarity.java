@@ -1,10 +1,8 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Similarity;
-import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
-
-import java.util.stream.Collectors;
 
 public class JaccardSimilarity implements Similarity {
     @Override
