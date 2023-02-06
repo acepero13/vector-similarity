@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-//TODO: Think about a Decorator instead of a normalizer
 public interface Normalizer {
 
 
