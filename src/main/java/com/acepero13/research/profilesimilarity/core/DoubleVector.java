@@ -120,7 +120,7 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public double getFeature(int index) {
+    public Double getFeature(int index) {
         // TODO: Check validity
         return features.get(index);
     }
@@ -146,4 +146,6 @@ public class DoubleVector implements Vector<Double> {
                 .map(t -> t.second().apply(t.first()))
                 .collect(Collectors.toList()));
     }
+
+
 }

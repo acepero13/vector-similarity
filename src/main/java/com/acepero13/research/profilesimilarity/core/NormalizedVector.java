@@ -21,7 +21,7 @@ public class NormalizedVector implements Vector<Double> {
         return new NormalizedVector(vector, normalizer);
     }
 
-    public static NormalizedVector of(DoubleVector vector) {
+    public static NormalizedVector of(Vector<Double> vector) {
         List<UnaryOperator<Double>> mapper = new ArrayList<>();
         for (int i = 0; i < vector.size(); i++) {
             mapper.add(v -> v);
@@ -75,7 +75,7 @@ public class NormalizedVector implements Vector<Double> {
     }
 
     @Override
-    public double getFeature(int index) {
+    public Double getFeature(int index) {
         return vector.getFeature(index);
     }
 
@@ -93,4 +93,6 @@ public class NormalizedVector implements Vector<Double> {
     public DoubleVector mapEach(List<UnaryOperator<Double>> mapper) {
         return vector.mapEach(mapper);
     }
+
+
 }

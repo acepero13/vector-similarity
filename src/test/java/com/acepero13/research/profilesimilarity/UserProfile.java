@@ -39,7 +39,7 @@ public class UserProfile implements Vectorizable {
     }
 
     @Override
-    public Vector vector(Normalizer normalizer) {
+    public Vector<Double> vector(Normalizer normalizer) {
         return normalizer.normalize(vector());
     }
 
