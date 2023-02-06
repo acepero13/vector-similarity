@@ -33,9 +33,7 @@ class VectorTest {
 
     @Test
     void multipliesDifferentSizedVectors() {
-        assertThrows(VectorException.class, () -> {
-            vector1.multiply(DoubleVector.of(1.0));
-        });
+        assertThrows(VectorException.class, () -> vector1.multiply(DoubleVector.of(1.0)));
     }
 
     @Test
@@ -55,16 +53,12 @@ class VectorTest {
 
     @Test
     void sumTwoDifferentSizedVectors() {
-        assertThrows(VectorException.class, () -> {
-            vector1.add(DoubleVector.of(1.0));
-        });
+        assertThrows(VectorException.class, () -> vector1.add(DoubleVector.of(1.0)));
     }
 
     @Test
     void subtractTwoDifferentSizedVectors() {
-        assertThrows(VectorException.class, () -> {
-            vector1.subtract(DoubleVector.of(1.0));
-        });
+        assertThrows(VectorException.class, () -> vector1.subtract(DoubleVector.of(1.0)));
     }
 
     @Test
@@ -80,16 +74,14 @@ class VectorTest {
 
     @Test
     void cosineSimilarityTwoDifferentsized() {
-        VectorException thrown = assertThrows(VectorException.class, () -> {
-            vector1.cosine(DoubleVector.of(1.0, 2.0));
-        });
+        VectorException thrown = assertThrows(VectorException.class, () -> vector1.cosine(DoubleVector.of(1.0, 2.0)));
 
         assertThat(thrown.getMessage(), containsString("Vector length do not match."));
     }
 
     @Test
     void cosineSimilarityNormIsZero() {
-       assertThat(vector1.cosine(DoubleVector.of(0.0)), closeTo(0.0, 0.1));
+        assertThat(vector1.cosine(DoubleVector.of(0.0)), closeTo(0.0, 0.1));
     }
 
     @Test
@@ -110,20 +102,18 @@ class VectorTest {
 
     @Test
     void dotTwoDifferentSizedVectors() {
-        assertThrows(VectorException.class, () -> {
-            vector1.dot(DoubleVector.of(1.0));
-        });
+        assertThrows(VectorException.class, () -> vector1.dot(DoubleVector.of(1.0)));
     }
 
-    @Test void getFeature(){
-       double result =  vector1.getFeature(0);
-       assertThat(result, closeTo(1.0, 0.01));
+    @Test
+    void getFeature() {
+        double result = vector1.getFeature(0);
+        assertThat(result, closeTo(1.0, 0.01));
     }
 
-    @Test void exceptionWhenIndexOutOfBounds(){
-        IndexOutOfBoundsException error = assertThrows(IndexOutOfBoundsException.class, () -> {
-            vector1.getFeature(100);
-        });
+    @Test
+    void exceptionWhenIndexOutOfBounds() {
+        IndexOutOfBoundsException error = assertThrows(IndexOutOfBoundsException.class, () -> vector1.getFeature(100));
 
         assertThat(error.getMessage(), containsString("Index 100 out of bounds for length 5"));
     }

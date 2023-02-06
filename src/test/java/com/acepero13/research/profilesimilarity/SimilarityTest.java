@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.closeTo;
 
 class SimilarityTest {
 
-    Similarity scorer = new CosineSimilarity();
+    final Similarity scorer = new CosineSimilarity();
 
     @Test
     void usersWithSameProfileHavePerfectScore() {
