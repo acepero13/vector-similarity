@@ -6,5 +6,5 @@ import com.acepero13.research.profilesimilarity.core.Vector;
 public interface Vectorizable {
     DoubleVector vector();
 
-    Vector vector(Normalizer normalizer);
+    Vector<Double> vector(Normalizer normalizer);
 }

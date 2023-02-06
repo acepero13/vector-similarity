@@ -11,22 +11,22 @@ import java.util.stream.Collectors;
 
 
 public class DataSet {
-    private final List<Vectorizable> vectorizables;
+    private final List<Vectorizable> dataPoints;
     private final Similarity similarityScorer = new CombinedSimilarity();
     private final Normalizer normalizer;
 
     public DataSet(Vectorizable... vectorizables) {
-        this.vectorizables = List.of(vectorizables);
+        this.dataPoints = List.of(vectorizables);
         this.normalizer = Matrix.buildMinMaxNormalizerFrom(Matrix.of(vectorizables));
 
     }
 
 
     public Vectorizable mostSimilarTo(Vectorizable vectorizable) {
-        NormalizedVector source = normalize(vectorizable);
+        NormalizedVector normalizedSource = normalize(vectorizable);
 
-        List<Tuple<Vectorizable, Double>> mostSimilar = this.vectorizables.stream()
-                .map(v -> Tuple.of(v, similarityScorer.similarityScore(normalize(v), source)))
+        List<Tuple<Vectorizable, Double>> mostSimilar = this.dataPoints.stream()
+                .map(v -> Tuple.of(v, similarityScorer.similarityScore(normalize(v), normalizedSource)))
                 .sorted((f, s) -> Double.compare(s.second(), f.second()))
                 .collect(Collectors.toList());
 

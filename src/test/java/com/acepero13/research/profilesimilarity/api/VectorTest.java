@@ -18,8 +18,8 @@ class VectorTest {
 
     @Test
     void multiply() {
-        Vector result = vector1.multiply(vector2);
-        Vector expected = DoubleVector.of(10.0, 40.0, 90.0, 160.0, 250.0);
+        Vector<Double> result = vector1.multiply(vector2);
+        Vector<Double> expected = DoubleVector.of(10.0, 40.0, 90.0, 160.0, 250.0);
         assertThat(result, equalTo(expected));
     }
 
@@ -40,16 +40,16 @@ class VectorTest {
 
     @Test
     void sumTwoVectors() {
-        Vector result = vector1.add(vector2);
-        Vector expected = DoubleVector.of(11.0, 22.0, 33.0, 44.0, 55.0);
+        Vector<Double> result = vector1.add(vector2);
+        Vector<Double> expected = DoubleVector.of(11.0, 22.0, 33.0, 44.0, 55.0);
 
         assertThat(result, equalTo(expected));
     }
 
     @Test
     void subtract() {
-        Vector result = vector2.subtract(vector1);
-        Vector expected = DoubleVector.of(9.0, 18.0, 27.0, 36.0, 45.0);
+        Vector<Double> result = vector2.subtract(vector1);
+        Vector<Double> expected = DoubleVector.of(9.0, 18.0, 27.0, 36.0, 45.0);
         assertThat(result, equalTo(expected));
     }
 
@@ -113,6 +113,19 @@ class VectorTest {
         assertThrows(VectorException.class, () -> {
             vector1.dot(DoubleVector.of(1.0));
         });
+    }
+
+    @Test void getFeature(){
+       double result =  vector1.getFeature(0);
+       assertThat(result, closeTo(1.0, 0.01));
+    }
+
+    @Test void exceptionWhenIndexOutOfBounds(){
+        IndexOutOfBoundsException error = assertThrows(IndexOutOfBoundsException.class, () -> {
+            vector1.getFeature(100);
+        });
+
+        assertThat(error.getMessage(), containsString("Index 100 out of bounds for length 5"));
     }
 
 }

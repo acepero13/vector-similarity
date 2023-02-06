@@ -120,8 +120,7 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public Double getFeature(int index) {
-        // TODO: Check validity
+    public Double getFeature(int index) throws IndexOutOfBoundsException {
         return features.get(index);
     }
 

@@ -81,7 +81,6 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
             }
             row++;
         }
-        //TODO: Raise Exception
     }
 
 
