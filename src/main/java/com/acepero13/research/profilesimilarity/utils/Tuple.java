@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity.utils;
 
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -44,6 +45,11 @@ public interface Tuple<F, S> {
             public boolean filterBoth(Predicate<F> firstPredicate, Predicate<S> secondPredicate) {
                 return firstPredicate.test(fist) && secondPredicate.test(second);
             }
+
+            @Override
+            public <R> Tuple<F, R> mapSecond(Function<S, R> mapper) {
+                return Tuple.of(fist, mapper.apply(second));
+            }
         };
     }
 
@@ -71,6 +77,8 @@ public interface Tuple<F, S> {
     void apply(TupleApplicable<F, S> applier);
 
     boolean filterBoth(Predicate<F> firstPredicate, Predicate<S> secondPredicate);
+
+    <R> Tuple<F, R> mapSecond(Function<S, R> mapper);
 
     @FunctionalInterface
     interface TupleApplicable<F, S> {

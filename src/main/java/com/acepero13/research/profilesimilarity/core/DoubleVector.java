@@ -38,14 +38,18 @@ public class DoubleVector implements Vector<Double> {
     }
 
     public static DoubleVector of(Feature<?>... features) {
-        return new DoubleVector(Stream.of(features)
-                .map(Feature::featureValue)
-                .collect(Collectors.toList()));
+        return ofFeatures(List.of(features));
     }
 
     public static DoubleVector of(Integer... features) {
         return new DoubleVector(Stream.of(features)
                 .map(Integer::doubleValue)
+                .collect(Collectors.toList()));
+    }
+
+    public static DoubleVector ofFeatures(List<Feature<?>> features) {
+        return new DoubleVector(features.stream()
+                .map(Feature::featureValue)
                 .collect(Collectors.toList()));
     }
 

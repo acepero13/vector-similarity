@@ -30,7 +30,7 @@ public class IntegerFeature implements Feature<Integer> {
     }
 
     @Override
-    public String name() {
+    public String featureName() {
         return this.name;
     }
 }

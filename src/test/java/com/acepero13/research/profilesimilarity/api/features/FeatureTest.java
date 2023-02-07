@@ -14,7 +14,7 @@ class FeatureTest {
         Feature<Integer> feat = IntegerFeature.of(100, "feat");
         assertThat(feat.featureValue(), closeTo(100.0, 0.01));
         assertThat(feat.originalValue(), equalTo(100));
-        assertThat(feat.name(), equalTo("feat"));
+        assertThat(feat.featureName(), equalTo("feat"));
 
     }
 
@@ -22,6 +22,6 @@ class FeatureTest {
         Feature<Boolean> feat = Feature.booleanFeature(true, "feat");
         assertThat(feat.featureValue(), closeTo(1.0, 0.01));
         assertThat(feat.originalValue(), equalTo(true));
-        assertThat(feat.name(), equalTo("feat"));
+        assertThat(feat.featureName(), equalTo("feat"));
     }
 }

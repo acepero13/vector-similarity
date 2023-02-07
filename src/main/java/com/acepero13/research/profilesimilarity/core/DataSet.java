@@ -6,8 +6,8 @@ import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.scores.CombinedSimilarity;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class DataSet {
@@ -18,23 +18,25 @@ public class DataSet {
     public DataSet(Vectorizable... vectorizables) {
         this.dataPoints = List.of(vectorizables);
         this.normalizer = Matrix.buildMinMaxNormalizerFrom(Matrix.of(vectorizables));
-
     }
 
 
-    public Vectorizable mostSimilarTo(Vectorizable vectorizable) {
-        NormalizedVector normalizedSource = normalize(vectorizable);
+    public Vectorizable mostSimilarTo(Vectorizable target) {
+        NormalizedVector normalizedTarget = normalize(target.vector());
 
-        List<Tuple<Vectorizable, Double>> mostSimilar = this.dataPoints.stream()
-                .map(v -> Tuple.of(v, similarityScorer.similarityScore(normalize(v), normalizedSource)))
-                .sorted((f, s) -> Double.compare(s.second(), f.second()))
-                .collect(Collectors.toList());
+        var mostSimilar = this.dataPoints.stream()
+                .map(v -> Tuple.of(v, v.vector(target.whiteList())))
+                .map(t -> t.mapSecond(this::normalize))
+                .map(t -> t.mapSecond(v -> similarityScorer.similarityScore(normalizedTarget, v)))
+                .max(Comparator.comparingDouble(Tuple::second))
+                .orElseThrow();
 
-        return mostSimilar.get(0).first();
+        return mostSimilar.first();
     }
 
-    NormalizedVector normalize(Vectorizable v) {
-        return NormalizedVector.of(v.vector(), normalizer);
+
+    NormalizedVector normalize(Vector<Double> vector) {
+        return NormalizedVector.of(vector, normalizer);
     }
 
 }

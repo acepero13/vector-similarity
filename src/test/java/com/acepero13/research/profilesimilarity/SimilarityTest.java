@@ -29,6 +29,8 @@ class SimilarityTest {
                 .drivesInEcoMode(false)
                 .likesToBuyEcoProducts(false)
                 .gender(UserProfile.Gender.FEMALE)
+                .salary(0)
+                .numberOfChildren(0)
                 .build();
 
         var result = scorer.similarityScore(NormalizedVector.of(userProfile1.vector()), NormalizedVector.of(userProfile2.vector()));
@@ -42,6 +44,8 @@ class SimilarityTest {
                 .drivesInEcoMode(true)
                 .likesToBuyEcoProducts(true)
                 .gender(UserProfile.Gender.MALE)
+                .salary(1)
+                .numberOfChildren(1)
                 .build();
     }
 

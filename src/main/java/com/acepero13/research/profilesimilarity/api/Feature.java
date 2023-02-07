@@ -2,6 +2,8 @@ package com.acepero13.research.profilesimilarity.api;
 
 import com.acepero13.research.profilesimilarity.api.features.IntegerFeature;
 
+import java.util.List;
+
 public interface Feature<T> {
 
     static Feature<Integer> integerFeature(int value, String name) {
@@ -12,7 +14,7 @@ public interface Feature<T> {
 
     T originalValue();
 
-    String name();
+    String featureName();
 
     static Feature<Boolean> booleanFeature(boolean value, String name) {
         return new Feature<>() {
@@ -27,9 +29,17 @@ public interface Feature<T> {
             }
 
             @Override
-            public String name() {
+            public String featureName() {
                 return name;
             }
+
+
         };
+    }
+
+    default boolean isWhiteListed(List<Feature<?>> whiteList) {
+        return whiteList.stream()
+                .map(Feature::featureName)
+                .anyMatch(n -> n.equals(featureName()));
     }
 }
