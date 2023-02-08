@@ -2,6 +2,7 @@ package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
 import lombok.Data;
 
@@ -35,22 +36,22 @@ public class UserProfile implements Vectorizable {
 
 
         if (drivesInEcoMode != null) {
-            features.add(Feature.booleanFeature(drivesInEcoMode, "user drives in eco mode"));
+            features.add(Features.booleanFeature(drivesInEcoMode, "user drives in eco mode"));
         }
         if (isInterestedInEcoProducts != null) {
-            features.add(Feature.booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"));
+            features.add(Features.booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"));
         }
         if (likesToBuyEcoProducts != null) {
-            features.add(Feature.booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"));
+            features.add(Features.booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"));
         }
         if (gender != null) {
             features.add(gender);
         }
         if (salary != null) {
-            features.add(Feature.integerFeature(salary, "salary"));
+            features.add(Features.integerFeature(salary, "salary", 0.5));
         }
         if (numberOfChildren != null) {
-            features.add(Feature.integerFeature(numberOfChildren, "childrens"));
+            features.add(Features.integerFeature(numberOfChildren, "childrens"));
         }
 
     }
@@ -127,7 +128,7 @@ public class UserProfile implements Vectorizable {
     }
 
     enum Gender implements Feature<Gender> {
-        FEMALE(0), MALE(1);
+        FEMALE(1), MALE(0);
 
 
         private final double value;

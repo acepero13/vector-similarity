@@ -85,7 +85,9 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
 
 
     public static UnaryOperator<Double> minMaxNormalization(MinMax minMax) {
-        return (Double val) -> (val - minMax.min()) / minMax.difference();
+        return (Double val) -> minMax.difference() == 0
+                ? val
+                : (val - minMax.min()) / minMax.difference();
     }
 
     @Override

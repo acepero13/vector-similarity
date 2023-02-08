@@ -32,7 +32,7 @@ class UserProfileTest {
                 .drivesInEcoMode(YES)
                 .likesToBuyEcoProducts(YES)
                 .isInterestedInEcoProducts(YES)
-                .salary(1400)
+                .salary(30_000)
                 .gender(UserProfile.Gender.FEMALE)
                 .numberOfChildren(1)
                 .name("u1")
@@ -44,7 +44,7 @@ class UserProfileTest {
                 .drivesInEcoMode(NO)
                 .likesToBuyEcoProducts(YES)
                 .isInterestedInEcoProducts(YES)
-                .salary(3000)
+                .salary(50_000)
                 .gender(UserProfile.Gender.FEMALE)
                 .numberOfChildren(2)
                 .name("u3")
@@ -56,7 +56,7 @@ class UserProfileTest {
                 .drivesInEcoMode(NO)
                 .likesToBuyEcoProducts(NO)
                 .isInterestedInEcoProducts(YES)
-                .salary(3100)
+                .salary(55_000)
                 .gender(UserProfile.Gender.MALE)
                 .name("u2")
                 .numberOfChildren(1)
@@ -77,8 +77,8 @@ class UserProfileTest {
 
         var target = UserProfile.builder()
                 .drivesInEcoMode(YES)
-                .salary(60_000)
-                .gender(UserProfile.Gender.MALE)
+                .salary(20_000)
+                .gender(UserProfile.Gender.FEMALE)
                 .name("target")
                 .numberOfChildren(1)
                 .build();
@@ -93,6 +93,7 @@ class UserProfileTest {
 
     }
 
+
     @Test
     void missingFeaturesAreNotAddedToVector() {
         var target = UserProfile.builder()
@@ -106,7 +107,8 @@ class UserProfileTest {
         assertThat(target.vector().size(), equalTo(4));
     }
 
-    @Test void excludeFeatures(){
+    @Test
+    void excludeFeatures() {
         var target = UserProfile.builder()
                 .drivesInEcoMode(YES)
                 .salary(60_000)
