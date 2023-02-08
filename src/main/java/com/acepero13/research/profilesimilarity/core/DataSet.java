@@ -32,6 +32,13 @@ public class DataSet {
         List<Double> weights = target.features().stream().map(Feature::weight).collect(Collectors.toList());
         NormalizedVector normalizedTarget = NormalizedVector.of(normalize(target.vector()).mapEach(applyWeights(weights)));
 
+        // TODO:
+        // normalized = target.minus(minVector).dividedBy(differenceVector)
+
+        // weighted = normalized.multiply(weights)
+
+
+
         var mostSimilar = this.dataPoints.stream()
                 .map(v -> Tuple.of(v, v.vector(target.features())))
                 .map(t -> t.mapSecond(this::normalize))
