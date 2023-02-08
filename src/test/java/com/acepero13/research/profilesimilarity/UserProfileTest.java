@@ -117,6 +117,6 @@ class UserProfileTest {
 
         var another = createUser1();
 
-        assertThat(another.vector(target.whiteList()).size(), equalTo(4));
+        assertThat(another.vector(target.features()).size(), equalTo(4));
     }
 }

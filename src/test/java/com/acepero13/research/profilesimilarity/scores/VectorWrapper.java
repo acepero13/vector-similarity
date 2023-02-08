@@ -23,12 +23,7 @@ public class VectorWrapper implements Vectorizable {
     }
 
     @Override
-    public Vector<Double> vector(Normalizer normalizer) {
-        return normalizer.normalize(vector);
-    }
-
-    @Override
-    public List<Feature<?>> whiteList() {
+    public List<Feature<?>> features() {
         return new ArrayList<>();
     }
 

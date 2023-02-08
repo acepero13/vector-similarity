@@ -25,7 +25,7 @@ public class DataSet {
         NormalizedVector normalizedTarget = normalize(target.vector());
 
         var mostSimilar = this.dataPoints.stream()
-                .map(v -> Tuple.of(v, v.vector(target.whiteList())))
+                .map(v -> Tuple.of(v, v.vector(target.features())))
                 .map(t -> t.mapSecond(this::normalize))
                 .map(t -> t.mapSecond(v -> similarityScorer.similarityScore(normalizedTarget, v)))
                 .max(Comparator.comparingDouble(Tuple::second))
