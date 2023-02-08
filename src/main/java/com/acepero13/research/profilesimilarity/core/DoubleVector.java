@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -37,20 +38,17 @@ public class DoubleVector implements Vector<Double> {
         return new DoubleVector(features);
     }
 
-    public static DoubleVector of(Feature<?>... features) {
-        return ofFeatures(List.of(features));
-    }
 
     public static DoubleVector of(Integer... features) {
         return new DoubleVector(Stream.of(features)
-                .map(Integer::doubleValue)
-                .collect(Collectors.toList()));
+                                      .map(Integer::doubleValue)
+                                      .collect(Collectors.toList()));
     }
 
     public static DoubleVector ofFeatures(List<Feature<?>> features) {
         return new DoubleVector(features.stream()
-                .map(Feature::featureValue)
-                .collect(Collectors.toList()));
+                                        .map(Feature::featureValue)
+                                        .collect(Collectors.toList()));
     }
 
     @Override
@@ -85,21 +83,20 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public DoubleVector add(Vector<Double> another) throws VectorException {
+    public Vector<Double> add(Vector<Double> another) throws VectorException {
         checkSizeMatchWith(another);
 
-        return new DoubleVector(zip(another)
+        return zip(another)
                 .map(t -> t.first() + t.second())
-                .collect(Collectors.toList())
-        );
+                .collect(VectorCollector.toVector());
     }
 
     @Override
-    public DoubleVector subtract(Vector<Double> another) throws VectorException {
+    public Vector<Double> subtract(Vector<Double> another) throws VectorException {
         checkSizeMatchWith(another);
-        return new DoubleVector(zip(another)
+        return zip(another)
                 .map(t -> t.first() - t.second())
-                .collect(Collectors.toList()));
+                .collect(VectorCollector.toVector());
     }
 
     @Override
@@ -112,15 +109,15 @@ public class DoubleVector implements Vector<Double> {
     @Override
     public Stream<Tuple<Double, Double>> zip(Vector<Double> another) {
         return IntStream.range(0, size)
-                .mapToObj(i -> Tuple.of(features.get(i), another.getFeature(i)));
+                        .mapToObj(i -> Tuple.of(features.get(i), another.getFeature(i)));
     }
 
     @Override
-    public DoubleVector multiply(Vector<Double> another) throws VectorException {
+    public Vector<Double> multiply(Vector<Double> another) throws VectorException {
         checkSizeMatchWith(another);
-        return new DoubleVector(zip(another)
+        return zip(another)
                 .map(t -> t.first() * t.second())
-                .collect(Collectors.toList()));
+                .collect(VectorCollector.toVector());
     }
 
     @Override
@@ -143,11 +140,18 @@ public class DoubleVector implements Vector<Double> {
 
 
     @Override
-    public DoubleVector mapEach(List<UnaryOperator<Double>> mapper) {
-        return new DoubleVector(IntStream.range(0, size)
-                .mapToObj(i -> Tuple.of(features.get(i), mapper.get(i)))
-                .map(t -> t.second().apply(t.first()))
-                .collect(Collectors.toList()));
+    public Vector<Double> mapEach(List<UnaryOperator<Double>> mapper) {
+        return IntStream.range(0, size)
+                                         .mapToObj(i -> Tuple.of(features.get(i), mapper.get(i)))
+                                         .map(t -> t.second().apply(t.first()))
+                                         .collect(VectorCollector.toVector());
+    }
+
+    @Override
+    public Vector<Double> divide(Vector<Double> another) {
+        return zip(another)
+                .map(t -> t.first() / t.second())
+                .collect(VectorCollector.toVector());
     }
 
 

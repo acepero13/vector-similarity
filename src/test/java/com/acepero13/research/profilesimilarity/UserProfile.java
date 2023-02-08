@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
+import com.acepero13.research.profilesimilarity.core.Vector;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class UserProfile implements Vectorizable {
     }
 
     @Override
-    public DoubleVector vector() {
+    public Vector<Double> vector() {
         return DoubleVector.ofFeatures(features);
 
     }

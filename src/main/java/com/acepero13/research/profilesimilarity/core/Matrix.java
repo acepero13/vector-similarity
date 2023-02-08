@@ -1,9 +1,7 @@
 package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.api.Normalizer;
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.exceptions.MatrixException;
-import com.acepero13.research.profilesimilarity.utils.MinMax;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -11,9 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @EqualsAndHashCode
 public class Matrix<T extends Number> implements Iterable<Vector<T>> {
@@ -23,24 +19,13 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
         this.matrix = Objects.requireNonNull(rows, "Rows cannot be null");
     }
 
-    public static List<Vector<Double>> normalizeUsingMinMax(Matrix<Double> matrix) {
-        Normalizer normalizer = buildMinMaxNormalizerFrom(matrix);
-        List<Vector<Double>> rows = new ArrayList<>();
-        for (Vector<Double> row : matrix) {
-            rows.add(normalizer.normalize(row));
-        }
-
-        return rows;
-    }
 
     public static Normalizer buildMinMaxNormalizerFrom(Matrix<Double> matrix) {
         return Normalizer.minMaxNormalizer(matrix);
     }
 
-    public static Matrix<Double> of(Vectorizable[] vectorizables) {
-        List<Vector<Double>> vectors = Stream.of(vectorizables)
-                .map(Vectorizable::vector)
-                .collect(Collectors.toList());
+
+    public static Matrix<Double> ofVectors(List<Vector<Double>> vectors) {
         return new Matrix<>(vectors);
     }
 
@@ -84,11 +69,6 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     }
 
 
-    public static UnaryOperator<Double> minMaxNormalization(MinMax minMax) {
-        return (Double val) -> minMax.difference() == 0
-                ? val
-                : (val - minMax.min()) / minMax.difference();
-    }
 
     @Override
     public Iterator<Vector<T>> iterator() {

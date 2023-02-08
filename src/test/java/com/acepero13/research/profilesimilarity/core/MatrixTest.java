@@ -2,6 +2,7 @@ package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.exceptions.MatrixException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
+import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -30,18 +31,23 @@ class MatrixTest {
         assertThat(result, equalTo(expected));
     }
 
-    @Test
-    void normalize() {
 
+
+    @Test
+    void manualNormalization() {
         Matrix<Double> newMatrix = new Matrix<>(List.of(
                 DoubleVector.of(10, 20, 1),
                 DoubleVector.of(100, 200, 0),
                 DoubleVector.of(1000, 2000, 1)));
 
-        List<Vector<Double>> result = Matrix.normalizeUsingMinMax(newMatrix);
 
-        assertThat(result.get(0), equalTo(DoubleVector.of(0, 0, 1)));
-        assertThat(result.get(2), equalTo(DoubleVector.of(1, 1, 1)));
+
+        var minMax = MinMaxVector.of(newMatrix);
+
+        var target = DoubleVector.of(10, 20, 1);
+
+        var normalized = target.subtract(minMax.getMin()).divide(minMax.difference());
+        assertThat(normalized, equalTo(DoubleVector.of(0, 0, 1)));
 
     }
 

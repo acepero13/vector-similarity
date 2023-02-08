@@ -1,7 +1,6 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Feature;
-import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
 import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
@@ -18,7 +17,7 @@ public class VectorWrapper implements Vectorizable {
     }
 
     @Override
-    public DoubleVector vector() {
+    public Vector<Double> vector() {
         return vector;
     }
 

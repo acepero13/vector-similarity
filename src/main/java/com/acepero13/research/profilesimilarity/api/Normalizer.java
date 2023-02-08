@@ -1,22 +1,18 @@
 package com.acepero13.research.profilesimilarity.api;
 
 import com.acepero13.research.profilesimilarity.core.Matrix;
+import com.acepero13.research.profilesimilarity.core.NormalizedVector;
 import com.acepero13.research.profilesimilarity.core.Vector;
-
-import java.util.List;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
+import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
 
 public interface Normalizer {
 
 
     static Normalizer minMaxNormalizer(Matrix<Double> matrix) {
-
-        List<UnaryOperator<Double>> mapper = matrix.reduceColumnWise(Vector::minMax).stream()
-                .map(Matrix::minMaxNormalization)
-                .collect(Collectors.toList());
-        return vector -> vector.mapEach(mapper);
+        var minMax = MinMaxVector.of(matrix);
+        return target -> NormalizedVector.of(target.subtract(minMax.getMin()).divide(minMax.difference()));
     }
 
-    Vector<Double> normalize(Vector<Double> vector);
+
+    NormalizedVector normalize(Vector<Double> vector);
 }

@@ -43,7 +43,8 @@ public interface Vector<T extends Number> {
 
     MinMax minMax();
 
-    DoubleVector mapEach(List<UnaryOperator<Double>> mapper);
+    Vector<Double> mapEach(List<UnaryOperator<Double>> mapper);
 
 
+    Vector<Double> divide(Vector<Double> difference);
 }
