@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
-import com.acepero13.research.profilesimilarity.core.DataSet;
+import com.acepero13.research.profilesimilarity.core.classifier.MostSimilar;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class UserProfileTest {
         var u2 = createUser2();
         var target = createUser3();
 
-        var dataset = new DataSet(u1, u2);
+        var dataset = new MostSimilar(u1, u2);
 
         Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
 
@@ -85,7 +85,7 @@ class UserProfileTest {
 
         UserProfile user1 = createUser1();
         UserProfile user2 = createUser2();
-        var dataset = new DataSet(user1, user2);
+        var dataset = new MostSimilar(user1, user2);
 
         Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
 

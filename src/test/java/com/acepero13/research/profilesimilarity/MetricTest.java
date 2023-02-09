@@ -1,16 +1,16 @@
 package com.acepero13.research.profilesimilarity;
 
-import com.acepero13.research.profilesimilarity.api.Similarity;
+import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.core.NormalizedVector;
-import com.acepero13.research.profilesimilarity.scores.CosineSimilarity;
+import com.acepero13.research.profilesimilarity.scores.CosineMetric;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 
-class SimilarityTest {
+class MetricTest {
 
-    final Similarity scorer = new CosineSimilarity();
+    final Metric scorer = new CosineMetric();
 
     @Test
     void usersWithSameProfileHavePerfectScore() {

@@ -72,6 +72,11 @@ public class UserProfile implements Vectorizable {
         return features;
     }
 
+    @Override
+    public Feature<?> targetFeature() {
+        return Features.booleanFeature(true, "is eco friendly");
+    }
+
     public static class Builder {
         private Boolean likesToBuyEcoProducts;
         private Boolean isInterestedInEcoProducts;

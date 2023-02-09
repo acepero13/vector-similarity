@@ -1,9 +1,9 @@
 package com.acepero13.research.profilesimilarity.scores;
 
-import com.acepero13.research.profilesimilarity.api.Similarity;
+import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.core.NormalizedVector;
 
-public class JaccardSimilarity implements Similarity {
+public class JaccardMetric implements Metric {
     @Override
     public Double similarityScore(NormalizedVector vector, NormalizedVector anotherVector) {
 
