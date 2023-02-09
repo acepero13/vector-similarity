@@ -19,9 +19,13 @@ final class DataSet {
     private final Metric metric;
     private final List<Vectorizable> dataPoints;
 
-    DataSet(Metric metric, Vectorizable... vectorizables) {
+    DataSet(Metric metric, Vectorizable... dataPoints) {
+        this(metric, List.of(dataPoints));
+    }
+
+    DataSet(Metric metric, List<Vectorizable> dataPoints) {
         this.metric = metric;
-        this.dataPoints = List.of(vectorizables);
+        this.dataPoints = dataPoints;
     }
 
 

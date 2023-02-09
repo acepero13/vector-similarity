@@ -18,6 +18,8 @@ import static org.hamcrest.Matchers.equalTo;
 class KnnTest {
 
 
+
+
     @Test
     void classificationTest() {
         var sample1 = new AcidDurability(7, 7, CLASSIFICATION.BAD);

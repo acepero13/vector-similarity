@@ -25,13 +25,16 @@ public final class Features {
         return new IntegerFeature(value, name, DEFAULT_WEIGHT);
     }
 
-    private static class IntegerFeature implements Feature<Integer> {
+    public static Feature<Double> doubleFeature(double value, String name) {
+        return new DoubleFeature(value, name, DEFAULT_WEIGHT);
+    }
 
-        private final int value;
+    private static abstract class AbstractFeature<T> implements Feature<T> {
+        private final T value;
         private final String name;
         private final double weight;
 
-        public IntegerFeature(int value, String featureName, double weight) {
+        public AbstractFeature(T value, String featureName, double weight) {
             this.value = value;
             this.name = featureName;
             this.weight = weight;
@@ -44,11 +47,13 @@ public final class Features {
 
         @Override
         public double featureValue() {
-            return value;
+            return toDouble();
         }
 
+        protected abstract double toDouble();
+
         @Override
-        public Integer originalValue() {
+        public T originalValue() {
             return value;
         }
 
@@ -58,37 +63,44 @@ public final class Features {
         }
     }
 
+    private static class DoubleFeature extends AbstractFeature<Double> {
 
-    private static class BooleanFeature implements Feature<Boolean> {
 
-        private final Boolean value;
-        private final String name;
-        private final double weight;
-
-        private BooleanFeature(Boolean value, String name, double weight) {
-            this.value = value;
-            this.name = name;
-            this.weight = weight;
+        public DoubleFeature(Double value, String featureName, double weight) {
+            super(value, featureName, weight);
         }
 
         @Override
-        public double featureValue() {
-            return value ? 1.0 : 0.0;
+        protected double toDouble() {
+            return originalValue();
+        }
+    }
+
+    private static class IntegerFeature extends AbstractFeature<Integer> {
+
+
+        public IntegerFeature(Integer value, String featureName, double weight) {
+            super(value, featureName, weight);
         }
 
         @Override
-        public double weight() {
-            return weight;
+        protected double toDouble() {
+            return originalValue().doubleValue();
+        }
+    }
+
+
+    private static class BooleanFeature extends AbstractFeature<Boolean> {
+
+
+        public BooleanFeature(Boolean value, String featureName, double weight) {
+            super(value, featureName, weight);
         }
 
         @Override
-        public Boolean originalValue() {
-            return value;
-        }
+        protected double toDouble() {
+            return originalValue() ? 1.0 : 0.0;
 
-        @Override
-        public String featureName() {
-            return name;
         }
     }
 }

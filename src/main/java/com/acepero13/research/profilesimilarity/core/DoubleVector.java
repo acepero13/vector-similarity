@@ -11,7 +11,6 @@ import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -42,14 +41,14 @@ public class DoubleVector implements Vector<Double> {
 
     public static DoubleVector of(Integer... features) {
         return new DoubleVector(Stream.of(features)
-                                      .map(Integer::doubleValue)
-                                      .collect(Collectors.toList()));
+                .map(Integer::doubleValue)
+                .collect(Collectors.toList()));
     }
 
     public static DoubleVector ofFeatures(List<Feature<?>> features) {
         return new DoubleVector(features.stream()
-                                        .map(Feature::featureValue)
-                                        .collect(Collectors.toList()));
+                .map(Feature::featureValue)
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -110,7 +109,7 @@ public class DoubleVector implements Vector<Double> {
     @Override
     public Stream<Tuple<Double, Double>> zip(Vector<Double> another) {
         return IntStream.range(0, size)
-                        .mapToObj(i -> Tuple.of(features.get(i), another.getFeature(i)));
+                .mapToObj(i -> Tuple.of(features.get(i), another.getFeature(i)));
     }
 
     @Override
@@ -145,6 +144,19 @@ public class DoubleVector implements Vector<Double> {
         return zip(another)
                 .map(t -> t.first() / t.second())
                 .collect(VectorCollector.toVector());
+    }
+
+    @Override
+    public Double sum() {
+        return features.stream().mapToDouble(f -> f).sum();
+    }
+
+    @Override
+    public Vector<Double> divide(double value) {
+        if (value == 0) {
+            throw new VectorException("value cannot be zero");
+        }
+        return features.stream().map(f -> f / value).collect(VectorCollector.toVector());
     }
 
 

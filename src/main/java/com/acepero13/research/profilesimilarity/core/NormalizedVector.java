@@ -93,5 +93,15 @@ public class NormalizedVector implements Vector<Double> {
         return vector.divide(another);
     }
 
+    @Override
+    public Double sum() {
+        return vector.sum();
+    }
+
+    @Override
+    public Vector<Double> divide(double value) {
+        return vector.divide(value);
+    }
+
 
 }

@@ -23,6 +23,7 @@ public class Knn {
 
 
 
+
     public <U> CategoricalLabel<U> classify(WithCategoricalLabel target) {
         Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
         List<WithCategoricalLabel> results = dataSet.loadDataUsing(target, normalizer)

@@ -7,7 +7,6 @@ import com.acepero13.research.profilesimilarity.utils.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,4 +46,8 @@ public interface Vector<T extends Number> {
 
 
     Vector<Double> divide(Vector<Double> difference);
+
+    T sum();
+
+    Vector<T> divide(double value);
 }
