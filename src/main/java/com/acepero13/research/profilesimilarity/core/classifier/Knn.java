@@ -1,41 +1,40 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.groupingBy;
 
-public class Knn extends AbstractClassifier {
+public class Knn {
 
     private final int k;
-    private final Feature<?> targetFeature;
+    private final DataSet dataSet;
 
-    protected Knn(Metric metric, Feature<?> targetFeature, int K, Vectorizable... vectorizables) {
-        super(metric, vectorizables);
+    protected Knn(Metric metric, int K, Vectorizable... vectorizables) {
         this.k = K;
-        this.targetFeature = targetFeature;
+        this.dataSet = new DataSet(metric, vectorizables);
     }
 
-    @Override
-    protected Normalizer getNormalizer(Vectorizable target) {
-        return AbstractClassifier.minMaxNormalizer(target, dataPoints());
+    public Knn(int K, Vectorizable... data) {
+        this.k = K;
+        this.dataSet = new DataSet(Vector::distanceTo, data);
     }
 
-    // TODO: Return a result that contains also the confidence
+
     // TODO: We are only interested in a label
-    @Override
+
     public Vectorizable mostSimilarTo(Vectorizable target) {
-        List<Vectorizable> result = loadDataUsing(target)
-                .sorted(Comparator.comparingDouble(Tuple::second))
-                .limit(k)
-                .map(Tuple::first)
-                .collect(Collectors.toList());
+        Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
+        List<Vectorizable> result = dataSet.loadDataUsing(target, normalizer)
+                                           .sorted(Comparator.comparingDouble(Tuple::second))
+                                           .limit(k)
+                                           .map(Tuple::first)
+                                           .collect(Collectors.toList());
 
         Map<Double, List<Vectorizable>> groups = new TreeMap<>(Collections.reverseOrder());
         for (Vectorizable sample : result) {
@@ -47,7 +46,7 @@ public class Knn extends AbstractClassifier {
 
 
         return groups.entrySet().stream()
-                .flatMap(e -> e.getValue().stream())
-                .findFirst().orElseThrow();
+                     .flatMap(e -> e.getValue().stream())
+                     .findFirst().orElseThrow();
     }
 }

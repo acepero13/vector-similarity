@@ -8,17 +8,20 @@ import com.acepero13.research.profilesimilarity.utils.Tuple;
 import java.util.Comparator;
 
 
-public class MostSimilar extends AbstractClassifier {
+public class MostSimilar  {
 
+
+    private final DataSet dataSet;
 
     public MostSimilar(Vectorizable... vectorizables) {
-        super(new CombinedMetric(), vectorizables);
+        this.dataSet = new DataSet(new CombinedMetric(), vectorizables);
 
     }
 
-    @Override
+
     public Vectorizable mostSimilarTo(Vectorizable target) {
-        Tuple<Vectorizable, Double> mostSimilar = loadDataUsing(target)
+        Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
+        Tuple<Vectorizable, Double> mostSimilar = dataSet.loadDataUsing(target, normalizer)
                 .max(Comparator.comparingDouble(Tuple::second))
                 .orElseThrow();
 
@@ -26,11 +29,7 @@ public class MostSimilar extends AbstractClassifier {
     }
 
 
-    @Override
-    protected Normalizer getNormalizer(Vectorizable target) {
-        return AbstractClassifier.minMaxNormalizer(target, dataPoints());
 
-    }
 
 
 }

@@ -14,51 +14,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// TODO: If they are not the same, better is composition instead of inheretance
-
-public abstract class AbstractClassifier {
-
+/**
+ * A Description
+ *
+ * @author Alvaro Cepero
+ */
+public class DataSet {
     private final Metric metric;
     private final List<Vectorizable> dataPoints;
 
-    protected AbstractClassifier(Metric metric, Vectorizable... vectorizables) {
+    protected DataSet(Metric metric, Vectorizable... vectorizables) {
         this.metric = metric;
         this.dataPoints = List.of(vectorizables);
     }
 
-    protected List<Vectorizable> dataPoints() {
+    public List<Vectorizable> dataPoints() {
         return dataPoints;
     }
 
-    protected static Normalizer minMaxNormalizer(Vectorizable target, List<Vectorizable> dataPoints) {
-        List<Vector<Double>> dataSet = dataPoints.stream()
-                .map(d -> d.vector(target.features()))
-                .collect(Collectors.toList());
-        return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(dataSet));
+    public static Normalizer minMaxNormalizer(Vectorizable target, DataSet dataSet) {
+        List<Vector<Double>> featureReducedDataSet = dataSet.dataPoints.stream()
+                                                 .map(d -> d.vector(target.features()))
+                                                 .collect(Collectors.toList());
+        return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(featureReducedDataSet));
     }
 
-    protected Stream<Tuple<Vectorizable, Double>> loadDataUsing(Vectorizable target) {
-        Normalizer normalizer = getNormalizer(target);
+    protected Stream<Tuple<Vectorizable, Double>> loadDataUsing(Vectorizable target, Normalizer normalizer) {
         Vector<Double> weights = target.features().stream()
-                .map(Feature::weight)
-                .collect(VectorCollector.toVector());
+                                       .map(Feature::weight)
+                                       .collect(VectorCollector.toVector());
 
         NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(), normalizer);
 
 
         return this.dataPoints.stream()
-                .map(v -> Tuple.of(v, v.vector(target.features())))
-                .map(t -> t.mapSecond(normalizer::normalize))
-                .map(t -> t.mapSecond(weights::multiply))
-                .map(t -> t.mapSecond(NormalizedVector::of))
-                .map(t -> t.mapSecond(v -> calculateScore(normalizedTarget, v)));
+                              .map(v -> Tuple.of(v, v.vector(target.features())))
+                              .map(t -> t.mapSecond(normalizer::normalize))
+                              .map(t -> t.mapSecond(weights::multiply))
+                              .map(t -> t.mapSecond(NormalizedVector::of))
+                              .map(t -> t.mapSecond(v -> calculateScore(normalizedTarget, v)));
     }
 
     private Double calculateScore(NormalizedVector normalizedTarget, NormalizedVector v) {
         return metric.similarityScore(normalizedTarget, v);
     }
-
-    protected abstract Normalizer getNormalizer(Vectorizable target);
-
-    public abstract Vectorizable mostSimilarTo(Vectorizable target);
 }

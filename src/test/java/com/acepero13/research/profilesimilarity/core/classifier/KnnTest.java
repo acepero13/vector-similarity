@@ -29,7 +29,22 @@ class KnnTest {
         var sample4 = new AcidDurability(1, 4, GOOD);
 
 
-        var classifier = new Knn(NormalizedVector::distanceTo, Features.booleanFeature(false, "label"), 3, sample1, sample2, sample3, sample4);
+        var classifier = new Knn(NormalizedVector::distanceTo, 3, sample1, sample2, sample3, sample4);
+        var target = new AcidDurability(3, 7);
+        AcidDurability result = (AcidDurability) classifier.mostSimilarTo(target);
+        assertThat(result.classification, equalTo(GOOD));
+
+    }
+
+    @Test
+    void betterAPI() {
+        var sample1 = new AcidDurability(7, 7, BAD);
+        var sample2 = new AcidDurability(7, 4, BAD);
+        var sample3 = new AcidDurability(3, 4, GOOD);
+        var sample4 = new AcidDurability(1, 4, GOOD);
+
+
+        var classifier = new Knn(3, sample1, sample2, sample3, sample4);
         var target = new AcidDurability(3, 7);
         AcidDurability result = (AcidDurability) classifier.mostSimilarTo(target);
         assertThat(result.classification, equalTo(GOOD));
