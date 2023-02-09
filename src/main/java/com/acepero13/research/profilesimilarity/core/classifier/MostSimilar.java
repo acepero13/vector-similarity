@@ -10,15 +10,12 @@ import java.util.Comparator;
 
 public class MostSimilar  {
 
-
     private final DataSet dataSet;
 
     public MostSimilar(Vectorizable... vectorizables) {
         this.dataSet = new DataSet(new CombinedMetric(), vectorizables);
 
     }
-
-
     public Vectorizable mostSimilarTo(Vectorizable target) {
         Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
         Tuple<Vectorizable, Double> mostSimilar = dataSet.loadDataUsing(target, normalizer)
@@ -27,9 +24,5 @@ public class MostSimilar  {
 
         return mostSimilar.first();
     }
-
-
-
-
 
 }

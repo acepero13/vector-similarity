@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.api.Normalizer;
+import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;

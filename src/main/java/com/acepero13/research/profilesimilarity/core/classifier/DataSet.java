@@ -1,12 +1,8 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
-import com.acepero13.research.profilesimilarity.api.Metric;
-import com.acepero13.research.profilesimilarity.api.Normalizer;
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.*;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.NormalizedVector;
-import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 
@@ -19,27 +15,24 @@ import java.util.stream.Stream;
  *
  * @author Alvaro Cepero
  */
-public class DataSet {
+final class DataSet {
     private final Metric metric;
     private final List<Vectorizable> dataPoints;
 
-    protected DataSet(Metric metric, Vectorizable... vectorizables) {
+    DataSet(Metric metric, Vectorizable... vectorizables) {
         this.metric = metric;
         this.dataPoints = List.of(vectorizables);
     }
 
-    public List<Vectorizable> dataPoints() {
-        return dataPoints;
-    }
 
     public static Normalizer minMaxNormalizer(Vectorizable target, DataSet dataSet) {
         List<Vector<Double>> featureReducedDataSet = dataSet.dataPoints.stream()
-                                                 .map(d -> d.vector(target.features()))
-                                                 .collect(Collectors.toList());
+                                                                       .map(d -> d.vector(target.features()))
+                                                                       .collect(Collectors.toList());
         return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(featureReducedDataSet));
     }
 
-    protected Stream<Tuple<Vectorizable, Double>> loadDataUsing(Vectorizable target, Normalizer normalizer) {
+    Stream<Tuple<Vectorizable, Double>> loadDataUsing(Vectorizable target, Normalizer normalizer) {
         Vector<Double> weights = target.features().stream()
                                        .map(Feature::weight)
                                        .collect(VectorCollector.toVector());

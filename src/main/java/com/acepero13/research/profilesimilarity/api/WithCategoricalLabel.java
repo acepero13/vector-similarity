@@ -5,6 +5,7 @@ package com.acepero13.research.profilesimilarity.api;
  *
  * @author Alvaro Cepero
  */
-public interface Target {
-    boolean matches();
+public interface WithCategoricalLabel extends Vectorizable {
+    CategoricalLabel label();
+
 }

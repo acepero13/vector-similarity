@@ -65,7 +65,7 @@ public final class Features {
         private final String name;
         private final double weight;
 
-        private BooleanFeature(boolean value, String name, double weight) {
+        private BooleanFeature(Boolean value, String name, double weight) {
             this.value = value;
             this.name = name;
             this.weight = weight;

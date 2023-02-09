@@ -2,7 +2,6 @@ package com.acepero13.research.profilesimilarity.api;
 
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.NormalizedVector;
-import com.acepero13.research.profilesimilarity.core.Vector;
 import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
 
 public interface Normalizer {

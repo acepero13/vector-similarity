@@ -1,13 +1,12 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.Feature;
-import com.acepero13.research.profilesimilarity.api.Metric;
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.WithCategoricalLabel;
 import com.acepero13.research.profilesimilarity.api.features.Features;
+import com.acepero13.research.profilesimilarity.api.CategoricalLabel;
+import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
-import com.acepero13.research.profilesimilarity.core.NormalizedVector;
-import com.acepero13.research.profilesimilarity.core.Vector;
-import com.acepero13.research.profilesimilarity.scores.EuclideanDistance;
+import com.acepero13.research.profilesimilarity.api.Vector;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -18,80 +17,53 @@ import static org.hamcrest.Matchers.equalTo;
 
 class KnnTest {
 
-    private static final boolean BAD = false;
-    private static final boolean GOOD = true;
 
     @Test
-    void classifiesItem() {
-        var sample1 = new AcidDurability(7, 7, BAD);
-        var sample2 = new AcidDurability(7, 4, BAD);
-        var sample3 = new AcidDurability(3, 4, GOOD);
-        var sample4 = new AcidDurability(1, 4, GOOD);
-
-
-        var classifier = new Knn(NormalizedVector::distanceTo, 3, sample1, sample2, sample3, sample4);
-        var target = new AcidDurability(3, 7);
-        AcidDurability result = (AcidDurability) classifier.mostSimilarTo(target);
-        assertThat(result.classification, equalTo(GOOD));
-
-    }
-
-    @Test
-    void betterAPI() {
-        var sample1 = new AcidDurability(7, 7, BAD);
-        var sample2 = new AcidDurability(7, 4, BAD);
-        var sample3 = new AcidDurability(3, 4, GOOD);
-        var sample4 = new AcidDurability(1, 4, GOOD);
+    void classificationTest() {
+        var sample1 = new AcidDurability(7, 7, CLASSIFICATION.BAD);
+        var sample2 = new AcidDurability(7, 4, CLASSIFICATION.BAD);
+        var sample3 = new AcidDurability(3, 4, CLASSIFICATION.GOOD);
+        var sample4 = new AcidDurability(1, 4, CLASSIFICATION.GOOD);
 
 
         var classifier = new Knn(3, sample1, sample2, sample3, sample4);
         var target = new AcidDurability(3, 7);
-        AcidDurability result = (AcidDurability) classifier.mostSimilarTo(target);
-        assertThat(result.classification, equalTo(GOOD));
+        CategoricalLabel<CLASSIFICATION> result = classifier.classify(target);
+        assertThat(result.value(), equalTo(CLASSIFICATION.GOOD));
 
     }
 
+    private enum CLASSIFICATION {
+        GOOD, BAD, UNKNOWN;
+    }
 
-    private static class AcidDurability implements Vectorizable {
+
+    private static class AcidDurability extends AbstractVectorizable implements WithCategoricalLabel {
         private final int durabilitySeconds;
         private final int strengthKgSqM;
-        private boolean classification;
-        private Feature<Boolean> targetFeature;
-        private final List<Feature<?>> features = new ArrayList<>();
+        private final CLASSIFICATION classification;
 
-        private AcidDurability(int durabilitySeconds, int strengthKgSqM, boolean classification) {
+        private AcidDurability(int durabilitySeconds, int strengthKgSqM, CLASSIFICATION classification) {
             this.durabilitySeconds = durabilitySeconds;
             this.strengthKgSqM = strengthKgSqM;
             this.classification = classification;
-            this.features.add(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"));
-            this.features.add(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
-            targetFeature = Features.booleanFeature(classification, "label");
-            this.features.add(targetFeature);
-
+            this.addNonNullFeature(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"))
+                .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
         }
 
-        // TODO: Rethink about the label
 
         public AcidDurability(int durabilitySeconds, int strengthKgSqM) {
             this.durabilitySeconds = durabilitySeconds;
             this.strengthKgSqM = strengthKgSqM;
-            this.features.add(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"));
-            this.features.add(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
+            this.addNonNullFeature(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"))
+                .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
+            this.classification = CLASSIFICATION.UNKNOWN;
         }
 
-        @Override
-        public Vector<Double> vector() {
-            return DoubleVector.ofFeatures(features);
-        }
 
         @Override
-        public List<Feature<?>> features() {
-            return features;
-        }
-
-        @Override
-        public Feature<?> targetFeature() {
-            return targetFeature;
+        public CategoricalLabel<CLASSIFICATION> label() {
+            return CategoricalLabel.defaultLabel(classification);
         }
     }
 }

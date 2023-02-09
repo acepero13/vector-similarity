@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.utils;
 
 import com.acepero13.research.profilesimilarity.core.Matrix;
-import com.acepero13.research.profilesimilarity.core.Vector;
+import com.acepero13.research.profilesimilarity.api.Vector;
 import lombok.Data;
 
 import java.util.List;

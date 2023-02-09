@@ -1,5 +1,6 @@
-package com.acepero13.research.profilesimilarity.core;
+package com.acepero13.research.profilesimilarity.api;
 
+import com.acepero13.research.profilesimilarity.core.DoubleVector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;

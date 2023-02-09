@@ -1,7 +1,6 @@
 package com.acepero13.research.profilesimilarity.api;
 
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
-import com.acepero13.research.profilesimilarity.core.Vector;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,5 +20,4 @@ public interface Vectorizable {
     }
 
 
-    Feature<?> targetFeature();
 }

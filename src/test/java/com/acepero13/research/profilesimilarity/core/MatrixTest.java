@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity.core;
 
+import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.MatrixException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.MinMaxVector;

@@ -3,16 +3,23 @@ package com.acepero13.research.profilesimilarity;
 import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Features;
+import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.DoubleVector;
-import com.acepero13.research.profilesimilarity.core.Vector;
+import com.acepero13.research.profilesimilarity.api.Vector;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+import static com.acepero13.research.profilesimilarity.api.features.Features.booleanFeature;
+import static com.acepero13.research.profilesimilarity.api.features.Features.integerFeature;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserProfile implements Vectorizable {
+
+public class UserProfile extends AbstractVectorizable {
 
     private final Boolean likesToBuyEcoProducts;
     private final Boolean isInterestedInEcoProducts;
@@ -21,12 +28,11 @@ public class UserProfile implements Vectorizable {
     private final Integer numberOfChildren;
     private final Integer salary;
     private final String name;
-    private final List<Feature<?>> features = new ArrayList<>();
-    private final List<Feature<?>> exclusions = new ArrayList<>();
 
     private List<UnaryOperator<Double>> normalizer;
 
     public UserProfile(Builder builder) {
+        super();
         this.likesToBuyEcoProducts = builder.likesToBuyEcoProducts;
         this.isInterestedInEcoProducts = builder.isInterestedInEcoProducts;
         this.drivesInEcoMode = builder.drivesInEcoMode;
@@ -35,25 +41,13 @@ public class UserProfile implements Vectorizable {
         this.salary = builder.salary;
         this.name = builder.name;
 
+        addNonNullFeature(booleanFeature(drivesInEcoMode, "user drives in eco mode"));
+        addNonNullFeature(booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"));
+        addNonNullFeature(booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"));
+        addNonNullFeature(gender);
+        addNonNullFeature(integerFeature(salary, "salary", 0.5));
+        addNonNullFeature(integerFeature(numberOfChildren, "childrens"));
 
-        if (drivesInEcoMode != null) {
-            features.add(Features.booleanFeature(drivesInEcoMode, "user drives in eco mode"));
-        }
-        if (isInterestedInEcoProducts != null) {
-            features.add(Features.booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"));
-        }
-        if (likesToBuyEcoProducts != null) {
-            features.add(Features.booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"));
-        }
-        if (gender != null) {
-            features.add(gender);
-        }
-        if (salary != null) {
-            features.add(Features.integerFeature(salary, "salary", 0.5));
-        }
-        if (numberOfChildren != null) {
-            features.add(Features.integerFeature(numberOfChildren, "childrens"));
-        }
 
     }
 
@@ -61,21 +55,6 @@ public class UserProfile implements Vectorizable {
         return new Builder();
     }
 
-    @Override
-    public Vector<Double> vector() {
-        return DoubleVector.ofFeatures(features);
-
-    }
-
-    @Override
-    public List<Feature<?>> features() {
-        return features;
-    }
-
-    @Override
-    public Feature<?> targetFeature() {
-        return Features.booleanFeature(true, "is eco friendly");
-    }
 
     public static class Builder {
         private Boolean likesToBuyEcoProducts;
