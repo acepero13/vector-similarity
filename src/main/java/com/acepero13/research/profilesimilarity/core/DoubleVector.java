@@ -141,14 +141,6 @@ public class DoubleVector implements Vector<Double> {
 
 
     @Override
-    public Vector<Double> mapEach(List<UnaryOperator<Double>> mapper) {
-        return IntStream.range(0, size)
-                                         .mapToObj(i -> Tuple.of(features.get(i), mapper.get(i)))
-                                         .map(t -> t.second().apply(t.first()))
-                                         .collect(VectorCollector.toVector());
-    }
-
-    @Override
     public Vector<Double> divide(Vector<Double> another) {
         return zip(another)
                 .map(t -> t.first() / t.second())

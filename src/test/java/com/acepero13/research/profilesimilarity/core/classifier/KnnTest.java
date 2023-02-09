@@ -27,8 +27,8 @@ class KnnTest {
 
 
         var classifier = new Knn(3, sample1, sample2, sample3, sample4);
-        var target = new AcidDurability(3, 7);
-        CategoricalLabel<CLASSIFICATION> result = classifier.classify(target);
+        var test = new AcidDurability(3, 7);
+        CategoricalLabel<CLASSIFICATION> result = classifier.classify(test);
         assertThat(result.value(), equalTo(CLASSIFICATION.GOOD));
 
     }

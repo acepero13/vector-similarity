@@ -6,8 +6,6 @@ import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 
-import java.util.List;
-import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 public class NormalizedVector implements Vector<Double> {
@@ -16,7 +14,8 @@ public class NormalizedVector implements Vector<Double> {
     public NormalizedVector(Vector<Double> original, Normalizer normalizer) {
         this.vector = normalizer.normalize(original);
     }
-    private NormalizedVector (Vector<Double> original) {
+
+    private NormalizedVector(Vector<Double> original) {
         this.vector = original;
     }
 
@@ -88,10 +87,6 @@ public class NormalizedVector implements Vector<Double> {
         return vector.minMax();
     }
 
-    @Override
-    public Vector<Double> mapEach(List<UnaryOperator<Double>> mapper) {
-        return vector.mapEach(mapper);
-    }
 
     @Override
     public Vector<Double> divide(Vector<Double> another) {

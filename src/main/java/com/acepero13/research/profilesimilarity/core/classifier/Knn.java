@@ -36,16 +36,11 @@ public class Knn {
         return vote(results);
     }
 
+    @SuppressWarnings("unchecked")
     private static <U> CategoricalLabel<U> vote(List<WithCategoricalLabel> result) {
 
 
-        Map<CategoricalLabel<?>, List<WithCategoricalLabel>> groups = new HashMap<>();
-        for (WithCategoricalLabel sample : result) {
-            CategoricalLabel<?> label = sample.label();
-            List<WithCategoricalLabel> value = groups.getOrDefault(label, new ArrayList<>());
-            value.add(sample);
-            groups.put(label, value);
-        }
+        Map<CategoricalLabel<?>, List<WithCategoricalLabel>> groups = groupResultsByCategory(result);
 
         return (CategoricalLabel<U>) groups.entrySet().stream()
                                            .sorted((o1, o2) -> Integer.compare(o2.getValue().size(), o1.getValue().size()))
@@ -55,5 +50,18 @@ public class Knn {
 
 
 
+    }
+
+    private static Map<CategoricalLabel<?>, List<WithCategoricalLabel>> groupResultsByCategory(List<WithCategoricalLabel> result) {
+        Map<CategoricalLabel<?>, List<WithCategoricalLabel>> groups = new HashMap<>();
+
+
+        for (WithCategoricalLabel sample : result) {
+            CategoricalLabel<?> label = sample.label();
+            List<WithCategoricalLabel> value = groups.getOrDefault(label, new ArrayList<>());
+            value.add(sample);
+            groups.put(label, value);
+        }
+        return groups;
     }
 }
