@@ -8,6 +8,7 @@ import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.java.Log;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 
 @EqualsAndHashCode
 @ToString
+@Log
 public class DoubleVector implements Vector<Double> {
     private final List<Double> features;
     private final int size;
@@ -102,6 +104,7 @@ public class DoubleVector implements Vector<Double> {
     @Override
     public void checkSizeMatchWith(Vector<Double> another) {
         if (size != another.size()) {
+            log.warning("Vectors do not match");
             throw new VectorException("Vector length do not match. Vector length is: " + size + " and the other vector's length is: " + another.size());
         }
     }
@@ -154,6 +157,7 @@ public class DoubleVector implements Vector<Double> {
     @Override
     public Vector<Double> divide(double value) {
         if (value == 0) {
+            log.warning("Division by zero is not allowed");
             throw new VectorException("value cannot be zero");
         }
         return features.stream().map(f -> f / value).collect(VectorCollector.toVector());

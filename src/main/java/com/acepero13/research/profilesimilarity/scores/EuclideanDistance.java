@@ -6,7 +6,7 @@ import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
 
 public class EuclideanDistance implements Metric {
     @Override
-    public Double similarityScore(NormalizedVector vectorizable, NormalizedVector another) {
-        return CalculationUtils.sigmoid(vectorizable.distanceTo(another));
+    public Double similarityScore(NormalizedVector vector, NormalizedVector another) {
+        return CalculationUtils.sigmoid(vector.distanceTo(another));
     }
 }

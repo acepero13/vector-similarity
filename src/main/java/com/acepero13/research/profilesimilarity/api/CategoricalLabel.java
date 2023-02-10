@@ -10,8 +10,5 @@ public interface CategoricalLabel<T> {
     }
     T value();
 
-    default boolean matches(CategoricalLabel<T> another) {
-        return value().equals(another);
-    }
 
 }

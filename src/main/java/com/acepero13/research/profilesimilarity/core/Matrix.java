@@ -75,4 +75,8 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     public Iterator<Vector<T>> iterator() {
         return matrix.iterator();
     }
+
+    public Vector<T> sumColumns() {
+        return Vector.of(reduceColumnWise(Vector::sum));
+    }
 }

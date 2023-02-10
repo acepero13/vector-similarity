@@ -41,7 +41,7 @@ public class UserProfile extends AbstractVectorizable {
         this.salary = builder.salary;
         this.name = builder.name;
 
-        addNonNullFeature(booleanFeature(drivesInEcoMode, "user drives in eco mode"));
+        addNonNullFeature(booleanFeature(drivesInEcoMode, "user drives in eco mode", 1));
         addNonNullFeature(booleanFeature(isInterestedInEcoProducts, "user is interested in eco-friendly products"));
         addNonNullFeature(booleanFeature(likesToBuyEcoProducts, "user likes to buy eco-friendly products"));
         addNonNullFeature(gender);
