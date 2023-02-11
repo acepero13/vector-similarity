@@ -1,4 +1,4 @@
-package com.acepero13.research.profilesimilarity.core;
+package com.acepero13.research.profilesimilarity.core.vectors;
 
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
@@ -94,13 +94,18 @@ public class NormalizedVector implements Vector<Double> {
     }
 
     @Override
-    public Double sum() {
+    public double sum() {
         return vector.sum();
     }
 
     @Override
     public Vector<Double> divide(double value) {
         return vector.divide(value);
+    }
+
+    @Override
+    public Vector<Double> toDouble() {
+        return vector.toDouble();
     }
 
 

@@ -1,6 +1,6 @@
 package com.acepero13.research.profilesimilarity.api;
 
-import com.acepero13.research.profilesimilarity.core.DoubleVector;
+import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -47,7 +47,9 @@ public interface Vector<T extends Number> {
 
     Vector<Double> divide(Vector<Double> difference);
 
-    T sum();
+    double sum();
 
     Vector<T> divide(double value);
+
+    Vector<Double> toDouble();
 }

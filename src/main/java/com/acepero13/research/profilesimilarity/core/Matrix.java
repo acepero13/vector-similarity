@@ -70,13 +70,16 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     }
 
 
-
     @Override
     public Iterator<Vector<T>> iterator() {
         return matrix.iterator();
     }
 
-    public Vector<T> sumColumns() {
+    public Vector<Double> sumColumns() {
         return Vector.of(reduceColumnWise(Vector::sum));
+    }
+
+    public double totalRows() {
+        return matrix.size();
     }
 }

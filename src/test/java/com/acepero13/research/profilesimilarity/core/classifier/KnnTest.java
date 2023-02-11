@@ -1,16 +1,10 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
 import com.acepero13.research.profilesimilarity.api.WithCategoricalLabel;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.api.CategoricalLabel;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
-import com.acepero13.research.profilesimilarity.core.DoubleVector;
-import com.acepero13.research.profilesimilarity.api.Vector;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

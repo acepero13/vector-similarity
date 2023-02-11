@@ -1,8 +1,8 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Metric;
-import com.acepero13.research.profilesimilarity.core.DoubleVector;
-import com.acepero13.research.profilesimilarity.core.NormalizedVector;
+import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
+import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

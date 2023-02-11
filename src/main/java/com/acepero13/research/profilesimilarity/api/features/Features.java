@@ -1,7 +1,5 @@
 package com.acepero13.research.profilesimilarity.api.features;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
-
 public final class Features {
 
     public static final double DEFAULT_WEIGHT = 1.0;
@@ -29,41 +27,8 @@ public final class Features {
         return new DoubleFeature(value, name, DEFAULT_WEIGHT);
     }
 
-    private static abstract class AbstractFeature<T> implements Feature<T> {
-        private final T value;
-        private final String name;
-        private final double weight;
 
-        public AbstractFeature(T value, String featureName, double weight) {
-            this.value = value;
-            this.name = featureName;
-            this.weight = weight;
-        }
-
-        @Override
-        public double weight() {
-            return weight;
-        }
-
-        @Override
-        public double featureValue() {
-            return toDouble();
-        }
-
-        protected abstract double toDouble();
-
-        @Override
-        public T originalValue() {
-            return value;
-        }
-
-        @Override
-        public String featureName() {
-            return this.name;
-        }
-    }
-
-    private static class DoubleFeature extends AbstractFeature<Double> {
+    private static class DoubleFeature extends AbstractNumericalFeature<Double> {
 
 
         public DoubleFeature(Double value, String featureName, double weight) {
@@ -71,12 +36,12 @@ public final class Features {
         }
 
         @Override
-        protected double toDouble() {
+        protected Double toDouble() {
             return originalValue();
         }
     }
 
-    private static class IntegerFeature extends AbstractFeature<Integer> {
+    private static class IntegerFeature extends AbstractNumericalFeature<Integer> {
 
 
         public IntegerFeature(Integer value, String featureName, double weight) {
@@ -84,23 +49,40 @@ public final class Features {
         }
 
         @Override
-        protected double toDouble() {
+        protected Double toDouble() {
             return originalValue().doubleValue();
         }
     }
 
 
-    private static class BooleanFeature extends AbstractFeature<Boolean> {
+    private static class BooleanFeature implements Feature<Boolean> {
 
+
+        private final Boolean value;
+        private final String featureName;
+        private final double weight;
 
         public BooleanFeature(Boolean value, String featureName, double weight) {
-            super(value, featureName, weight);
+            // super(value, featureName, weight);
+            this.value = value;
+            this.featureName = featureName;
+            this.weight = weight;
+        }
+
+
+        @Override
+        public double featureValue() {
+            return value ? 1.0 : 0.0;
         }
 
         @Override
-        protected double toDouble() {
-            return originalValue() ? 1.0 : 0.0;
+        public Boolean originalValue() {
+            return value;
+        }
 
+        @Override
+        public String featureName() {
+            return featureName;
         }
     }
 }

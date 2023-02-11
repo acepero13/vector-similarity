@@ -1,8 +1,9 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.*;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
-import com.acepero13.research.profilesimilarity.core.NormalizedVector;
+import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 import lombok.extern.java.Log;

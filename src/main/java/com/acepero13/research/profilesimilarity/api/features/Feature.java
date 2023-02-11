@@ -1,4 +1,4 @@
-package com.acepero13.research.profilesimilarity.api;
+package com.acepero13.research.profilesimilarity.api.features;
 
 
 import java.util.List;

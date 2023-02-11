@@ -1,6 +1,6 @@
-package com.acepero13.research.profilesimilarity.core;
+package com.acepero13.research.profilesimilarity.core.vectors;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
@@ -150,7 +150,7 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public Double sum() {
+    public double sum() {
         return features.stream().mapToDouble(f -> f).sum();
     }
 
@@ -161,6 +161,11 @@ public class DoubleVector implements Vector<Double> {
             throw new VectorException("value cannot be zero");
         }
         return features.stream().map(f -> f / value).collect(VectorCollector.toVector());
+    }
+
+    @Override
+    public Vector<Double> toDouble() {
+        return this;
     }
 
 

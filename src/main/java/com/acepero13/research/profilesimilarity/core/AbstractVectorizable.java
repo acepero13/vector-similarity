@@ -1,8 +1,9 @@
 package com.acepero13.research.profilesimilarity.core;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;

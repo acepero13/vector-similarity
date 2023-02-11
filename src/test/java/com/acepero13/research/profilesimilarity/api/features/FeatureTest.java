@@ -1,6 +1,5 @@
 package com.acepero13.research.profilesimilarity.api.features;
 
-import com.acepero13.research.profilesimilarity.api.Feature;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
