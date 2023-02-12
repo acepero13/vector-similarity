@@ -50,6 +50,11 @@ public interface Tuple<F, S> {
             public <R> Tuple<F, R> mapSecond(Function<S, R> mapper) {
                 return Tuple.of(fist, mapper.apply(second));
             }
+
+            @Override
+            public <R> Tuple<R, S> mapFirst(Function<F, R> mapper) {
+                return Tuple.of(mapper.apply(fist), second);
+            }
         };
     }
 
@@ -79,6 +84,8 @@ public interface Tuple<F, S> {
     boolean filterBoth(Predicate<F> firstPredicate, Predicate<S> secondPredicate);
 
     <R> Tuple<F, R> mapSecond(Function<S, R> mapper);
+
+    <R> Tuple<R, S> mapFirst(Function<F, R> mapper);
 
     @FunctionalInterface
     interface TupleApplicable<F, S> {

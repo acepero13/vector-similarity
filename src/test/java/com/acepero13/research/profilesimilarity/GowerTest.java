@@ -1,16 +1,20 @@
 package com.acepero13.research.profilesimilarity;
 
-import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
+import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.scores.GowerMetric;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GowerTest {
 
@@ -30,8 +34,19 @@ public class GowerTest {
                 person4.toFeatureVector());
 
         KnnMixedData knn = new KnnMixedData(3, dataset);
-        knn.classify(person2.toFeatureVector());
-        var score = metric.similarityScore(dataset, person1.toFeatureVector(), person2.toFeatureVector());
+        KnnResult<?> result = knn.fit(person2.toFeatureVector());
+        CategoricalFeature<?> actualRace = result
+                .classify("race");
+
+
+        assertThat(actualRace, equalTo(RACE.CAUCASIAN));
+        Double actualAge = result.predict("age");
+        assertThat(actualAge, closeTo(35.6, 0.1));
+
+        CategoricalFeature<?> actualPolitics = result
+                .classify(GowerTest.POLITIC.class);
+
+        assertThat(actualPolitics, equalTo(POLITIC.MODERATE));
 
     }
 

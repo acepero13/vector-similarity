@@ -3,6 +3,7 @@ package com.acepero13.research.profilesimilarity.core.classifier;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
+import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
@@ -29,7 +30,7 @@ public class KnnMixedData {
 
     }
 
-    public void classify(FeatureVector target) {
+    public KnnResult<?> fit(FeatureVector target) {
         var metric = new GowerMetric();
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
@@ -38,7 +39,9 @@ public class KnnMixedData {
                 .limit(k)
                 .map(Tuple::second)
                 .collect(Collectors.toList());
-        int a = 0;
+
+
+        return KnnResult.of(similarNeighbors);
 
 
     }
@@ -52,6 +55,7 @@ public class KnnMixedData {
             this.matrix = new Matrix<>(numericalDataSet);
         }
 
+        // TODO: Refactor this
         public List<Tuple<Double, FeatureVector>> calculate(FeatureVector target) {
             MinMaxVector minMaxVector = MinMaxVector.of(matrix);
             Vector<Double> difference = minMaxVector.difference();
