@@ -9,7 +9,7 @@ import com.acepero13.research.profilesimilarity.utils.Tuple;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FeatureVectorResult<T> implements KnnResult<T> {
+public class FeatureVectorResult implements KnnResult {
     private final List<FeatureVector> vectors;
 
     public FeatureVectorResult(List<FeatureVector> vectors) {
@@ -17,33 +17,29 @@ public class FeatureVectorResult<T> implements KnnResult<T> {
     }
 
     @Override
-    public CategoricalFeature<T> classify(String featureName) {
+    public CategoricalFeature<?> classify(String featureName) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(featureName);
 
-        List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
-        sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
-
-        if (sortedEntries.isEmpty()) {
-            throw new KnnException("Could not find a suitable category for feature name: " + featureName);
-        }
-        return (CategoricalFeature<T>) sortedEntries.get(0).getKey();
+        return classify(groups);
     }
 
-    //TODO: Remove duplications
 
     @Override
-    public CategoricalFeature<T> classify(Class<? extends CategoricalFeature<?>> type) {
+    public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
 
+        return classify(groups);
+    }
+
+    private static CategoricalFeature<?> classify(Map<CategoricalFeature<?>, Long> groups) {
         List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
         sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
 
         if (sortedEntries.isEmpty()) {
-            throw new KnnException("Could not find a suitable category for feature name: " + type);
+            throw new KnnException("Could not find a suitable category ");
         }
-        return (CategoricalFeature<T>) sortedEntries.get(0).getKey();
+        return sortedEntries.get(0).getKey();
     }
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
@@ -64,7 +60,6 @@ public class FeatureVectorResult<T> implements KnnResult<T> {
 
 
     }
-
 
 
     @Override

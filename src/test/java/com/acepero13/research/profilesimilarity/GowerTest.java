@@ -34,7 +34,7 @@ public class GowerTest {
                 person4.toFeatureVector());
 
         KnnMixedData knn = new KnnMixedData(3, dataset);
-        KnnResult<?> result = knn.fit(person2.toFeatureVector());
+        KnnResult result = knn.fit(person2.toFeatureVector());
         CategoricalFeature<?> actualRace = result
                 .classify("race");
 

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @EqualsAndHashCode
 public class Matrix<T extends Number> implements Iterable<Vector<T>> {
@@ -102,5 +103,9 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
             return 0;
         }
         return matrix.get(0).size();
+    }
+
+    public Stream<Vector<T>> stream() {
+        return matrix.stream();
     }
 }

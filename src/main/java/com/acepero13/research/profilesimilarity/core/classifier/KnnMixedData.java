@@ -30,7 +30,7 @@ public class KnnMixedData {
 
     }
 
-    public KnnResult<?> fit(FeatureVector target) {
+    public KnnResult fit(FeatureVector target) {
         var metric = new GowerMetric();
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
@@ -65,6 +65,13 @@ public class KnnMixedData {
 
             List<Double> finalScore = calculateFinalScore(numericalScore, categoricalScore);
 
+
+            return buildResult(finalScore);
+
+
+        }
+
+        private List<Tuple<Double, FeatureVector>> buildResult(List<Double> finalScore) {
             Iterator<FeatureVector> it = dataSet.iterator();
             List<Tuple<Double, FeatureVector>> result = new ArrayList<>();
             int i = 0;
@@ -73,22 +80,16 @@ public class KnnMixedData {
                 result.add(Tuple.of(score, it.next()));
                 i++;
             }
-
-
-
             return result;
-
-
         }
 
-        private  List<Double> calculateFinalScore(Matrix<Double> numericalScore, Matrix<Double> categoricalScore) {
-            Matrix<Double> scoreSumMatrix = numericalScore.add(categoricalScore, 0.0);
-            List<Double> finalScore = new ArrayList<>();
-            for (Vector<Double> score : scoreSumMatrix) {
-                var finalScoreValue = score.sum() / (numericalScore.totalColumns() + categoricalScore.totalColumns());
-                finalScore.add(finalScoreValue);
-            }
-            return finalScore;
+        private List<Double> calculateFinalScore(Matrix<Double> numericalScore, Matrix<Double> categoricalScore) {
+            return numericalScore.add(categoricalScore, 0.0)
+                    .stream()
+                    .map(score -> score.sum() / (numericalScore.totalColumns() + categoricalScore.totalColumns()))
+                    .collect(Collectors.toList());
+
+
         }
 
         private Matrix<Double> calculateCategoricalScore(List<CategoricalFeature<?>> categorical) {

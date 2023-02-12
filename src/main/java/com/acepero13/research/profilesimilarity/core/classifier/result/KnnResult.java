@@ -5,13 +5,13 @@ import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 
 import java.util.List;
 
-public interface KnnResult<T> {
-    static KnnResult<?> of(List<FeatureVector> vectors) {
-        return new FeatureVectorResult<>(vectors);
+public interface KnnResult {
+    static KnnResult of(List<FeatureVector> vectors) {
+        return new FeatureVectorResult(vectors);
     }
 
-    CategoricalFeature<T> classify(String featureName);
-    CategoricalFeature<T> classify(Class<? extends CategoricalFeature<?>> type);
+    CategoricalFeature<?> classify(String featureName);
+    CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type);
 
     Double predict(String age);
 }
