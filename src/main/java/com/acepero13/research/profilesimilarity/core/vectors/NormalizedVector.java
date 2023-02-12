@@ -108,5 +108,15 @@ public class NormalizedVector implements Vector<Double> {
         return vector.toDouble();
     }
 
+    @Override
+    public Vector<Double> abs() {
+        return vector.abs();
+    }
+
+    @Override
+    public Vector<Double> add(Vector<Double> anotherVector, Double padding) {
+        return vector.add(anotherVector, padding);
+    }
+
 
 }

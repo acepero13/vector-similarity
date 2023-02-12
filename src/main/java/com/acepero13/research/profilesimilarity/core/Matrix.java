@@ -3,6 +3,7 @@ package com.acepero13.research.profilesimilarity.core;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.MatrixException;
+import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -81,5 +82,25 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
 
     public double totalRows() {
         return matrix.size();
+    }
+
+    public <R extends Number> Matrix<R> map(Function<Vector<T>, Vector<R>> mapper) {
+        return new Matrix<>(matrix.stream().map(mapper)
+                .collect(Collectors.toList()));
+    }
+
+    public Matrix<T> add(Matrix<T> anotherMatrix) {
+        return new Matrix<>(ListUtils.zip(matrix, anotherMatrix.matrix, Vector::add).collect(Collectors.toList()));
+    }
+
+    public Matrix<T> add(Matrix<T> another, T padding) {
+        return new Matrix<>(ListUtils.zip(matrix, another.matrix, (v1, v2) -> v1.add(v2, padding)).collect(Collectors.toList()));
+    }
+
+    public int totalColumns() {
+        if (totalRows() == 0) {
+            return 0;
+        }
+        return matrix.get(0).size();
     }
 }

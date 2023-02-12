@@ -3,6 +3,11 @@ package com.acepero13.research.profilesimilarity.api.features;
 public interface CategoricalFeature<T> extends Feature<T> {
     @Override
     default double featureValue() {
-       throw new UnsupportedOperationException("Categorical feature cannot be converted to double");
+        throw new UnsupportedOperationException("Categorical feature cannot be converted to double");
     }
+
+    default boolean matches(CategoricalFeature<?> feature) {
+        return this.equals(feature);
+    }
+
 }

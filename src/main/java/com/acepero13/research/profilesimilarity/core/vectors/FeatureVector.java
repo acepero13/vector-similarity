@@ -2,8 +2,8 @@ package com.acepero13.research.profilesimilarity.core.vectors;
 
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.features.AbstractNumericalFeature;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
-import com.acepero13.research.profilesimilarity.api.features.NumericalFeature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -15,18 +15,21 @@ import java.util.stream.Stream;
 
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
-    private final List<Feature<?>> categorical;
+    private final List<CategoricalFeature<?>> categorical;
     private final List<Double> numerical;
     private final Vector<Double> vector;
 
     public FeatureVector(List<Feature<?>> features) {
         this.numerical = features.stream().filter(f -> f instanceof AbstractNumericalFeature).map(f -> ((AbstractNumericalFeature<?>) f).doubleValue()).collect(Collectors.toList());
-        this.categorical = features.stream().filter(f -> !(f instanceof NumericalFeature)).collect(Collectors.toList());
+        this.categorical = features.stream()
+                .filter(CategoricalFeature.class::isInstance)
+                .map(f -> (CategoricalFeature<?>) f)
+                .collect(Collectors.toList());
         this.vector = DoubleVector.of(numerical);
 
     }
 
-    public FeatureVector(Vector<Double> vector, List<Feature<?>> categorical) {
+    public FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical) {
         this.vector = vector;
         this.categorical = categorical;
         List<Double> values = new ArrayList<>();
@@ -85,7 +88,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     @Override
     public AbstractNumericalFeature<Double> getFeature(int index) {
-        throw new UnsupportedOperationException("t.b.d") ;
+        throw new UnsupportedOperationException("t.b.d");
     }
 
     @Override
@@ -118,5 +121,18 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
         return vector;
     }
 
+    @Override
+    public Vector<AbstractNumericalFeature<Double>> abs() {
+        return new FeatureVector(vector.abs(), categorical);
+    }
 
+    @Override
+    public Vector<AbstractNumericalFeature<Double>> add(Vector<AbstractNumericalFeature<Double>> anotherVector, AbstractNumericalFeature<Double> padding) {
+        return new FeatureVector(vector.add(anotherVector.toDouble(), padding.doubleValue()), categorical);
+    }
+
+
+    public List<CategoricalFeature<?>> categorical() {
+        return categorical;
+    }
 }

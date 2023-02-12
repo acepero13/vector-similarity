@@ -5,6 +5,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
+import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.scores.GowerMetric;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ public class GowerTest {
                 person2.toFeatureVector(),
                 person3.toFeatureVector(),
                 person4.toFeatureVector());
+
+        KnnMixedData knn = new KnnMixedData(3, dataset);
+        knn.classify(person2.toFeatureVector());
         var score = metric.similarityScore(dataset, person1.toFeatureVector(), person2.toFeatureVector());
 
     }
@@ -37,7 +41,7 @@ public class GowerTest {
                     .addNonNullFeature(race)
                     .addNonNullFeature(Features.integerFeature(height, "height"))
                     .addNonNullFeature(Features.doubleFeature(income, "income"))
-                    .addNonNullFeature(Features.booleanFeature(isMale, "male"))// TODO: change this
+                    .addNonNullFeature(Gender.from(isMale))
                     .addNonNullFeature(politic);
         }
 
@@ -58,6 +62,24 @@ public class GowerTest {
         @Override
         public String featureName() {
             return "race";
+        }
+    }
+
+    private enum Gender implements CategoricalFeature<Gender> {
+        FEMALE, MALE;
+
+        public static Feature<?> from(boolean isMale) {
+            return isMale ? MALE : FEMALE;
+        }
+
+        @Override
+        public Gender originalValue() {
+            return this;
+        }
+
+        @Override
+        public String featureName() {
+            return "gender";
         }
     }
 

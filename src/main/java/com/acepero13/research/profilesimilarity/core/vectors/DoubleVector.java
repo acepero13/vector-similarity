@@ -3,6 +3,7 @@ package com.acepero13.research.profilesimilarity.core.vectors;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
+import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
@@ -166,6 +167,24 @@ public class DoubleVector implements Vector<Double> {
     @Override
     public Vector<Double> toDouble() {
         return this;
+    }
+
+    @Override
+    public Vector<Double> abs() {
+        return features.stream().map(Math::abs).collect(VectorCollector.toVector());
+    }
+
+    @Override
+    public Vector<Double> add(Vector<Double> anotherVector, Double padding) {
+        var difference = size() - anotherVector.size();
+        if (difference == 0) {
+            return this.add(anotherVector);
+        }
+        if (difference > 0) {
+            DoubleVector padded = new DoubleVector(ListUtils.padding(((DoubleVector) anotherVector).features, padding, Math.abs(difference)));
+            return this.add(padded);
+        }
+        return new DoubleVector(ListUtils.padding(features, padding, difference)).add(anotherVector);
     }
 
 

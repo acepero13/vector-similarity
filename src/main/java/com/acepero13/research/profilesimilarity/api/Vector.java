@@ -52,4 +52,8 @@ public interface Vector<T extends Number> {
     Vector<T> divide(double value);
 
     Vector<Double> toDouble();
+
+    Vector<T> abs();
+
+    Vector<T> add(Vector<T> anotherVector, T padding);
 }
