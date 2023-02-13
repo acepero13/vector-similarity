@@ -3,6 +3,7 @@ package com.acepero13.research.profilesimilarity.core.classifier;
 import com.acepero13.research.profilesimilarity.api.*;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
+import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
@@ -26,6 +27,7 @@ final class DataSet {
         this.metric = Objects.requireNonNull(metric, "Metric cannot be null");
         this.dataPoints = Objects.requireNonNull(dataPoints, "data points cannot be null");
     }
+
 
 
     public static Normalizer minMaxNormalizer(Vectorizable target, DataSet dataSet) {

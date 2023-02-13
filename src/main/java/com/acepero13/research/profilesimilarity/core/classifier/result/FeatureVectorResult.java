@@ -23,7 +23,6 @@ public class FeatureVectorResult implements KnnResult {
         return classify(groups);
     }
 
-
     @Override
     public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
@@ -34,7 +33,6 @@ public class FeatureVectorResult implements KnnResult {
     private static CategoricalFeature<?> classify(Map<CategoricalFeature<?>, Long> groups) {
         List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
         sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
 
         if (sortedEntries.isEmpty()) {
             throw new KnnException("Could not find a suitable category ");
