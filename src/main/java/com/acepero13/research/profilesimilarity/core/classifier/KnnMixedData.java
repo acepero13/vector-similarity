@@ -25,8 +25,8 @@ public class KnnMixedData {
     public KnnMixedData(int k, List<FeatureVector> dataSet) {
         this.dataSet = dataSet;
         this.k = k;
-        this.numericalDataSet = dataSet.stream().map(FeatureVector::toDouble).collect(Collectors.toList());
-        this.categoricalDataSet = dataSet.stream().map(FeatureVector::categorical).collect(Collectors.toList());
+        this.numericalDataSet = dataSet.stream().parallel().map(FeatureVector::toDouble).collect(Collectors.toList());
+        this.categoricalDataSet = dataSet.stream().parallel().map(FeatureVector::categorical).collect(Collectors.toList());
 
     }
 
@@ -35,6 +35,7 @@ public class KnnMixedData {
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
         List<FeatureVector> similarNeighbors = scores.stream()
+                .parallel()
                 .sorted(Comparator.comparingDouble(Tuple::first))
                 .limit(k)
                 .map(Tuple::second)
@@ -86,6 +87,7 @@ public class KnnMixedData {
         private List<Double> calculateFinalScore(Matrix<Double> numericalScore, Matrix<Double> categoricalScore) {
             return numericalScore.add(categoricalScore, 0.0)
                     .stream()
+                    .parallel()
                     .map(score -> score.sum() / (numericalScore.totalColumns() + categoricalScore.totalColumns()))
                     .collect(Collectors.toList());
 
@@ -93,7 +95,9 @@ public class KnnMixedData {
         }
 
         private Matrix<Double> calculateCategoricalScore(List<CategoricalFeature<?>> categorical) {
-            return new Matrix<>(categoricalDataSet.stream().map(l -> categoricalMatchBetween(l, categorical))
+            return new Matrix<>(categoricalDataSet.stream()
+                    .parallel()
+                    .map(l -> categoricalMatchBetween(l, categorical))
                     .collect(Collectors.toList()));
         }
 

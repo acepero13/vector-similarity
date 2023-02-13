@@ -19,6 +19,7 @@ public interface Feature<T> {
 
     default boolean isWhiteListed(List<Feature<?>> whiteList) {
         return whiteList.stream()
+                .parallel()
                 .map(Feature::featureName)
                 .anyMatch(n -> n.equals(featureName()));
     }

@@ -34,6 +34,7 @@ final class DataSet {
         Objects.requireNonNull(target, "target cannot be null");
         Objects.requireNonNull(dataSet, "Dataset cannot be null");
         List<Vector<Double>> featureReducedDataSet = dataSet.dataPoints.stream()
+                .parallel()
                 .map(d -> d.vector(target.features()))
                 .collect(Collectors.toList());
         return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(featureReducedDataSet));
@@ -43,6 +44,7 @@ final class DataSet {
         log.info("Target is: " + target);
         log.info("Number of samples: " + dataPoints.size());
         Vector<Double> weights = target.features().stream()
+                .parallel()
                 .map(Feature::weight)
                 .collect(VectorCollector.toVector());
 
@@ -50,6 +52,7 @@ final class DataSet {
 
 
         return this.dataPoints.stream()
+                .parallel()
                 .map(v -> Tuple.of(v, v.vector(target.features())))
                 .map(t -> t.mapSecond(normalizer::normalize))
                 .map(t -> t.mapSecond(weights::multiply))

@@ -14,7 +14,7 @@ public interface Vector<T extends Number> {
     @SuppressWarnings("unchecked")
     static <T extends Number> Vector<T> of(List<T> features) {
         if (features.stream().allMatch(Double.class::isInstance)) {
-            return (Vector<T>) new DoubleVector(features.stream().map(Double.class::cast).collect(Collectors.toList()));
+            return (Vector<T>) new DoubleVector(features.stream().parallel().map(Double.class::cast).collect(Collectors.toList()));
         }
         return (Vector<T>) new DoubleVector(new ArrayList<>());
     }

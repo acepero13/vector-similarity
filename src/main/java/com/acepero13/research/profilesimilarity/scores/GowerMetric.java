@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class GowerMetric {
     public Double similarityScore(List<FeatureVector> dataPoints, FeatureVector vector, FeatureVector another) {
-        List<Vector<Double>> dataSet = dataPoints.stream().map(FeatureVector::toDouble).collect(Collectors.toList());
+        List<Vector<Double>> dataSet = dataPoints.stream().parallel().map(FeatureVector::toDouble).collect(Collectors.toList());
         Vector<Double> anotherNumerical = another.toDouble();
         var numerical = vector.toDouble();
 

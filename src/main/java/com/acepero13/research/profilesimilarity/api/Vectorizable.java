@@ -21,7 +21,7 @@ public interface Vectorizable {
         if (whiteList.isEmpty()) {
             return vector();
         }
-        return DoubleVector.ofFeatures(features().stream().filter(f -> f.isWhiteListed(whiteList))
+        return DoubleVector.ofFeatures(features().stream().parallel().filter(f -> f.isWhiteListed(whiteList))
                 .collect(Collectors.toList()));
     }
 
