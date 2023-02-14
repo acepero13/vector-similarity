@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity.api;
 
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
@@ -21,9 +22,16 @@ public interface Vectorizable {
         if (whiteList.isEmpty()) {
             return vector();
         }
-        return DoubleVector.ofFeatures(features().stream().parallel().filter(f -> f.isWhiteListed(whiteList))
+        return DoubleVector.ofFeatures(features().stream().parallel()
+                .filter(f -> f.isWhiteListed(whiteList))
+                .filter(f -> !(f instanceof CategoricalFeature))
                 .collect(Collectors.toList()));
     }
 
 
+    default List<Feature<?>> numericalFeatures() {
+        return features().stream().parallel()
+                .filter(f -> !(f instanceof CategoricalFeature))
+                .collect(Collectors.toList());
+    }
 }

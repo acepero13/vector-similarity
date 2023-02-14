@@ -43,17 +43,17 @@ final class DataSet {
     Stream<Score> scaleAndScore(Vectorizable target, Normalizer normalizer) {
         log.info("Target is: " + target);
         log.info("Number of samples: " + dataPoints.size());
-        Vector<Double> weights = target.features().stream()
+        Vector<Double> weights = target.numericalFeatures().stream()
                 .parallel()
                 .map(Feature::weight)
                 .collect(VectorCollector.toVector());
 
-        NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(), normalizer);
+        NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
 
 
         return this.dataPoints.stream()
                 .parallel()
-                .map(v -> Tuple.of(v, v.vector(target.features())))
+                .map(v -> Tuple.of(v, v.vector(target.numericalFeatures())))
                 .map(t -> t.mapSecond(normalizer::normalize))
                 .map(t -> t.mapSecond(weights::multiply))
                 .map(t -> t.mapSecond(NormalizedVector::of))

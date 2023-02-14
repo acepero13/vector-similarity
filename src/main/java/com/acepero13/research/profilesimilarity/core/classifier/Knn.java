@@ -19,6 +19,7 @@ public class Knn {
 
     private final int k;
     private final DataSet dataSet;
+    private Normalizer normalizer;
 
 
     public Knn(int k, Vectorizable... data) {
@@ -30,6 +31,12 @@ public class Knn {
         this.dataSet = new DataSet(Vector::distanceTo, requireNonNull(data));
     }
 
+    public Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
+        this.k = k;
+        this.dataSet = new DataSet(Vector::distanceTo, requireNonNull(data));
+        this.normalizer = normalizer;
+    }
+
 
     private static Comparator<DataSet.Score> ascendingScore() {
         return Comparator.comparingDouble(DataSet.Score::score);
@@ -37,12 +44,15 @@ public class Knn {
 
     public KnnResult fit(Vectorizable target) {
         requireNonNull(target);
+        // Todo, the data set should be loaded only one time, not several times
         log.info(String.format("Classifying using Categorical KNN with k=%d.", k));
 
         if (CalculationUtils.isEvenNumber(k)) {
             log.warning("K: {} is an even number. Consider changing it to an odd number to help the voting process");
         }
-        Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
+        if (normalizer == null) {
+            this.normalizer = DataSet.minMaxNormalizer(target, dataSet);
+        }
         List<FeatureVector> results = dataSet.scaleAndScore(target, normalizer)
                 .sorted(ascendingScore())
                 .limit(k)
