@@ -3,7 +3,6 @@ package com.acepero13.research.profilesimilarity.core.classifier;
 import com.acepero13.research.profilesimilarity.api.*;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
@@ -12,7 +11,6 @@ import lombok.extern.java.Log;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Log
 final class DataSet {
@@ -40,7 +38,7 @@ final class DataSet {
         return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(featureReducedDataSet));
     }
 
-    Stream<Score> scaleAndScore(Vectorizable target, Normalizer normalizer) {
+    List<Tuple<Vectorizable, NormalizedVector>> scaleAndScore(Vectorizable target, Normalizer normalizer) {
         log.info("Target is: " + target);
         log.info("Number of samples: " + dataPoints.size());
         Vector<Double> weights = target.numericalFeatures().stream()
@@ -48,7 +46,7 @@ final class DataSet {
                 .map(Feature::weight)
                 .collect(VectorCollector.toVector());
 
-        NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
+
 
 
         return this.dataPoints.stream()
@@ -57,13 +55,10 @@ final class DataSet {
                 .map(t -> t.mapSecond(normalizer::normalize))
                 .map(t -> t.mapSecond(weights::multiply))
                 .map(t -> t.mapSecond(NormalizedVector::of))
-                .map(t -> t.mapSecond(v -> calculateScore(normalizedTarget, v)))
-                .map(t -> new Score(t.second(), t.first()));
+                .collect(Collectors.toList());
     }
 
-    private Double calculateScore(NormalizedVector normalizedTarget, NormalizedVector v) {
-        return metric.similarityScore(normalizedTarget, v);
-    }
+
 
 
 

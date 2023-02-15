@@ -1,13 +1,17 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
+import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
+import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.extern.java.Log;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +24,7 @@ public class Knn {
     private final int k;
     private final DataSet dataSet;
     private Normalizer normalizer;
+    private List<Tuple<Vectorizable, NormalizedVector>> normalizedDataSet = new ArrayList<>();
 
 
     public Knn(int k, Vectorizable... data) {
@@ -50,10 +55,17 @@ public class Knn {
         if (CalculationUtils.isEvenNumber(k)) {
             log.warning("K: {} is an even number. Consider changing it to an odd number to help the voting process");
         }
-        if (normalizer == null) {
+        if (normalizer == null) { // TODO: Remove this
             this.normalizer = DataSet.minMaxNormalizer(target, dataSet);
         }
-        List<FeatureVector> results = dataSet.scaleAndScore(target, normalizer)
+        if(normalizedDataSet.isEmpty()) {
+            normalizedDataSet = dataSet.scaleAndScore(target, normalizer);
+        }
+        NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
+
+        List<FeatureVector> results = normalizedDataSet.stream()
+                .map(t -> t.mapSecond(v -> calculateScore(normalizedTarget, v)))
+                .map(t -> new DataSet.Score(t.second(), t.first()))
                 .sorted(ascendingScore())
                 .limit(k)
                 .map(DataSet.Score::sample)
@@ -61,5 +73,13 @@ public class Knn {
                 .collect(Collectors.toList());
 
         return KnnResult.of(results);
+    }
+
+    private Double calculateScore(NormalizedVector normalizedTarget, NormalizedVector v) {
+        return metric().similarityScore(normalizedTarget, v);
+    }
+
+    private Metric metric() {
+        return Vector::distanceTo;
     }
 }
