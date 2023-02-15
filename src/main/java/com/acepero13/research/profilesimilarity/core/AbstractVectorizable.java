@@ -18,7 +18,7 @@ public abstract class AbstractVectorizable implements Vectorizable {
     private final List<Feature<?>> features = new ArrayList<>();
 
     public AbstractVectorizable addNonNullFeature(Feature<?> value) {
-        if (value.originalValue() != null) {
+        if (value == null || value.originalValue() != null) {
             this.features.add(value);
         }
         return this;

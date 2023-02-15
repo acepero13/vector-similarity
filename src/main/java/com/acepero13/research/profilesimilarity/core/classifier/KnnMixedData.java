@@ -98,7 +98,12 @@ public class KnnMixedData {
         }
 
         private Vector<Double> categoricalMatchBetween(List<CategoricalFeature<?>> categorical, List<CategoricalFeature<?>> target) {
-            return ListUtils.zip(target, categorical, CategoricalFeature::matches)
+            List<CategoricalFeature<?>> filteredCategorical = categorical.stream()
+                                                                         .filter(c -> target.stream()
+                                                                                            .anyMatch(t -> t.featureName().equals(c.featureName())))
+                                                                         .collect(Collectors.toList());
+
+            return ListUtils.zip(target, filteredCategorical, CategoricalFeature::matches)
                     .map(v -> v ? 0.0 : 1.0)
                     .collect(VectorCollector.toVector());
         }

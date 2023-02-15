@@ -7,7 +7,6 @@ import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
-import com.acepero13.research.profilesimilarity.scores.GowerMetric;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class GowerTest {
         var person2 = new Person(33, RACE.ASIAN, 1, 0.34, true, POLITIC.LIBERAL);
         var person3 = new Person(52, RACE.CAUCASIAN, 2, 0.51, true, POLITIC.MODERATE);
         var person4 = new Person(46, RACE.BLACK, 3, 0.63, true, POLITIC.CONSERVATIVE);
-        var metric = new GowerMetric();
 
         //var score = metric.similarityScore(person1.vector(), person2.vector());
         var dataset = List.of(

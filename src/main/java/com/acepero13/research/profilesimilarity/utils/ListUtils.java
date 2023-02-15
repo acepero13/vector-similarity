@@ -13,7 +13,7 @@ public class ListUtils {
 
     public static <T, R> Stream<R> zip(List<T> first, List<T> second, BiFunction<T, T, R> mapper) throws IllegalStateException {
         if (first.size() != second.size()) {
-            throw new IllegalStateException("Size of the lists are different");
+            throw new IllegalStateException("Size of the lists are different. First size: " + first.size() + " second size: " + second.size());
         }
         return IntStream.range(0, first.size())
                 .mapToObj(i -> mapper.apply(first.get(i), second.get(i)));
