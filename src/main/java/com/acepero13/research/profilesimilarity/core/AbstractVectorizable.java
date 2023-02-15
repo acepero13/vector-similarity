@@ -33,4 +33,6 @@ public abstract class AbstractVectorizable implements Vectorizable {
     public List<Feature<?>> features() {
         return features;
     }
+
+
 }

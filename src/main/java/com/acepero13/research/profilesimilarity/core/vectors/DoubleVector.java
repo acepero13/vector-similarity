@@ -50,6 +50,7 @@ public class DoubleVector implements Vector<Double> {
 
     public static DoubleVector ofFeatures(List<Feature<?>> features) {
         return new DoubleVector(features.stream()
+                .parallel()
                 .map(Feature::featureValue)
                 .collect(Collectors.toList()));
     }
@@ -58,6 +59,7 @@ public class DoubleVector implements Vector<Double> {
     public Double norm() {
         return Math.sqrt(
                 features.stream()
+                        .parallel()
                         .mapToDouble(f -> Math.pow(f, 2))
                         .sum()
         );
@@ -137,8 +139,8 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public MinMax minMax() {
-        double min = features.stream().min(Double::compare).orElse(Double.MIN_VALUE - 1);
-        double max = features.stream().max(Double::compare).orElse(Double.MIN_VALUE - 1);
+        double min = features.stream().parallel().min(Double::compare).orElse(Double.MIN_VALUE - 1);
+        double max = features.stream().parallel().max(Double::compare).orElse(Double.MIN_VALUE - 1);
         return new MinMax(min, max);
     }
 
@@ -152,7 +154,7 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public double sum() {
-        return features.stream().mapToDouble(f -> f).sum();
+        return features.stream().parallel().mapToDouble(f -> f).sum();
     }
 
     @Override
@@ -161,7 +163,7 @@ public class DoubleVector implements Vector<Double> {
             log.warning("Division by zero is not allowed");
             throw new VectorException("value cannot be zero");
         }
-        return features.stream().map(f -> f / value).collect(VectorCollector.toVector());
+        return features.stream().parallel().map(f -> f / value).collect(VectorCollector.toVector());
     }
 
     @Override
@@ -171,7 +173,7 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public Vector<Double> abs() {
-        return features.stream().map(Math::abs).collect(VectorCollector.toVector());
+        return features.stream().parallel().map(Math::abs).collect(VectorCollector.toVector());
     }
 
     @Override

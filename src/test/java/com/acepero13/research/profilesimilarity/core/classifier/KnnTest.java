@@ -1,8 +1,7 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.WithCategoricalLabel;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
-import com.acepero13.research.profilesimilarity.api.CategoricalLabel;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +9,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 class KnnTest {
-
-
 
 
     @Test
@@ -23,18 +20,33 @@ class KnnTest {
 
 
         var classifier = new Knn(3, sample1, sample2, sample3, sample4);
+
         var test = new AcidDurability(3, 7);
-        CategoricalLabel<CLASSIFICATION> result = classifier.classify(test);
-        assertThat(result.value(), equalTo(CLASSIFICATION.GOOD));
+
+        CategoricalFeature<?> result = classifier.fit(test)
+                .classify(CLASSIFICATION.class);
+
+        assertThat(result, equalTo(CLASSIFICATION.GOOD));
 
     }
 
-    private enum CLASSIFICATION {
+    private enum CLASSIFICATION implements CategoricalFeature<CLASSIFICATION> {
         GOOD, BAD, UNKNOWN;
+
+
+        @Override
+        public CLASSIFICATION originalValue() {
+            return this;
+        }
+
+        @Override
+        public String featureName() {
+            return "classification";
+        }
     }
 
 
-    private static class AcidDurability extends AbstractVectorizable implements WithCategoricalLabel {
+    private static class AcidDurability extends AbstractVectorizable {
         private final int durabilitySeconds;
         private final int strengthKgSqM;
         private final CLASSIFICATION classification;
@@ -44,7 +56,8 @@ class KnnTest {
             this.strengthKgSqM = strengthKgSqM;
             this.classification = classification;
             this.addNonNullFeature(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"))
-                .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
+                    .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"))
+                    .addNonNullFeature(classification);
         }
 
 
@@ -52,15 +65,11 @@ class KnnTest {
             this.durabilitySeconds = durabilitySeconds;
             this.strengthKgSqM = strengthKgSqM;
             this.addNonNullFeature(Features.integerFeature(durabilitySeconds, "Acid Durability (s)"))
-                .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
+                    .addNonNullFeature(Features.integerFeature(strengthKgSqM, "Strength in km/m2"));
             this.classification = CLASSIFICATION.UNKNOWN;
         }
 
 
-        @Override
-        public CategoricalLabel<CLASSIFICATION> label() {
-            return CategoricalLabel.defaultLabel(classification);
-        }
     }
 }
 

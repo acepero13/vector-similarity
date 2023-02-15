@@ -23,7 +23,6 @@ public class FeatureVectorResult implements KnnResult {
         return classify(groups);
     }
 
-
     @Override
     public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
@@ -35,7 +34,6 @@ public class FeatureVectorResult implements KnnResult {
         List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
         sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-
         if (sortedEntries.isEmpty()) {
             throw new KnnException("Could not find a suitable category ");
         }
@@ -44,6 +42,7 @@ public class FeatureVectorResult implements KnnResult {
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
         return vectors.stream()
+                .parallel()
                 .map(v -> Tuple.of(v.getCategoricalFeatureBy(type), v))
                 .filter(t -> t.first().isPresent())
                 .map(t -> t.mapFirst(Optional::get))
@@ -53,6 +52,7 @@ public class FeatureVectorResult implements KnnResult {
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(String featureName) {
 
         return vectors.stream()
+                .parallel()
                 .map(v -> Tuple.of(v.getCategoricalFeatureBy(featureName), v))
                 .filter(t -> t.first().isPresent())
                 .map(t -> t.mapFirst(Optional::get))
@@ -68,6 +68,7 @@ public class FeatureVectorResult implements KnnResult {
             throw new KnnException("List of vectors is empty");
         }
         return vectors.stream()
+                .parallel()
                 .map(v -> v.getNumericalFeatureBy(featureName))
                 .filter(Optional::isPresent)
                 .map(Optional::get)

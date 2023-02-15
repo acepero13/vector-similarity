@@ -11,6 +11,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 
 public class KnnRegressionTest {
+
+    public static final String WEIGHT = "weight";
+
     @Test
     void knnRegression() {
         List<Vectorizable> samples = List.of(
@@ -28,20 +31,22 @@ public class KnnRegressionTest {
 
         User test = new User("11", 5.5, 38, null);
 
-        KnnRegression classifier = new KnnRegression(3, samples);
+        Knn classifier = new Knn(3, samples);
 
-        var result = classifier.classify(test);
+        var result = classifier.fit(test)
+                .predict(WEIGHT);
 
-        assertThat(result.getFeature(2), closeTo(57.666666666666664, 0.01));
+        assertThat(result, closeTo(57.666666666666664, 0.01));
 
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static class User extends AbstractVectorizable {
         private final String id;
         private final Double height;
         private final int age;
 
-        private Integer weight;
+        private final Integer weight;
 
         public User(String id, double height, int age, Integer weight) {
             this.id = id;
@@ -50,10 +55,7 @@ public class KnnRegressionTest {
             this.weight = weight;
             addNonNullFeature(Features.doubleFeature(height, "height"));
             addNonNullFeature(Features.integerFeature(age, "age"));
-            addNonNullFeature(Features.integerFeature(weight, "weight"));
-
+            addNonNullFeature(Features.integerFeature(weight, WEIGHT));
         }
-
-
     }
 }

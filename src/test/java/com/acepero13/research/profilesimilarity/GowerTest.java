@@ -24,7 +24,6 @@ public class GowerTest {
         var person3 = new Person(52, RACE.CAUCASIAN, 2, 0.51, true, POLITIC.MODERATE);
         var person4 = new Person(46, RACE.BLACK, 3, 0.63, true, POLITIC.CONSERVATIVE);
 
-        //var score = metric.similarityScore(person1.vector(), person2.vector());
         var dataset = List.of(
                 person1.toFeatureVector(),
                 person2.toFeatureVector(),

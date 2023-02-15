@@ -69,6 +69,10 @@ public final class Features {
             this.weight = weight;
         }
 
+        @Override
+        public double weight() {
+            return weight;
+        }
 
         @Override
         public double featureValue() {
