@@ -1,6 +1,5 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
@@ -33,12 +32,12 @@ public class Knn {
 
     public Knn(int k, List<Vectorizable> data) {
         this.k = k;
-        this.dataSet = new DataSet(Vector::distanceTo, requireNonNull(data));
+        this.dataSet = new DataSet(requireNonNull(data));
     }
 
     public Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
         this.k = k;
-        this.dataSet = new DataSet(Vector::distanceTo, requireNonNull(data));
+        this.dataSet = new DataSet(requireNonNull(data));
         this.normalizer = normalizer;
     }
 
@@ -48,23 +47,25 @@ public class Knn {
     }
 
     public KnnResult fit(Vectorizable target) {
-        requireNonNull(target);
-        // Todo, the data set should be loaded only one time, not several times
-        log.info(String.format("Classifying using Categorical KNN with k=%d.", k));
+        requireNonNull(target, "Target cannot be null");
+        logInitialInformation();
+        NormalizedVector normalizedTarget = normalize(target);
+        return classify(normalizedTarget);
+    }
 
+    private void logInitialInformation() {
+        log.info(String.format("Classifying using Categorical KNN with k=%d.", k));
+        log.info("Number of samples: " + dataSet.size());
         if (CalculationUtils.isEvenNumber(k)) {
             log.warning("K: {} is an even number. Consider changing it to an odd number to help the voting process");
         }
-        if (normalizer == null) { // TODO: Remove this
-            this.normalizer = DataSet.minMaxNormalizer(target, dataSet);
-        }
-        if(normalizedDataSet.isEmpty()) {
-            normalizedDataSet = dataSet.scaleAndScore(target, normalizer);
-        }
-        NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
+    }
+
+    private KnnResult classify(NormalizedVector normalizedTarget) {
+
 
         List<FeatureVector> results = normalizedDataSet.stream()
-                .map(t -> t.mapSecond(v -> calculateScore(normalizedTarget, v)))
+                .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
                 .map(t -> new DataSet.Score(t.second(), t.first()))
                 .sorted(ascendingScore())
                 .limit(k)
@@ -75,11 +76,14 @@ public class Knn {
         return KnnResult.of(results);
     }
 
-    private Double calculateScore(NormalizedVector normalizedTarget, NormalizedVector v) {
-        return metric().similarityScore(normalizedTarget, v);
+    private NormalizedVector normalize(Vectorizable target) {
+        if (normalizer == null) {
+            this.normalizer = DataSet.minMaxNormalizer(target, dataSet);
+        }
+        if (normalizedDataSet.isEmpty()) {
+            normalizedDataSet = dataSet.scaleAndScore(target, normalizer);
+        }
+        return NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
     }
 
-    private Metric metric() {
-        return Vector::distanceTo;
-    }
 }

@@ -14,19 +14,15 @@ import java.util.stream.Collectors;
 
 @Log
 final class DataSet {
-    private final Metric metric;
     private final List<Vectorizable> dataPoints;
 
-    DataSet(Metric metric, Vectorizable... dataPoints) {
-        this(metric, List.of(Objects.requireNonNull(dataPoints)));
+    DataSet(Vectorizable... dataPoints) {
+        this(List.of(Objects.requireNonNull(dataPoints)));
     }
 
-    DataSet(Metric metric, List<Vectorizable> dataPoints) {
-        this.metric = Objects.requireNonNull(metric, "Metric cannot be null");
+    DataSet(List<Vectorizable> dataPoints) {
         this.dataPoints = Objects.requireNonNull(dataPoints, "data points cannot be null");
     }
-
-
 
     public static Normalizer minMaxNormalizer(Vectorizable target, DataSet dataSet) {
         Objects.requireNonNull(target, "target cannot be null");
@@ -40,7 +36,7 @@ final class DataSet {
 
     List<Tuple<Vectorizable, NormalizedVector>> scaleAndScore(Vectorizable target, Normalizer normalizer) {
         log.info("Target is: " + target);
-        log.info("Number of samples: " + dataPoints.size());
+
         Vector<Double> weights = target.numericalFeatures().stream()
                 .parallel()
                 .map(Feature::weight)
@@ -59,7 +55,13 @@ final class DataSet {
     }
 
 
+    public static Double calculateScore(Metric metric, NormalizedVector normalizedTarget, NormalizedVector v) {
+        return metric.similarityScore(normalizedTarget, v);
+    }
 
+    public int size() {
+        return dataPoints.size();
+    }
 
 
     public static class Score {

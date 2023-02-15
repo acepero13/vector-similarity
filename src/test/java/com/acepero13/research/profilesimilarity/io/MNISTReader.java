@@ -8,6 +8,7 @@ import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.Knn;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import lombok.ToString;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -70,6 +71,7 @@ public class MNISTReader {
         return featureVectors;
     }
 
+    @ToString
     private static class LabeledImage extends AbstractVectorizable {
         private LabeledImage(DataInputStream imageStream, DataInputStream labelStream, int total) throws IOException {
             for (int j = 0; j < total; j++) {

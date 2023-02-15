@@ -13,6 +13,11 @@ public abstract class AbstractNumericalFeature <T extends Number> extends Number
     }
 
     @Override
+    public double weight() {
+        return weight;
+    }
+
+    @Override
     public double featureValue() {
         return toDouble();
     }

@@ -117,10 +117,9 @@ class VectorTest {
         assertThat(error.getMessage(), containsString("Index 100 out of bounds for length 5"));
     }
 
-    @Test void cannotDivideByZero(){
-        assertThrows(VectorException.class, () ->{
-            vector1.divide(0);
-        });
+    @Test
+    void cannotDivideByZero() {
+        assertThrows(VectorException.class, () -> vector1.divide(0));
     }
 
 }

@@ -24,9 +24,7 @@ class ListUtilsTest {
 
     @Test
     void cannotZipDifferentSizedElements() {
-        assertThrows(IllegalStateException.class, () -> {
-            ListUtils.zip(List.of(1, 2), List.of(1, 2, 3), Integer::sum);
-        });
+        assertThrows(IllegalStateException.class, () -> ListUtils.zip(List.of(1, 2), List.of(1, 2, 3), Integer::sum));
     }
 
     @Test

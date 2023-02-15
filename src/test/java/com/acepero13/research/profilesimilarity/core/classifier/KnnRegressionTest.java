@@ -40,12 +40,13 @@ public class KnnRegressionTest {
 
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static class User extends AbstractVectorizable {
         private final String id;
         private final Double height;
         private final int age;
 
-        private Integer weight;
+        private final Integer weight;
 
         public User(String id, double height, int age, Integer weight) {
             this.id = id;

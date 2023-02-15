@@ -5,9 +5,13 @@ import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.stream.Stream;
 
+@EqualsAndHashCode
+@ToString
 public class NormalizedVector implements Vector<Double> {
     private final Vector<Double> vector;
 

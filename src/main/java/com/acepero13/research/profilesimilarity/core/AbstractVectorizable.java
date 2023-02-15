@@ -4,7 +4,6 @@ import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 
 import java.util.ArrayList;
 import java.util.List;
