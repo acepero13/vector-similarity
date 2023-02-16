@@ -5,6 +5,7 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.scores.CombinedMetric;
+import com.acepero13.research.profilesimilarity.scores.CosineMetric;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 
 import java.util.ArrayList;
@@ -17,10 +18,15 @@ import static java.util.Objects.requireNonNull;
 public class MostSimilar {
 
     private final DataSet dataSet;
-    private final Metric metric = new CombinedMetric();
+    private final Metric metric = new CosineMetric();
     private List<Tuple<Vectorizable, NormalizedVector>> normalizedDataSet = new ArrayList<>();
 
     public MostSimilar(Vectorizable... vectorizables) {
+        this.dataSet = new DataSet(requireNonNull(vectorizables));
+
+    }
+
+    public MostSimilar(List<Vectorizable> vectorizables) {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
 
     }
@@ -34,6 +40,15 @@ public class MostSimilar {
         }
 
         NormalizedVector normalizedTarget = NormalizedVector.of(target.vector(target.numericalFeatures()), normalizer);
+
+        List<DataSet.Score> l = new ArrayList<>();
+        for (var v: normalizedDataSet) {
+            var score = DataSet.calculateScore(metric, normalizedTarget, v.second());
+            l.add(new DataSet.Score(score, v.first()));
+        }
+
+        l.sort(Comparator.comparingDouble(DataSet.Score::score));
+        var result = l.stream().max(Comparator.comparingDouble(DataSet.Score::score));
 
         return normalizedDataSet.stream()
                 .map(t -> t.mapSecond(v -> DataSet.calculateScore(metric, normalizedTarget, v)))
