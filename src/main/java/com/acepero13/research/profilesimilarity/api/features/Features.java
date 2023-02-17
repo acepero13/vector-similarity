@@ -15,6 +15,20 @@ public final class Features {
         return new BooleanFeature(value, name, weight);
     }
 
+    public static Feature<Boolean> categoricalBoolean(Boolean value, String name) {
+        return new CategoricalFeature<>() {
+            @Override
+            public Boolean originalValue() {
+                return value;
+            }
+
+            @Override
+            public String featureName() {
+                return name;
+            }
+        };
+    }
+
     public static Feature<Integer> integerFeature(Integer value, String name, double weight) {
         return new IntegerFeature(value, name, weight);
     }

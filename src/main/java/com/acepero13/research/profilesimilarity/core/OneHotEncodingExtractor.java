@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
 
+    public static final String ONE_HOT_PREFIX = "one_hot_";
     private final Set<T> featureNames;
 
     public OneHotEncodingExtractor(Set<T> featureNames) {
@@ -32,12 +33,16 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
 
         for (T element : featureNames) {
             if (elements.stream().anyMatch(e -> e.matches(element))) {
-                oneHotVectorList.add(Features.booleanFeature(true, element.featureName()) );
+                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)) );
             } else {
-                oneHotVectorList.add(Features.booleanFeature(false, element.featureName()));
+                oneHotVectorList.add(Features.categoricalBoolean(false, getName(element)));
             }
         }
         return oneHotVectorList;
+    }
+
+    private String getName(T element) {
+        return ONE_HOT_PREFIX + element.featureName();
     }
 
 

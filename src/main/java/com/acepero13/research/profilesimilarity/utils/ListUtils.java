@@ -1,5 +1,9 @@
 package com.acepero13.research.profilesimilarity.utils;
 
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,5 +29,13 @@ public class ListUtils {
             newFeatures.add(padding);
         }
         return Collections.unmodifiableList(newFeatures);
+    }
+
+    public static <T, R> Stream<Tuple<T, R>> zip(List<T> first, List<R> second) {
+        if (first.size() != second.size()) {
+            throw new IllegalStateException("Size of the lists are different. First size: " + first.size() + " second size: " + second.size());
+        }
+        return IntStream.range(0, first.size())
+                        .mapToObj(i -> Tuple.of(first.get(i), second.get(i)));
     }
 }

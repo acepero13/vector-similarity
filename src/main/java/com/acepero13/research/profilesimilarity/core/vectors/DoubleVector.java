@@ -186,7 +186,7 @@ public class DoubleVector implements Vector<Double> {
             DoubleVector padded = new DoubleVector(ListUtils.padding(((DoubleVector) anotherVector).features, padding, Math.abs(difference)));
             return this.add(padded);
         }
-        return new DoubleVector(ListUtils.padding(features, padding, difference)).add(anotherVector);
+        return new DoubleVector(ListUtils.padding(features, padding, Math.abs(difference))).add(anotherVector);
     }
 
 

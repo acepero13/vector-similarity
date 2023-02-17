@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
@@ -26,8 +27,15 @@ public class KnnMixedData {
         this.dataSet = dataSet;
         this.k = k;
         this.numericalDataSet = dataSet.stream().parallel().map(FeatureVector::toDouble).collect(Collectors.toList());
-        this.categoricalDataSet = dataSet.stream().parallel().map(FeatureVector::categorical).collect(Collectors.toList());
+        this.categoricalDataSet = dataSet.stream().parallel().map(FeatureVector::categorical)
+                                         .collect(Collectors.toList());
 
+    }
+
+    public static KnnMixedData of(int k, List<Vectorizable> dataSet) {
+        var featureVectors = dataSet.stream().map(Vectorizable::toFeatureVector)
+                                    .collect(Collectors.toList());
+        return new KnnMixedData(k, featureVectors);
     }
 
     public KnnResult fit(FeatureVector target) {
@@ -35,11 +43,11 @@ public class KnnMixedData {
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
         List<FeatureVector> similarNeighbors = scores.stream()
-                .parallel()
-                .sorted(Comparator.comparingDouble(Tuple::first))
-                .limit(k)
-                .map(Tuple::second)
-                .collect(Collectors.toList());
+                                                     .parallel()
+                                                     .sorted(Comparator.comparingDouble(Tuple::first))
+                                                     .limit(k)
+                                                     .map(Tuple::second)
+                                                     .collect(Collectors.toList());
 
 
         return KnnResult.of(similarNeighbors);
@@ -86,30 +94,34 @@ public class KnnMixedData {
 
         private List<Double> calculateFinalScore(Matrix<Double> numericalScore, Matrix<Double> categoricalScore) {
             return numericalScore.add(categoricalScore, 0.0)
-                    .stream()
-                    .parallel()
-                    .map(score -> score.sum() / (numericalScore.totalColumns() + categoricalScore.totalColumns()))
-                    .collect(Collectors.toList());
+                                 .stream()
+                                 .parallel()
+                                 .map(score -> score.sum() / (numericalScore.totalColumns() + categoricalScore.totalColumns()))
+                                 .collect(Collectors.toList());
 
 
         }
 
         private Matrix<Double> calculateCategoricalScore(List<CategoricalFeature<?>> categorical) {
             return new Matrix<>(categoricalDataSet.stream()
-                    .parallel()
-                    .map(l -> categoricalMatchBetween(l, categorical))
-                    .collect(Collectors.toList()));
+                                                  .parallel()
+                                                  .map(l -> categoricalMatchBetween(l, categorical))
+                                                  .collect(Collectors.toList()));
         }
 
         private Vector<Double> categoricalMatchBetween(List<CategoricalFeature<?>> categorical, List<CategoricalFeature<?>> target) {
             List<CategoricalFeature<?>> filteredCategorical = categorical.stream()
                                                                          .filter(c -> target.stream()
-                                                                                            .anyMatch(t -> t.featureName().equals(c.featureName())))
+                                                                                            .anyMatch(t -> t
+                                                                                                    .featureName()
+                                                                                                    .equals(c.featureName())))
                                                                          .collect(Collectors.toList());
 
             return ListUtils.zip(target, filteredCategorical, CategoricalFeature::matches)
-                    .map(v -> v ? 0.0 : 1.0)
-                    .collect(VectorCollector.toVector());
+                            .map(v -> v
+                                      ? 0.0
+                                      : 1.0)
+                            .collect(VectorCollector.toVector());
         }
 
         private Matrix<Double> calculateNumericalScore(Vector<Double> difference, Vector<Double> numericalTarget) {
