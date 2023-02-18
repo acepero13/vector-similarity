@@ -1,12 +1,14 @@
 package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.testmodels.Gender;
+import com.acepero13.research.profilesimilarity.testmodels.POLITIC;
+import com.acepero13.research.profilesimilarity.testmodels.RACE;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,6 +18,8 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GowerTest {
+
+
 
     @Test
     void calculateDistance() {
@@ -41,7 +45,7 @@ public class GowerTest {
         assertThat(actualAge, closeTo(35.6, 0.1));
 
         CategoricalFeature<?> actualPolitics = result
-                .classify(GowerTest.POLITIC.class);
+                .classify(POLITIC.class);
 
         assertThat(actualPolitics, equalTo(POLITIC.MODERATE));
 
@@ -63,49 +67,4 @@ public class GowerTest {
         }
     }
 
-    private enum RACE implements CategoricalFeature<RACE> {
-        CAUCASIAN, BLACK, ASIAN;
-
-        @Override
-        public RACE originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "race";
-        }
-    }
-
-    private enum Gender implements CategoricalFeature<Gender> {
-        FEMALE, MALE;
-
-        public static Feature<?> from(boolean isMale) {
-            return isMale ? MALE : FEMALE;
-        }
-
-        @Override
-        public Gender originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "gender";
-        }
-    }
-
-    private enum POLITIC implements CategoricalFeature<POLITIC> {
-        MODERATE, LIBERAL, CONSERVATIVE;
-
-        @Override
-        public POLITIC originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "politic";
-        }
-    }
 }

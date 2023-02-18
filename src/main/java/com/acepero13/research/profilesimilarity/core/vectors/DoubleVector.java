@@ -105,7 +105,7 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<Double> another) {
+    public void checkSizeMatchWith(Vector<Double> another) throws VectorException {
         if (size != another.size()) {
             log.warning("Vectors do not match");
             throw new VectorException("Vector length do not match. Vector length is: " + size + " and the other vector's length is: " + another.size());

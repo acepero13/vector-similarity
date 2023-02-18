@@ -55,6 +55,10 @@ public class KnnMixedData {
 
     }
 
+    public KnnResult fit(Vectorizable target) {
+        return fit(target.toFeatureVector());
+    }
+
     private class GowerMetric {
 
 

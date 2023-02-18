@@ -8,13 +8,14 @@ import com.acepero13.research.profilesimilarity.api.features.NumericalFeature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+@Data
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     private final List<CategoricalFeature<?>> categorical;
@@ -79,7 +80,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<AbstractNumericalFeature<Double>> another) {
+    public void checkSizeMatchWith(Vector<AbstractNumericalFeature<Double>> another) throws VectorException {
         vector.checkSizeMatchWith(another.toDouble());
     }
 

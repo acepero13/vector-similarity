@@ -29,15 +29,15 @@ public final class Features {
         };
     }
 
-    public static Feature<Integer> integerFeature(Integer value, String name, double weight) {
+    public static AbstractNumericalFeature<Integer> integerFeature(Integer value, String name, double weight) {
         return new IntegerFeature(value, name, weight);
     }
 
-    public static Feature<Integer> integerFeature(Integer value, String name) {
+    public static AbstractNumericalFeature<Integer> integerFeature(Integer value, String name) {
         return new IntegerFeature(value, name, DEFAULT_WEIGHT);
     }
 
-    public static Feature<Double> doubleFeature(double value, String name) {
+    public static AbstractNumericalFeature<Double> doubleFeature(double value, String name) {
         return new DoubleFeature(value, name, DEFAULT_WEIGHT);
     }
 

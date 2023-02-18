@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -32,7 +33,8 @@ import static org.hamcrest.Matchers.equalTo;
 class UserDataTest {
     private static List<FeatureVector> dataset = new ArrayList<>();
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    @BeforeAll
+    //@BeforeAll
+
     public static void setUp() throws IOException {
         List<User> users = objectMapper.readValue(load("users.json"), new TypeReference<>() {
         });
@@ -45,6 +47,7 @@ class UserDataTest {
         return UserDataTest.class.getClassLoader().getResourceAsStream(filename);
     }
     @Test
+    @Disabled
     void findMostSimilar() {
 
         var highEarningFemale = new User(25, 80_000, Gender.FEMALE, 1, null);

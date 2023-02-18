@@ -62,7 +62,7 @@ public class NormalizedVector implements Vector<Double> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<Double> another) {
+    public void checkSizeMatchWith(Vector<Double> another) throws VectorException {
         vector.checkSizeMatchWith(another);
     }
 

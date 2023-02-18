@@ -31,7 +31,7 @@ public interface Vector<T extends Number> {
 
     Vector<T> subtract(Vector<T> another) throws VectorException;
 
-    void checkSizeMatchWith(Vector<T> another);
+    void checkSizeMatchWith(Vector<T> another) throws VectorException;
 
     Stream<Tuple<Double, Double>> zip(Vector<T> another);
 

@@ -37,6 +37,12 @@ public abstract class AbstractVectorizable implements Vectorizable {
         return this;
     }
 
+    public <T extends CategoricalFeature<?>> AbstractVectorizable  addAsOneHotEncodingFeature(
+           T[] allPossibleElements , List<T> elements) {
+        addAsOneHotEncodingFeature(OneHotEncodingExtractor.oneHotEncodingOf(allPossibleElements), elements);
+        return this;
+    }
+
     @Override
     public Vector<Double> vector() {
         return DoubleVector.ofFeatures(features);
@@ -46,6 +52,7 @@ public abstract class AbstractVectorizable implements Vectorizable {
     public List<Feature<?>> features() {
         return features;
     }
+
 
 
 }
