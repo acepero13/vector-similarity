@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity;
 
+import com.acepero13.research.profilesimilarity.annotations.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import lombok.Data;
@@ -13,7 +14,7 @@ import static com.acepero13.research.profilesimilarity.api.features.Features.int
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-
+@Vectorizable
 public class UserProfile extends AbstractVectorizable {
 
     private final Boolean likesToBuyEcoProducts;
