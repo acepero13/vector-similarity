@@ -31,7 +31,7 @@ public class KnnRegressionTest {
 
         User test = new User("11", 5.5, 38, null);
 
-        Knn classifier = new Knn(3, samples);
+        Knn classifier = Knn.withDefaultNormalizer(3, samples);
 
         var result = classifier.fit(test)
                 .predict(WEIGHT);

@@ -11,7 +11,7 @@ class AbstractNumericalFeatureTest {
     @SuppressWarnings("unchecked")
     void DoubleFeatureIsANumber() {
         //noinspection rawtypes this is just for testing purposes.
-        AbstractNumericalFeature<Integer> integerFeat = (AbstractNumericalFeature) Features.integerFeature(10, "number");
+        AbstractNumericalFeature<Integer> integerFeat = Features.integerFeature(10, "number");
         assertThat(integerFeat.featureName(), equalTo("number"));
         assertThat(integerFeat.featureValue(), closeTo(10.0, 0.1));
         assertThat(integerFeat.weight(), equalTo(1.0));

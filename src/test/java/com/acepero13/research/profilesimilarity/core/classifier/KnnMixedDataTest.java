@@ -2,14 +2,8 @@ package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
-import com.acepero13.research.profilesimilarity.core.OneHotEncodingExtractor;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
-import com.acepero13.research.profilesimilarity.scores.GowersMetric;
-import com.acepero13.research.profilesimilarity.testmodels.Gender;
+import com.acepero13.research.profilesimilarity.scores.Metrics;
 import com.acepero13.research.profilesimilarity.testmodels.HOBBY;
-import com.acepero13.research.profilesimilarity.testmodels.POLITIC;
-import com.acepero13.research.profilesimilarity.testmodels.RACE;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +13,6 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 class KnnMixedDataTest {
     @Test
@@ -32,7 +25,7 @@ class KnnMixedDataTest {
 
         var target = new Person(40, 60_000, new ArrayList<>());
 
-        var knn = KnnMixedData.of(3, List.of(sample1, sample2, sample3, sample4,sample5));
+        var knn = KnnMixedData.ofVectorizable(3, List.of(sample1, sample2, sample3, sample4, sample5));
         var result = knn.fit(target).classifyOneHot(n -> n.contains("hobby_"));
         List<HOBBY> hobbies = result.stream()
                 .filter(HOBBY::isSet)
@@ -44,7 +37,7 @@ class KnnMixedDataTest {
     }
 
     @Test
-    void findMostSimilarProfile(){
+    void findMostSimilarProfile() {
         var sample1 = new Person(30, 30_000, List.of(HOBBY.MUSIC));
         var sample2 = new Person(60, 60_000, List.of(HOBBY.MUSIC, HOBBY.SPORT));
         var sample3 = new Person(45, 60_000, List.of(HOBBY.SPORT, HOBBY.MUSIC));
@@ -53,7 +46,7 @@ class KnnMixedDataTest {
 
         var target = new Person(40, 60_000, new ArrayList<>());
 
-        var classifier = new MostSimilar(GowersMetric.forCosine() , List.of(sample1, sample2, sample3, sample4,sample5));
+        var classifier = MostSimilar.of(Metrics.gowersMetricCosineAndDice(), sample1, sample2, sample3, sample4, sample5);
         var actual = classifier.mostSimilarTo(target);
 
         assertThat(actual, equalTo(sample3));
@@ -68,9 +61,6 @@ class KnnMixedDataTest {
         }
 
 
-        public FeatureVector toFeatureVector() {
-            return new FeatureVector(features());
-        }
     }
 
 }

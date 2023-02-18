@@ -5,7 +5,7 @@ import com.acepero13.research.profilesimilarity.api.MixedSample;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 
 
-public class GowersMetric implements Metric {
+final class GowersMetric implements Metric {
 
     private final Metric numericalMetric;
     private final Metric categoricalMetric;

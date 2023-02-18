@@ -21,8 +21,8 @@ class FeatureVectorTest {
 
     private static final List<Feature<?>> features1 = new ArrayList<>();
     private static final List<Feature<?>> features2 = new ArrayList<>();
-    public static final FeatureVector ONE = new FeatureVector(Collections.singletonList(Features.integerFeature(1, "one")));
-    public static final FeatureVector ZERO = new FeatureVector(Collections.singletonList(Features.doubleFeature(0.0, "zero")));
+    public static final FeatureVector ONE =  FeatureVector.of(Collections.singletonList(Features.integerFeature(1, "one")));
+    public static final FeatureVector ZERO =  FeatureVector.of(Collections.singletonList(Features.doubleFeature(0.0, "zero")));
 
     static {
         features1.add(Features.integerFeature(1, "feat1"));
@@ -39,8 +39,8 @@ class FeatureVectorTest {
         features2.add(Features.integerFeature(50, "feat25"));
         
     }
-    private final FeatureVector vector1 = new FeatureVector(features1);
-    private final FeatureVector vector2 = new FeatureVector(features2);
+    private final FeatureVector vector1 =  FeatureVector.of(features1);
+    private final FeatureVector vector2 =  FeatureVector.of(features2);
 
     @Test
     void multiply() {
@@ -153,7 +153,7 @@ class FeatureVectorTest {
     @Test
     void abs() {
 
-        var abs = new FeatureVector(List.of(f(1), f(-2))).abs().toDouble();
+        var abs =  FeatureVector.of(List.of(f(1), f(-2))).abs().toDouble();
         assertThat(abs, equalTo(DoubleVector.of(1.0, 2.0)));
     }
 

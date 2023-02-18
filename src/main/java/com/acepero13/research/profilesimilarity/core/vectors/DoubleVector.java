@@ -24,12 +24,12 @@ public class DoubleVector implements Vector<Double> {
     private final List<Double> features;
     private final int size;
 
-    public DoubleVector(List<Double> arr) {
+    private DoubleVector(List<Double> arr) {
         this.features = Objects.requireNonNull(arr, "Features cannot be null");
         this.size = features.size();
     }
 
-    public DoubleVector(Double[] arr) {
+    private DoubleVector(Double[] arr) {
         this(List.of(arr));
     }
 

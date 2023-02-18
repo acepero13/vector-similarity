@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 public class UserDataGenerator {
-    private static ObjectMapper objectMapper = new ObjectMapper();
-    ;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) {
         int numUsers = 100;

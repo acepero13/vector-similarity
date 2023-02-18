@@ -15,12 +15,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MatrixTest {
-    public static final Matrix<Double> MISMATCHED_MATRIX = new Matrix<>(List.of(DoubleVector.of(1, 2), DoubleVector.of(2, 5, 8)));
-    private final Matrix<Double> matrix = new Matrix<>(List.of(DoubleVector.of(1, 2, 3), DoubleVector.of(4, 5, 6), DoubleVector.of(7, 8, 9)));
+    public static final Matrix<Double> MISMATCHED_MATRIX = Matrix.of(List.of(DoubleVector.of(1, 2), DoubleVector.of(2, 5, 8)));
+    private final Matrix<Double> matrix = Matrix.of(List.of(DoubleVector.of(1, 2, 3), DoubleVector.of(4, 5, 6), DoubleVector.of(7, 8, 9)));
 
     @Test
     void transposeMatrix() {
-        var expected = new Matrix<>(List.of(DoubleVector.of(1, 4, 7), DoubleVector.of(2, 5, 8), DoubleVector.of(3, 6, 9)));
+        var expected = Matrix.of(List.of(DoubleVector.of(1, 4, 7), DoubleVector.of(2, 5, 8), DoubleVector.of(3, 6, 9)));
         Matrix<Double> result = matrix.transpose();
 
         assertThat(result, equalTo(expected));
@@ -37,7 +37,7 @@ class MatrixTest {
 
     @Test
     void manualNormalization() {
-        Matrix<Double> newMatrix = new Matrix<>(List.of(
+        Matrix<Double> newMatrix = Matrix.of(List.of(
                 DoubleVector.of(10, 20, 1),
                 DoubleVector.of(100, 200, 0),
                 DoubleVector.of(1000, 2000, 1)));

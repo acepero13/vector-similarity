@@ -23,7 +23,11 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     private final Vector<Double> vector;
     private final List<Feature<?>> features;
 
-    public FeatureVector(List<Feature<?>> features) {
+    public static FeatureVector of(List<Feature<?>> features) {
+        return new FeatureVector(features);
+    }
+
+    private FeatureVector(List<Feature<?>> features) {
         this.numerical = features.stream().parallel().filter(f -> f instanceof AbstractNumericalFeature).map(f -> ((AbstractNumericalFeature<?>) f).doubleValue()).collect(Collectors.toList());
         this.categorical = features.stream()
                 .parallel()
@@ -36,7 +40,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     }
 
-    public FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical, List<Feature<?>> features) {
+    private FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical, List<Feature<?>> features) {
         this.vector = vector;
         this.categorical = categorical;
         List<Double> values = new ArrayList<>();

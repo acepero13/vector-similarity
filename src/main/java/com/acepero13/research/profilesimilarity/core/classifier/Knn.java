@@ -26,19 +26,27 @@ public class Knn {
     private List<Tuple<Vectorizable, NormalizedVector>> normalizedDataSet = new ArrayList<>();
 
 
-    public Knn(int k, Vectorizable... data) {
-        this(k, List.of(data));
-    }
-
-    public Knn(int k, List<Vectorizable> data) {
+    private Knn(int k, List<Vectorizable> data) {
         this.k = k;
         this.dataSet = new DataSet(requireNonNull(data));
     }
 
-    public Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
+    private Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
         this.k = k;
         this.dataSet = new DataSet(requireNonNull(data));
         this.normalizer = normalizer;
+    }
+
+    public static Knn of(int k, Normalizer normalizer, List<Vectorizable> data) {
+        return new Knn(k, normalizer, data);
+    }
+
+    public static Knn withDefaultNormalizer(int k, List<Vectorizable> data) {
+        return new Knn(k, data);
+    }
+
+    public static Knn withDefaultNormalizer(int k, Vectorizable... data) {
+        return new Knn(k, List.of(data));
     }
 
 

@@ -19,7 +19,7 @@ class KnnTest {
         var sample4 = new AcidDurability(1, 4, CLASSIFICATION.GOOD);
 
 
-        var classifier = new Knn(3, sample1, sample2, sample3, sample4);
+        var classifier = Knn.withDefaultNormalizer(3, sample1, sample2, sample3, sample4);
 
         var test = new AcidDurability(3, 7);
 

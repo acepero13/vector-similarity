@@ -15,7 +15,7 @@ public interface Vectorizable {
     List<Feature<?>> features();
 
     default FeatureVector toFeatureVector() {
-        return new FeatureVector(features());
+        return FeatureVector.of(features());
     }
 
     default Vector<Double> vector(List<Feature<?>> whiteList) {

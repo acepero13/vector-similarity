@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class FeatureVectorResult implements KnnResult {
+final class FeatureVectorResult implements KnnResult {
     private final List<FeatureVector> vectors;
 
     public FeatureVectorResult(List<FeatureVector> vectors) {

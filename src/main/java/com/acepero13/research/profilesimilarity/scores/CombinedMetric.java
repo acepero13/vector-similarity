@@ -5,7 +5,7 @@ import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 
 import java.util.List;
 
-public class CombinedMetric implements Metric {
+final class CombinedMetric implements Metric {
     private static final List<Metric> METRIC_SCORERS = List.of(new CosineMetric(), new EuclideanDistance());
 
     @Override

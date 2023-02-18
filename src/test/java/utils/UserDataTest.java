@@ -51,7 +51,7 @@ class UserDataTest {
     void findMostSimilar() {
 
         var highEarningFemale = new User(25, 80_000, Gender.FEMALE, 1, null);
-        KnnMixedData knn = new KnnMixedData(3, dataset);
+        KnnMixedData knn = KnnMixedData.of(3, dataset);
         KnnResult result = knn.fit(highEarningFemale.toFeatureVector());
         CategoricalFeature<?> actualBehavior = result
                 .classify(EcoFriendlyBehavior.class);
@@ -126,8 +126,6 @@ class UserDataTest {
         }
 
 
-        public FeatureVector toFeatureVector() {
-            return new FeatureVector(features());
-        }
+        
     }
 }

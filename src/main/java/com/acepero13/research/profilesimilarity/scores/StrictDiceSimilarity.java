@@ -8,7 +8,7 @@ import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
  *
  * @author Alvaro Cepero
  */
-public class StrictDiceSimilarity implements Metric {
+final class StrictDiceSimilarity implements Metric {
     @Override
     public Double similarityScore(NormalizedVector vectorizable, NormalizedVector another) {
         long similar = vectorizable.zip(another)

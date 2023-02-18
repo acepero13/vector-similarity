@@ -27,7 +27,7 @@ public class MNISTReader {
         var train = new MNISTReader(basePath + "train-images.idx3-ubyte", basePath + "train-labels.idx1-ubyte").load();
         var test = new MNISTReader(basePath + "t10k-images.idx3-ubyte", basePath + "t10k-labels.idx1-ubyte").load();
 
-        var knn = new Knn(11, vector -> NormalizedVector.of(vector.divide(255.0)), train);
+        var knn = Knn.of(11, vector -> NormalizedVector.of(vector.divide(255.0)), train);
 
         long correctClassification = test.stream()
                 .parallel()

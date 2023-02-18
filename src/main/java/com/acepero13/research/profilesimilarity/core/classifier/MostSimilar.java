@@ -7,7 +7,7 @@ import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
-import com.acepero13.research.profilesimilarity.scores.CosineMetric;
+import com.acepero13.research.profilesimilarity.scores.Metrics;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 
@@ -27,18 +27,30 @@ public class MostSimilar {
     private final Metric metric;
     private List<Tuple<Vectorizable, NormalizedVector>> normalizedDataSet = new ArrayList<>();
 
-    public MostSimilar(Vectorizable... vectorizables) {
-        this(new CosineMetric(), List.of(vectorizables));
+    private MostSimilar(Vectorizable... vectorizables) {
+        this(Metrics.cosineSimilarity(), List.of(vectorizables));
     }
 
 
-    public MostSimilar(Metric metric, List<Vectorizable> vectorizables) {
+    private MostSimilar(Metric metric, List<Vectorizable> vectorizables) {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
         var featureVector = vectorizables.stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
         this.categoricalDataSet = featureVector.stream().parallel().map(FeatureVector::categorical)
-                                               .collect(Collectors.toList());
+                .collect(Collectors.toList());
         this.metric = metric;
 
+    }
+
+    public static MostSimilar withDefaultMetric(Vectorizable... vectorizables) {
+        return new MostSimilar(vectorizables);
+    }
+
+    public static MostSimilar of(Metric metric, List<Vectorizable> vectorizables) {
+        return new MostSimilar(metric, vectorizables);
+    }
+
+    public static MostSimilar of(Metric metric, Vectorizable... vectorizables) {
+        return new MostSimilar(metric, List.of(vectorizables));
     }
 
     public Vectorizable mostSimilarTo(Vectorizable target) {
@@ -56,9 +68,9 @@ public class MostSimilar {
 
 
         Optional<DataSet.Score> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
-                                                       .map(t -> new NormalizedSample(t, metric))
-                                                       .map(s -> s.score(normalizedTarget, categoricalTarget))
-                                                       .max(Comparator.comparingDouble(DataSet.Score::score));
+                .map(t -> new NormalizedSample(t, metric))
+                .map(s -> s.score(normalizedTarget, categoricalTarget))
+                .max(Comparator.comparingDouble(DataSet.Score::score));
 
 
         return finalResult.map(DataSet.Score::sample).orElseThrow();

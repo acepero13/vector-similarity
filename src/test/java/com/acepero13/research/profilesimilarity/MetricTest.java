@@ -2,7 +2,7 @@ package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
-import com.acepero13.research.profilesimilarity.scores.CosineMetric;
+import com.acepero13.research.profilesimilarity.scores.Metrics;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.closeTo;
 
 class MetricTest {
 
-    final Metric scorer = new CosineMetric();
+    final Metric scorer = Metrics.cosineSimilarity();
 
     @Test
     void usersWithSameProfileHavePerfectScore() {

@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity;
 
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
@@ -28,13 +29,13 @@ public class GowerTest {
         var person3 = new Person(52, RACE.CAUCASIAN, 2, 0.51, true, POLITIC.MODERATE);
         var person4 = new Person(46, RACE.BLACK, 3, 0.63, true, POLITIC.CONSERVATIVE);
 
-        var dataset = List.of(
+        List<FeatureVector> dataset = List.of(
                 person1.toFeatureVector(),
                 person2.toFeatureVector(),
                 person3.toFeatureVector(),
                 person4.toFeatureVector());
 
-        KnnMixedData knn = new KnnMixedData(3, dataset);
+        KnnMixedData knn = KnnMixedData.of(3, dataset);
         KnnResult result = knn.fit(person2.toFeatureVector());
         CategoricalFeature<?> actualRace = result
                 .classify("race");
@@ -62,9 +63,7 @@ public class GowerTest {
         }
 
 
-        public FeatureVector toFeatureVector() {
-            return new FeatureVector(features());
-        }
+
     }
 
 }
