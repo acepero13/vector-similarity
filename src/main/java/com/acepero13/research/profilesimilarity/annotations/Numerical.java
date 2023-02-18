@@ -4,9 +4,11 @@ import java.lang.annotation.*;
 
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.TYPE})
-public @interface CategoricalFeature {
+@Target({ElementType.CONSTRUCTOR, ElementType.FIELD})
+public @interface Numerical {
+
     String name() default "";
 
-    boolean oneHotEncoding() default false;
+    Class<?> type() default Object.class;
+    double weight() default 1.0;
 }

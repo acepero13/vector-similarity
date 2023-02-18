@@ -24,7 +24,7 @@ class VectorizableProxyTest {
 
     @Test
     void createsListOfFeatures() {
-        assertThat(actual.features().size(), equalTo(5));
+        assertThat(actual.features().size(), equalTo(7));
     }
 
     @Test

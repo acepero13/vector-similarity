@@ -1,13 +1,13 @@
 package com.acepero13.research.profilesimilarity.core.proxy;
 
-import com.acepero13.research.profilesimilarity.annotations.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.annotations.Categorical;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoricalFeatureProxyTest {
+class CategoricalProxyTest {
 
     private com.acepero13.research.profilesimilarity.api.features.CategoricalFeature<Object> feat = CategoricalFeatureProxy.of(GENDER.MALE, "gender");
 
@@ -22,7 +22,14 @@ class CategoricalFeatureProxyTest {
     @Test void featureValueThrowsException(){
         assertThrows(UnsupportedOperationException.class,  () -> {feat.featureValue();});
     }
-    @CategoricalFeature(name = "gender")
+    @Test void weight(){
+        assertThat(feat.weight(), equalTo(1.0));
+    }
+
+    @Test void testToString(){
+        assertThat(feat.toString(), equalTo("MALE"));
+    }
+    @Categorical(name = "gender")
     private enum GENDER {
         MALE, FEMALE
     }

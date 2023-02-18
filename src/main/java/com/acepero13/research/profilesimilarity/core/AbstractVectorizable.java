@@ -8,7 +8,6 @@ import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.*;
 
@@ -36,6 +35,8 @@ public abstract class AbstractVectorizable implements Vectorizable {
         this.features.addAll(requireNonNull(oneHotEncodingList));
         return this;
     }
+
+
 
     public <T extends CategoricalFeature<?>> AbstractVectorizable  addAsOneHotEncodingFeature(
            T[] allPossibleElements , List<T> elements) {

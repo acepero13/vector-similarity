@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
 
-class AbstractNumericalFeatureTest {
+class AbstractNumericalTest {
     @Test
     @SuppressWarnings("unchecked")
     void DoubleFeatureIsANumber() {

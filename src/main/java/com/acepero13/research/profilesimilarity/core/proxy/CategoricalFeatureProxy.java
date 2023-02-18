@@ -42,6 +42,9 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 var feats = FeaturesHelper.features(args);
                 return wrapper.isWhiteListed(feats);
 
+            case "toString":
+                return wrapper.toString();
+
         }
         return null;
     }
@@ -50,6 +53,7 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     public String toString() {
         return wrapper.toString();
     }
+
 
     private static class CategoricalWrapper implements CategoricalFeature {
         private final String name;
@@ -68,6 +72,11 @@ public class CategoricalFeatureProxy implements InvocationHandler {
         @Override
         public String featureName() {
             return name;
+        }
+
+        @Override
+        public String toString() {
+            return target.toString();
         }
     }
 }
