@@ -35,7 +35,7 @@ public class MNISTReader {
                 .filter(t -> t.first() == t.second())
                 .count();
 
-        System.out.println("accuracy = " + ((double) correctClassification / test.size()));
+        System.out.println("accuracy = " + (((double) correctClassification / test.size())* 100) + "%");
     }
 
     public MNISTReader(String filePath, String labelFilePath) {
