@@ -9,6 +9,7 @@ import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.OneHotEncodingExtractor;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.exceptions.VectorizableProxyException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -85,7 +86,6 @@ public class VectorizableProxy implements InvocationHandler {
     }
 
 
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
         String methodName = method.getName();
@@ -103,14 +103,14 @@ public class VectorizableProxy implements InvocationHandler {
             case "equals":
                 return objectEquals(args[0]); //TODO: Check type
         }
-        throw new RuntimeException("Error calling undefined method: " + methodName); // TODO: raise proper exception
+        throw new VectorizableProxyException("Error calling undefined method: " + methodName);
     }
 
     public boolean objectEquals(Object o) {
         if (this.target == o) return true;
-        if (o == null ) return false;
+        if (o == null) return false;
 
-        if(isProxyClass(o)) {
+        if (isProxyClass(o)) {
             VectorizableProxy ruleProxy = toVectorizableProxy(o);
             return isEqualToTarget(ruleProxy);
         } else if (o instanceof Vectorizable) {
@@ -125,7 +125,7 @@ public class VectorizableProxy implements InvocationHandler {
     }
 
     private boolean isEqualToTarget(VectorizableProxy another) {
-        if(this.getClass() != another.getClass()) return false;
+        if (this.getClass() != another.getClass()) return false;
         return vectorWrapper.features().equals(another.vectorWrapper.features());
     }
 
@@ -166,8 +166,7 @@ public class VectorizableProxy implements InvocationHandler {
             try {
                 create(field, metadata);
             } catch (IllegalAccessException e) {
-                // TODO: Change this
-                throw new RuntimeException(e);
+                throw new VectorizableProxyException("Error while creating numerical feature: " + annotation.name(), e);
             }
         }
 
@@ -184,7 +183,6 @@ public class VectorizableProxy implements InvocationHandler {
 
         private void addAsOneHotEncoding(Categorical annotation, Field field) {
             // TODO: Refactor this
-            //TODO: Write proper name with prefix
             try {
                 var targetObject = field.get(target);
                 var type = annotation.type();
@@ -207,24 +205,21 @@ public class VectorizableProxy implements InvocationHandler {
                             int a = 0;
                             features.forEach(this::addNonNullFeature);
                         }
-                    }
-                    else if(type.isEnum() ){
-                        // TODO: Add empty case
+                    } else if (type.isEnum()) {
                         // We need to manually specify the type
                         List<CategoricalFeature> allElements = allValuesForOneHot(annotation, type.getEnumConstants());
                         var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
                         var features = extractor.convert(new ArrayList<>());
                         features.forEach(this::addNonNullFeature);
-                    }
-                    else {
-                        throw new RuntimeException("I cannot infer the type of the categorical feature for one-hot-encoding."
+                    } else {
+                        throw new VectorizableProxyException("I cannot infer the type of the categorical feature for one-hot-encoding."
                                 + annotation.name()
-                                + "Please, include the type parameter in the Categorical annotation");// TODO: Throw dedicated
+                                + "Please, include the type parameter in the Categorical annotation");
                     }
                 }
 
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e); // TODO: change this
+                throw new VectorizableProxyException("Error while creating one-hot-encoding: " + annotation.name(), e);
             }
         }
 
@@ -236,7 +231,7 @@ public class VectorizableProxy implements InvocationHandler {
                 var feature = CategoricalFeatureProxy.of(targetObject, metadata.name);
                 addNonNullFeature(feature);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e); // TODO: change this
+                throw new VectorizableProxyException("Error while creating categorical feature: " + metadata.name, e);
             }
         }
 
