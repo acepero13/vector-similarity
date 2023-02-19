@@ -19,14 +19,18 @@ public class User {
     @Categorical(name = "study")
     private final STUDY study;
     @Categorical(name = "hobbies", oneHotEncoding = true)
-    private final List<HOBBY> hobbies;
+    private final List<NEW_HOBBIES> hobbies;
 
     public static User defaultUser() {
-        return new User(35, 70_000, 174, STUDY.MASTER, List.of(HOBBY.MUSIC, HOBBY.SPORT));
+        return new User(35, 70_000, 174, STUDY.MASTER, List.of(NEW_HOBBIES.MUSIC, NEW_HOBBIES.SPORT));
     }
 
     private enum STUDY {
         BACHELOR, MASTER, PHD
+    }
+
+    private enum NEW_HOBBIES {
+        READ, SPORT, MUSIC;
     }
 
 }

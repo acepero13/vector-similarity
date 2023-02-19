@@ -25,7 +25,7 @@ import static java.util.Objects.requireNonNull;
 
 public class VectorizableProxy implements InvocationHandler {
     private final Object target;
-    private VectorizableProxyWrapper vectorWrapper;
+    private final VectorizableProxyWrapper vectorWrapper;
     private String name;
 
     public VectorizableProxy(Object target) {
@@ -132,19 +132,27 @@ public class VectorizableProxy implements InvocationHandler {
 
         private void addAsOneHotEncoding(Categorical annotation, Field field) {
             // TODO: Refactor this
+            //TODO: Write proper name with prefix
             try {
                 var targetObject = field.get(target);
 
                 if (targetObject instanceof List) {
-                    List<?> values = new ArrayList<>(((List<?>) targetObject));
-                    if (!values.isEmpty()) {
-                        var firstItem = values.get(0);
+
+                    List<?> originalValues = new ArrayList<>(((List<?>) targetObject));
+
+                    List<?> values = new ArrayList<>(((List<?>) targetObject)).stream()
+                            .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
+                            .collect(Collectors.toList());
+                    if (!values.isEmpty() && !originalValues.isEmpty()) {
+                        var firstItem = originalValues.get(0);
                         if (firstItem instanceof Enum) {
                             var allElements = Arrays.stream(firstItem.getClass().getEnumConstants())
                                     .filter(Objects::nonNull)
-                                    .filter(CategoricalFeature.class::isInstance)
+                                    .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
                                     .map(CategoricalFeature.class::cast)
                                     .collect(Collectors.toList());
+
+
 
                             var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
                             var features = extractor.convert((List<CategoricalFeature>) values);

@@ -44,6 +44,14 @@ public class CategoricalFeatureProxy implements InvocationHandler {
 
             case "toString":
                 return wrapper.toString();
+            case "hashCode":
+                return wrapper.hashCode();
+            case "equals":
+                // TODO: Check type
+                return wrapper.equals(args[0]);
+            case "matches":
+                // TODO: Check type
+                return wrapper.matches((CategoricalFeature<?>) args[0]);
 
         }
         return null;
