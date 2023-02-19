@@ -8,5 +8,7 @@ import java.lang.annotation.*;
 public @interface Categorical {
     String name() default "";
 
+    Class<?> type() default Object.class;
+
     boolean oneHotEncoding() default false;
 }

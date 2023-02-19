@@ -5,6 +5,7 @@ import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
@@ -52,6 +53,11 @@ public class KnnMixedData {
 
 
 
+    public static <T> KnnMixedData ofObjects(int k, List<T> dataset) {
+        return of(k, VectorizableProxy.ofFeatureVector(dataset));
+    }
+
+
     public KnnResult fit(FeatureVector target) {
         var metric = new GowerMetric();
 
@@ -65,12 +71,14 @@ public class KnnMixedData {
 
 
         return KnnResult.of(similarNeighbors);
-
-
     }
 
     public KnnResult fit(Vectorizable target) {
         return fit(target.toFeatureVector());
+    }
+
+    public KnnResult fit(Object target) {
+        return fit(VectorizableProxy.of(target));
     }
 
     private class GowerMetric {
@@ -82,7 +90,6 @@ public class KnnMixedData {
             this.matrix = Matrix.of(numericalDataSet);
         }
 
-        // TODO: Refactor this
         public List<Tuple<Double, FeatureVector>> calculate(FeatureVector target) {
             MinMaxVector minMaxVector = MinMaxVector.of(matrix);
             Vector<Double> difference = minMaxVector.difference();

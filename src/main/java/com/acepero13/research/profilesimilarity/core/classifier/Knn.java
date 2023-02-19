@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
@@ -50,6 +51,16 @@ public class Knn {
     }
 
 
+
+    public static <T> Knn ofObjectsWithDefaultNormalizer(int k, List<T> data) {
+        return new Knn(k, VectorizableProxy.of(data));
+    }
+
+    public static <T> Knn ofObjects(int k, Normalizer normalizer, List<T> data) {
+        return new Knn(k, normalizer, VectorizableProxy.of(data));
+    }
+
+
     private static Comparator<DataSet.Score> ascendingScore() {
         return Comparator.comparingDouble(DataSet.Score::score);
     }
@@ -59,6 +70,10 @@ public class Knn {
         logInitialInformation();
         NormalizedVector normalizedTarget = normalize(target);
         return classify(normalizedTarget);
+    }
+
+    public KnnResult fit(Object target) {
+        return fit(VectorizableProxy.of(target));
     }
 
     private void logInitialInformation() {

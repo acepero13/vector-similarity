@@ -8,8 +8,11 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.OneHotEncodingExtractor;
+import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -31,6 +34,13 @@ public class VectorizableProxy implements InvocationHandler {
     public VectorizableProxy(Object target) {
         this.target = target;
         this.vectorWrapper = Objects.requireNonNull(from(target));
+    }
+
+    public static <T> List<FeatureVector> ofFeatureVector(List<T> objects) {
+        return objects.stream()
+                .map(VectorizableProxy::of)
+                .map(Vectorizable::toFeatureVector)
+                .collect(Collectors.toList());
     }
 
     private VectorizableProxyWrapper from(Object target) {
@@ -68,6 +78,14 @@ public class VectorizableProxy implements InvocationHandler {
         );
     }
 
+    public static <T> List<Vectorizable> of(List<T> objects) {
+        return objects.stream()
+                .map(VectorizableProxy::of)
+                .collect(Collectors.toList());
+    }
+
+
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
         String methodName = method.getName();
@@ -80,9 +98,45 @@ public class VectorizableProxy implements InvocationHandler {
                 return executeVector(args);
             case "numericalFeatures":
                 return vectorWrapper.numericalFeatures();
+            case "toString":
+                return vectorWrapper.toString();
+            case "equals":
+                return objectEquals(args[0]); //TODO: Check type
         }
-        throw new RuntimeException(); // TODO: raise proper exception
+        throw new RuntimeException("Error calling undefined method: " + methodName); // TODO: raise proper exception
     }
+
+    public boolean objectEquals(Object o) {
+        if (this.target == o) return true;
+        if (o == null ) return false;
+
+        if(isProxyClass(o)) {
+            VectorizableProxy ruleProxy = toVectorizableProxy(o);
+            return isEqualToTarget(ruleProxy);
+        } else if (o instanceof Vectorizable) {
+            return equalToRealVectorizable((Vectorizable) o);
+        }
+        return false;
+    }
+
+
+    private boolean equalToRealVectorizable(Vectorizable another) {
+        return another.features().equals(vectorWrapper.features());
+    }
+
+    private boolean isEqualToTarget(VectorizableProxy another) {
+        if(this.getClass() != another.getClass()) return false;
+        return vectorWrapper.features().equals(another.vectorWrapper.features());
+    }
+
+    private static VectorizableProxy toVectorizableProxy(Object another) {
+        return (VectorizableProxy) Proxy.getInvocationHandler(another);
+    }
+
+    private static boolean isProxyClass(Object anotherRule) {
+        return Proxy.isProxyClass(anotherRule.getClass());
+    }
+
 
     private Vector<Double> executeVector(Object[] args) {
         if (args == null) {
@@ -92,11 +146,9 @@ public class VectorizableProxy implements InvocationHandler {
         }
     }
 
-    public String objectToString() {
-        return "Vectorizable { name = " + vectorWrapper.toString() + "}";
-    }
 
-
+    @ToString
+    @EqualsAndHashCode(callSuper = false)
     private static class VectorizableProxyWrapper extends AbstractVectorizable {
 
         private final Object target;
@@ -135,6 +187,7 @@ public class VectorizableProxy implements InvocationHandler {
             //TODO: Write proper name with prefix
             try {
                 var targetObject = field.get(target);
+                var type = annotation.type();
 
                 if (targetObject instanceof List) {
 
@@ -146,12 +199,7 @@ public class VectorizableProxy implements InvocationHandler {
                     if (!values.isEmpty() && !originalValues.isEmpty()) {
                         var firstItem = originalValues.get(0);
                         if (firstItem instanceof Enum) {
-                            var allElements = Arrays.stream(firstItem.getClass().getEnumConstants())
-                                    .filter(Objects::nonNull)
-                                    .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
-                                    .map(CategoricalFeature.class::cast)
-                                    .collect(Collectors.toList());
-
+                            List<CategoricalFeature> allElements = allValuesForOneHot(annotation, firstItem.getClass().getEnumConstants());
 
 
                             var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
@@ -159,6 +207,19 @@ public class VectorizableProxy implements InvocationHandler {
                             int a = 0;
                             features.forEach(this::addNonNullFeature);
                         }
+                    }
+                    else if(type.isEnum() ){
+                        // TODO: Add empty case
+                        // We need to manually specify the type
+                        List<CategoricalFeature> allElements = allValuesForOneHot(annotation, type.getEnumConstants());
+                        var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
+                        var features = extractor.convert(new ArrayList<>());
+                        features.forEach(this::addNonNullFeature);
+                    }
+                    else {
+                        throw new RuntimeException("I cannot infer the type of the categorical feature for one-hot-encoding."
+                                + annotation.name()
+                                + "Please, include the type parameter in the Categorical annotation");// TODO: Throw dedicated
                     }
                 }
 
@@ -183,15 +244,23 @@ public class VectorizableProxy implements InvocationHandler {
             Class<?> fieldType = field.getType();
             field.setAccessible(true);
             if (fieldType.equals(Integer.class) || fieldType.equals(int.class)) {
-                addNonNullFeature(Features.integerFeature(field.getInt(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.integerFeature((Integer) field.get(target), metadata.name, metadata.weight));
             } else if (fieldType.equals(Double.class) || fieldType.equals(double.class)) {
-                addNonNullFeature(Features.doubleFeature(field.getDouble(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.doubleFeature((Double) field.get(target), metadata.name, metadata.weight));
             } else if (fieldType.equals(Boolean.class) || fieldType.equals(boolean.class)) {
-                addNonNullFeature(Features.booleanFeature(field.getBoolean(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.booleanFeature((Boolean) field.get(target), metadata.name, metadata.weight));
             }
         }
 
 
+    }
+
+    private static List<CategoricalFeature> allValuesForOneHot(Categorical annotation, Object[] constants) {
+        return Arrays.stream(constants)
+                .filter(Objects::nonNull)
+                .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
+                .map(CategoricalFeature.class::cast)
+                .collect(Collectors.toList());
     }
 
     @Data

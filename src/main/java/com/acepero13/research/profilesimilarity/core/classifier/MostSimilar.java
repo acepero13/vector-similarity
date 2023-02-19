@@ -5,6 +5,7 @@ import com.acepero13.research.profilesimilarity.api.MixedSample;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.scores.Metrics;
@@ -45,6 +46,11 @@ public class MostSimilar {
         return new MostSimilar(vectorizables);
     }
 
+    public static MostSimilar withDefaultMetric(Object... vectorizables) {
+        return new MostSimilar(Metrics.cosineSimilarity(), VectorizableProxy.of(List.of(vectorizables)));
+    }
+
+
     public static MostSimilar of(Metric metric, List<Vectorizable> vectorizables) {
         return new MostSimilar(metric, vectorizables);
     }
@@ -52,6 +58,11 @@ public class MostSimilar {
     public static MostSimilar of(Metric metric, Vectorizable... vectorizables) {
         return new MostSimilar(metric, List.of(vectorizables));
     }
+
+    public static <T> MostSimilar ofObjects(Metric metric, List<T> vectorizables) {
+        return new MostSimilar(metric, VectorizableProxy.of(vectorizables));
+    }
+
 
     public Vectorizable mostSimilarTo(Vectorizable target) {
         requireNonNull(target);
@@ -77,6 +88,9 @@ public class MostSimilar {
 
     }
 
+    public Vectorizable mostSimilarTo(Object target) {
+        return mostSimilarTo(VectorizableProxy.of(target));
+    }
 
     private static class NormalizedSample {
         private final Tuple<Vectorizable, NormalizedVector> vector;

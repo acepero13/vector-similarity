@@ -45,7 +45,9 @@ public final class Features {
         return new DoubleFeature(value, name, weight);
     }
 
-
+    public static AbstractNumericalFeature<Double> doubleFeature(Double value, String name, double weight) {
+        return new DoubleFeature(value, name, weight);
+    }
     private static class DoubleFeature extends AbstractNumericalFeature<Double> {
 
 

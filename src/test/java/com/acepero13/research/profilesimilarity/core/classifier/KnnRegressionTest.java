@@ -1,8 +1,10 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
+import com.acepero13.research.profilesimilarity.annotations.Numerical;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -38,6 +40,45 @@ public class KnnRegressionTest {
 
         assertThat(result, closeTo(57.666666666666664, 0.01));
 
+    }
+
+    @Test
+    void knnRegressionUsingAnnotation() {
+        List<AnnotatedUser> samples = List.of(
+                new AnnotatedUser("1", 5.0, 45, 77),
+                new AnnotatedUser("2", 5.11, 26, 47),
+                new AnnotatedUser("3", 5.6, 30, 55),
+                new AnnotatedUser("4", 5.9, 34, 59),
+                new AnnotatedUser("5", 4.8, 40, 72),
+                new AnnotatedUser("6", 5.8, 36, 60),
+                new AnnotatedUser("7", 5.3, 19, 40),
+                new AnnotatedUser("8", 5.8, 28, 60),
+                new AnnotatedUser("9", 5.5, 23, 45),
+                new AnnotatedUser("10", 5.6, 32, 58)
+        );
+
+        AnnotatedUser test = new AnnotatedUser("11", 5.5, 38, null);
+
+        Knn classifier = Knn.ofObjectsWithDefaultNormalizer(3, samples);
+
+        var result = classifier.fit(test)
+                .predict(WEIGHT);
+
+        assertThat(result, closeTo(57.666666666666664, 0.01));
+
+    }
+
+    @Data
+    @com.acepero13.research.profilesimilarity.annotations.Vectorizable
+    private static class AnnotatedUser {
+
+        private final String id;
+        @Numerical
+        private final Double height;
+        @Numerical
+        private final int age;
+        @Numerical
+        private final Integer weight;
     }
 
     @SuppressWarnings("FieldCanBeLocal")
