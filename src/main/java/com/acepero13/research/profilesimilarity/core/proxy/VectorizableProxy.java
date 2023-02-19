@@ -101,7 +101,8 @@ public class VectorizableProxy implements InvocationHandler {
             case "toString":
                 return vectorWrapper.toString();
             case "equals":
-                return objectEquals(args[0]); //TODO: Check type
+                FeaturesHelper.checkArguments(args, 1, FeaturesHelper.oneOf(Vectorizable.class, VectorizableProxy.class));
+                return objectEquals(args[0]);
         }
         throw new VectorizableProxyException("Error calling undefined method: " + methodName);
     }

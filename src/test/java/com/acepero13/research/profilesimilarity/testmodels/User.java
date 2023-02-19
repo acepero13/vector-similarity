@@ -25,12 +25,11 @@ public class User {
         return new User(35, 70_000, 174, STUDY.MASTER, List.of(NEW_HOBBIES.MUSIC, NEW_HOBBIES.SPORT));
     }
 
-    // TODO: Add Categorical Annotation here
     private enum STUDY {
         BACHELOR, MASTER, PHD
     }
 
-    // TODO: Add Categorical Annotation here
+    // TODO: Add Categorical Annotation here??
     private enum NEW_HOBBIES {
         READ, SPORT, MUSIC;
     }

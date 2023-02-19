@@ -1,6 +1,8 @@
 package com.acepero13.research.profilesimilarity.core.proxy;
 
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.utils.ListUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -40,17 +42,17 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 return wrapper.featureValue();
             case "isWhiteListed":
                 var feats = FeaturesHelper.features(args);
+                FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(ListUtils.class));
                 return wrapper.isWhiteListed(feats);
-
             case "toString":
                 return wrapper.toString();
             case "hashCode":
                 return wrapper.hashCode();
             case "equals":
-                // TODO: Check type
+                FeaturesHelper.checkArguments(args, 1, FeaturesHelper.oneOf(CategoricalFeatureProxy.class, CategoricalFeature.class));
                 return wrapper.equals(args[0]);
             case "matches":
-                // TODO: Check type
+                FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
                 return wrapper.matches((CategoricalFeature<?>) args[0]);
 
         }
