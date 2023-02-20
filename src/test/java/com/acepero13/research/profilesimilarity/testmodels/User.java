@@ -31,7 +31,7 @@ public class User {
 
     // TODO: Add Categorical Annotation here??
     private enum NEW_HOBBIES {
-        READ, SPORT, MUSIC;
+        READ, SPORT, MUSIC
     }
 
 }

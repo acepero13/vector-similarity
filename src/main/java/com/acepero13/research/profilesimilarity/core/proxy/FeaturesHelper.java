@@ -23,7 +23,7 @@ final class FeaturesHelper {
         if (args.length != 1) {
             throw new IllegalArgumentException("Expected one argument" + Arrays.toString(args));
         }
-        List<Feature<?>> feats = (List<Feature<?>>) Optional.ofNullable(args[0])
+        return (List<Feature<?>>) Optional.ofNullable(args[0])
                 .filter(List.class::isInstance)
                 .map(List.class::cast)
                 .filter(l -> l.stream().allMatch(f -> f instanceof Feature))
@@ -31,7 +31,6 @@ final class FeaturesHelper {
                 .stream()
                 .map(Feature.class::cast)
                 .collect(Collectors.toList());
-        return feats;
     }
 
     public static boolean checkArguments(Object[] arguments,

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoricalProxyTest {
 
-    private com.acepero13.research.profilesimilarity.api.features.CategoricalFeature<Object> feat = CategoricalFeatureProxy.of(GENDER.MALE, "gender");
+    private final com.acepero13.research.profilesimilarity.api.features.CategoricalFeature<Object> feat = CategoricalFeatureProxy.of(GENDER.MALE, "gender");
 
     @Test void value(){
         assertThat(feat.originalValue(), equalTo(GENDER.MALE));

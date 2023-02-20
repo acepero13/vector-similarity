@@ -158,12 +158,15 @@ public class VectorizableProxy implements InvocationHandler {
             this.target = target;
         }
 
-        //TODO: Refactor all these adds
         public void addNumerical(Tuple<Field, Numerical> tuple) {
             Numerical annotation = tuple.second();
             Field field = tuple.first();
 
             var metadata = MetaData.of(annotation, field);
+            tryToAddNumericalFeature(annotation, field, metadata);
+        }
+
+        private void tryToAddNumericalFeature(Numerical annotation, Field field, MetaData metadata) {
             try {
                 create(field, metadata);
             } catch (IllegalAccessException e) {
@@ -175,6 +178,10 @@ public class VectorizableProxy implements InvocationHandler {
             Categorical annotation = tuple.second();
             Field field = tuple.first();
             field.setAccessible(true);
+            tryToAddCategoricalFeature(annotation, field);
+        }
+
+        private void tryToAddCategoricalFeature(Categorical annotation, Field field) {
             if (annotation.oneHotEncoding()) {
                 addAsOneHotEncoding(annotation, field);
             } else {
@@ -186,38 +193,49 @@ public class VectorizableProxy implements InvocationHandler {
             // TODO: Refactor this
             try {
                 var targetObject = field.get(target);
+                var oneHotField = new OneHotEncodingFieldExtractor(targetObject, annotation);
+                oneHotField.extract();
+            } catch (IllegalAccessException e) {
+                throw new VectorizableProxyException("Error while creating one-hot-encoding: " + annotation.name(), e);
+            }
+
+            try {
+                var targetObject = field.get(target);
                 var type = annotation.type();
 
-                if (targetObject instanceof List) {
-
-                    List<?> originalValues = new ArrayList<>(((List<?>) targetObject));
-
-                    List<?> values = new ArrayList<>(((List<?>) targetObject)).stream()
-                            .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
-                            .collect(Collectors.toList());
-                    if (!values.isEmpty() && !originalValues.isEmpty()) {
-                        var firstItem = originalValues.get(0);
-                        if (firstItem instanceof Enum) {
-                            List<CategoricalFeature> allElements = allValuesForOneHot(annotation, firstItem.getClass().getEnumConstants());
-
-
-                            var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
-                            var features = extractor.convert((List<CategoricalFeature>) values);
-                            int a = 0;
-                            features.forEach(this::addNonNullFeature);
-                        }
-                    } else if (type.isEnum()) {
-                        // We need to manually specify the type
-                        List<CategoricalFeature> allElements = allValuesForOneHot(annotation, type.getEnumConstants());
-                        var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
-                        var features = extractor.convert(new ArrayList<>());
-                        features.forEach(this::addNonNullFeature);
-                    } else {
-                        throw new VectorizableProxyException("I cannot infer the type of the categorical feature for one-hot-encoding."
-                                + annotation.name()
-                                + "Please, include the type parameter in the Categorical annotation");
-                    }
+                if (!(targetObject instanceof List)) {
+                    throw new VectorizableProxyException("Expecting list argument for one-hot-encoding, but got" + targetObject.toString());
                 }
+
+
+                List<?> originalValues = new ArrayList<>(((List<?>) targetObject));
+
+                List<?> values = new ArrayList<>(((List<?>) targetObject)).stream()
+                        .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
+                        .collect(Collectors.toList());
+
+                if (!values.isEmpty() && !originalValues.isEmpty()) {
+                    var firstItem = originalValues.get(0);
+                    if (firstItem instanceof Enum) {
+                        List<CategoricalFeature> allElements = allValuesForOneHot(annotation, firstItem.getClass().getEnumConstants());
+
+
+                        var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
+                        var features = extractor.convert((List<CategoricalFeature>) values);
+                        features.forEach(this::addNonNullFeature);
+                    }
+                } else if (type.isEnum()) {
+                    // We need to manually specify the type
+                    List<CategoricalFeature> allElements = allValuesForOneHot(annotation, type.getEnumConstants());
+                    var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
+                    var features = extractor.convert(new ArrayList<>());
+                    features.forEach(this::addNonNullFeature);
+                } else {
+                    throw new VectorizableProxyException("I cannot infer the type of the categorical feature for one-hot-encoding."
+                            + annotation.name()
+                            + "Please, include the type parameter in the Categorical annotation");
+                }
+
 
             } catch (IllegalAccessException e) {
                 throw new VectorizableProxyException("Error while creating one-hot-encoding: " + annotation.name(), e);
@@ -259,6 +277,43 @@ public class VectorizableProxy implements InvocationHandler {
                 .collect(Collectors.toList());
     }
 
+    @Data
+    private static class OneHotEncodingFieldExtractor{
+        private final Object targetObject;
+        private final Class<?> type;
+        private final Categorical annotation;
+        private final List<?> originalValues;
+
+        private OneHotEncodingFieldExtractor(Object targetObject, Categorical annotation){
+            this.targetObject = targetObject;
+            this.type = annotation.type();
+            this.annotation = annotation;
+            checkTargetObjectHasCorrectType();
+            this.originalValues = new ArrayList<>(((List<?>) targetObject));
+        }
+
+        public void extract() throws VectorizableProxyException{
+            List<CategoricalFeature<Object>> values = extractCategoricalValues();
+            if(isListWithValuesFilled(values)){
+
+            }
+        }
+
+        private boolean isListWithValuesFilled(List<CategoricalFeature<Object>> values ){
+            return (!values.isEmpty() && !originalValues.isEmpty()) ;
+        }
+
+        private void checkTargetObjectHasCorrectType() {
+            if (!(targetObject instanceof List)) {
+                throw new VectorizableProxyException("Expecting list argument for one-hot-encoding, but got" + targetObject.toString());
+            }
+        }
+        private List<CategoricalFeature<Object>> extractCategoricalValues(){
+            return new ArrayList<>(((List<?>) targetObject)).stream()
+                    .map(c -> CategoricalFeatureProxy.of(c, annotation.name()))
+                    .collect(Collectors.toList());
+        }
+    }
     @Data
     private static class MetaData {
         private final String name;
