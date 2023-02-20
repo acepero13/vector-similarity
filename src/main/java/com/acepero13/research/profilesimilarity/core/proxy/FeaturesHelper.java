@@ -1,6 +1,5 @@
 package com.acepero13.research.profilesimilarity.core.proxy;
 
-import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.exceptions.ArgumentException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -37,7 +36,7 @@ final class FeaturesHelper {
                                          int expectedNumberOfArguments,
                                          Predicate<Tuple<Integer, ? extends Class<?>>> predicate
     ) throws ArgumentException {
-        if(arguments.length != expectedNumberOfArguments) {
+        if (arguments.length != expectedNumberOfArguments) {
             throw new ArgumentException("Expected number of arguments: <" + expectedNumberOfArguments + ">. But got: <" + arguments.length + ">");
         }
 
@@ -54,7 +53,7 @@ final class FeaturesHelper {
         return predicate.test(arguments[0].getClass());
     }
 
-    public static Predicate<Tuple<Integer, ? extends Class<?>>> oneOf(Class<?> ...expected) {
+    public static Predicate<Tuple<Integer, ? extends Class<?>>> oneOf(Class<?>... expected) {
         return tuple -> Stream.of(expected).anyMatch(c -> c.equals(tuple.second()));
     }
 

@@ -46,5 +46,17 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
     }
 
 
+    public List<Feature<?>> convertCategoricalFeature(List<CategoricalFeature<Object>> elements) {
+        List<Feature<?>> oneHotVectorList = new ArrayList<>();
+
+        for (T element : featureNames) {
+            if (elements.stream().anyMatch(e -> e.matches(element))) {
+                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)) );
+            } else {
+                oneHotVectorList.add(Features.categoricalBoolean(false, getName(element)));
+            }
+        }
+        return oneHotVectorList;
+    }
 }
 
