@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.scores;
 
 import com.acepero13.research.profilesimilarity.api.Metric;
-import com.acepero13.research.profilesimilarity.api.MixedSample;
+import com.acepero13.research.profilesimilarity.core.MixedSample;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 
 

@@ -57,7 +57,6 @@ public class VectorizableProxy implements InvocationHandler {
             wrapper = new VectorizableProxyWrapper(target);
             addNumericalFeatures(target, wrapper);
             addCategoricalFeatures(target, wrapper);
-
         } else {
             wrapper = new VectorizableProxyWrapper(target);
         }

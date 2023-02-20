@@ -8,6 +8,7 @@ import com.acepero13.research.profilesimilarity.api.features.NumericalFeature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import java.util.stream.Stream;
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     private final List<CategoricalFeature<?>> categorical;
-    private final List<Double> numerical;
     private final Vector<Double> vector;
     private final List<Feature<?>> features;
 
@@ -28,13 +28,16 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     }
 
     private FeatureVector(List<Feature<?>> features) {
-        this.numerical = features.stream().parallel().filter(f -> f instanceof AbstractNumericalFeature).map(f -> ((AbstractNumericalFeature<?>) f).doubleValue()).collect(Collectors.toList());
+
         this.categorical = features.stream()
                 .parallel()
                 .filter(CategoricalFeature.class::isInstance)
                 .map(f -> (CategoricalFeature<?>) f)
                 .collect(Collectors.toList());
-        this.vector = DoubleVector.of(numerical);
+        this.vector = features.stream().parallel()
+                .filter(f -> f instanceof AbstractNumericalFeature)
+                .map(f -> ((AbstractNumericalFeature<?>) f).doubleValue())
+                .collect(VectorCollector.toVector());
         this.features = features;
 
 
@@ -43,11 +46,6 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     private FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical, List<Feature<?>> features) {
         this.vector = vector;
         this.categorical = categorical;
-        List<Double> values = new ArrayList<>();
-        for (int i = 0; i < vector.size(); i++) {
-            values.add(vector.getFeature(i));
-        }
-        this.numerical = values;
         this.features = features;
 
     }
@@ -105,7 +103,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     @Override
     public int size() {
-        return this.categorical.size() + this.numerical.size();
+        return this.categorical.size() + this.vector.size();
     }
 
     @Override
