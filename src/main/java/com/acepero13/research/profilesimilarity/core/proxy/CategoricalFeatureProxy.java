@@ -2,6 +2,7 @@ package com.acepero13.research.profilesimilarity.core.proxy;
 
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.exceptions.VectorizableProxyException;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 
 import java.lang.reflect.InvocationHandler;
@@ -53,15 +54,47 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 return wrapper.equals(args[0]);
             case "matches":
                 FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
-                return wrapper.matches((CategoricalFeature<?>) args[0]);
+                return objectEquals(args[0]);
 
         }
-        return null;
+        throw new VectorizableProxyException("Error calling undefined method: " + methodName);
     }
 
     @Override
     public String toString() {
         return wrapper.toString();
+    }
+
+
+    public boolean objectEquals(Object o) {
+        if (this.wrapper == o) return true;
+        if (o == null) return false;
+
+        if (isProxyClass(o)) {
+            CategoricalFeatureProxy proxy = toProxy(o);
+            return isEqualToTarget(proxy);
+        } else if (o instanceof CategoricalFeature) {
+            return equalToRealTarget((CategoricalFeature) o);
+        }
+        return false;
+    }
+
+
+    private boolean equalToRealTarget(CategoricalFeature another) {
+        return wrapper.originalValue().equals(another.originalValue());
+    }
+
+    private boolean isEqualToTarget(CategoricalFeatureProxy another) {
+        if (this.getClass() != another.getClass()) return false;
+        return wrapper.originalValue().equals(another.wrapper.originalValue());
+    }
+
+    private static CategoricalFeatureProxy toProxy(Object another) {
+        return (CategoricalFeatureProxy) Proxy.getInvocationHandler(another);
+    }
+
+    private static boolean isProxyClass(Object anotherRule) {
+        return Proxy.isProxyClass(anotherRule.getClass());
     }
 
 
