@@ -37,7 +37,7 @@ public class MostSimilar {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
         var featureVector = vectorizables.stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
         this.categoricalDataSet = featureVector.stream().parallel().map(FeatureVector::categorical)
-                .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
         this.metric = metric;
 
     }
@@ -79,9 +79,9 @@ public class MostSimilar {
 
 
         Optional<DataSet.Score> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
-                .map(t -> new NormalizedSample(t, metric))
-                .map(s -> s.score(normalizedTarget, categoricalTarget))
-                .max(Comparator.comparingDouble(DataSet.Score::score));
+                                                       .map(t -> new NormalizedSample(t, metric))
+                                                       .map(s -> s.score(normalizedTarget, categoricalTarget))
+                                                       .max(Comparator.comparingDouble(DataSet.Score::score));
 
 
         return finalResult.map(DataSet.Score::sample).orElseThrow();
@@ -90,6 +90,12 @@ public class MostSimilar {
 
     public Vectorizable mostSimilarTo(Object target) {
         return mostSimilarTo(VectorizableProxy.of(target));
+    }
+
+    public <T> Optional<T> mostSimilarTo(Object target, Class<T> type) {
+        Vectorizable result = mostSimilarTo(VectorizableProxy.of(target));
+        return VectorizableProxy.targetOf(result, type);
+
     }
 
     private static class NormalizedSample {

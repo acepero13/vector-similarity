@@ -5,6 +5,7 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.TYPE})
+// TODO: Add list of possible values
 public @interface Categorical {
     String name() default "";
 
