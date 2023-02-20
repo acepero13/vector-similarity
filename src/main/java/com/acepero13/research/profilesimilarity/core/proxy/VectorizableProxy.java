@@ -19,10 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -42,6 +39,20 @@ public class VectorizableProxy implements InvocationHandler {
                 .map(VectorizableProxy::of)
                 .map(Vectorizable::toFeatureVector)
                 .collect(Collectors.toList());
+    }
+
+
+
+
+
+    public static <T> Optional<T> targetOf(Vectorizable result, Class<T> type) {
+        if(!isProxyClass(result)) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(toVectorizableProxy(result).target)
+                .filter(type::isInstance)
+                .map(type::cast);
+
     }
 
     private VectorizableProxyWrapper from(Object target) {
