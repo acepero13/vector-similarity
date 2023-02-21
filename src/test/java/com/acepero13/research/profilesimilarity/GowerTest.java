@@ -1,6 +1,5 @@
 package com.acepero13.research.profilesimilarity;
 
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;

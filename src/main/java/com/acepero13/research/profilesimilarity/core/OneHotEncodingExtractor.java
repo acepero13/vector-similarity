@@ -1,8 +1,10 @@
 package com.acepero13.research.profilesimilarity.core;
 
+import com.acepero13.research.profilesimilarity.annotations.Categorical;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
+import com.acepero13.research.profilesimilarity.core.proxy.CategoricalFeatureProxy;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -24,8 +26,22 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
 
     }
 
+    @SafeVarargs
     public static <T extends CategoricalFeature<?>> OneHotEncodingExtractor<T> oneHotEncodingOf(T... values) {
         return oneHotEncodingOf(List.of(values));
+    }
+
+    public static List<CategoricalFeature<?>> allValuesForOneHot(Categorical annotation, Object[] constants) {
+
+        List<CategoricalFeature<?>> features = new ArrayList<>();
+        for (Object value : constants) {
+            if (value == null) {
+                continue;
+            }
+            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(value, annotation.name());
+            features.add(feature);
+        }
+        return features;
     }
 
     public List<Feature<?>> convert(List<T> elements) {

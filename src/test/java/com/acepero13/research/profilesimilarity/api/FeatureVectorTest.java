@@ -119,9 +119,7 @@ class FeatureVectorTest {
     }
 
     @Test void checkDifferentVectorSize(){
-        assertThrows(VectorException.class, ()-> {
-            vector1.checkSizeMatchWith(ONE);
-        });
+        assertThrows(VectorException.class, ()-> vector1.checkSizeMatchWith(ONE));
     }
 
     @Test void size(){

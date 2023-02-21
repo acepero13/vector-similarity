@@ -109,8 +109,10 @@ public class VectorizableProxy implements InvocationHandler {
             case "equals":
                 FeaturesHelper.checkArguments(args, 1, FeaturesHelper.oneOf(Vectorizable.class, VectorizableProxy.class));
                 return objectEquals(args[0]);
+            default:
+                throw new VectorizableProxyException("Error calling undefined method: " + methodName);
         }
-        throw new VectorizableProxyException("Error calling undefined method: " + methodName);
+
     }
 
     public boolean objectEquals(Object o) {
@@ -235,18 +237,7 @@ public class VectorizableProxy implements InvocationHandler {
 
     }
 
-    private static List<CategoricalFeature<?>> allValuesForOneHot(Categorical annotation, Object[] constants) {
 
-        List<CategoricalFeature<?>> features = new ArrayList<>();
-        for (Object value : constants) {
-            if (value == null) {
-                continue;
-            }
-            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(value, annotation.name());
-            features.add(feature);
-        }
-        return features;
-    }
 
     @Data
     private static class OneHotEncodingFieldExtractor {
@@ -276,7 +267,7 @@ public class VectorizableProxy implements InvocationHandler {
         }
 
         private List<Feature<?>> extractFrom(List<CategoricalFeature<Object>> values, Object[] allEnumValues) {
-            List<CategoricalFeature<?>> allElements = allValuesForOneHot(annotation, allEnumValues);
+            List<CategoricalFeature<?>> allElements = OneHotEncodingExtractor.allValuesForOneHot(annotation, allEnumValues);
             var extractor = OneHotEncodingExtractor.oneHotEncodingOf(allElements);
             return extractor.convertCategoricalFeature(values);
         }

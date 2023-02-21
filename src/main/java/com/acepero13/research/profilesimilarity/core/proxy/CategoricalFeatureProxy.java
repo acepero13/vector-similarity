@@ -1,13 +1,14 @@
 package com.acepero13.research.profilesimilarity.core.proxy;
 
-import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.exceptions.VectorizableProxyException;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+@SuppressWarnings("unchecked")
 public class CategoricalFeatureProxy implements InvocationHandler {
 
 
@@ -29,7 +30,7 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws VectorizableProxyException {
         String methodName = method.getName();
         switch (methodName) {
             case "originalValue":
@@ -54,9 +55,9 @@ public class CategoricalFeatureProxy implements InvocationHandler {
             case "matches":
                 FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
                 return wrapper.matches((CategoricalFeature<?>) args[0]);
+            default:  throw new VectorizableProxyException("Error calling undefined method for Categoricaly Feature: " + methodName);
 
         }
-        return null;
     }
 
     @Override
@@ -65,6 +66,7 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     }
 
 
+    @SuppressWarnings("rawtypes")
     private static class CategoricalWrapper implements CategoricalFeature {
         private final String name;
         private final Object target;

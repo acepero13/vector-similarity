@@ -1,6 +1,5 @@
 package com.acepero13.research.profilesimilarity.testmodels;
 
-import com.acepero13.research.profilesimilarity.GowerTest;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 
 public enum POLITIC implements CategoricalFeature<POLITIC> {

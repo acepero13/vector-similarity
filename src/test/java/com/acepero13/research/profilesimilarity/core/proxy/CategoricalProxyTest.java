@@ -20,7 +20,7 @@ class CategoricalProxyTest {
     }
 
     @Test void featureValueThrowsException(){
-        assertThrows(UnsupportedOperationException.class,  () -> {feat.featureValue();});
+        assertThrows(UnsupportedOperationException.class, feat::featureValue);
     }
     @Test void weight(){
         assertThat(feat.weight(), equalTo(1.0));

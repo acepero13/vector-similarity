@@ -1,9 +1,17 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
-group 'com.acepero13.research.profilesimilarity'
-version '1.0-SNAPSHOT'
+
+
+//def groupId = project.property('groupIdPrefix') + '.profilesimilarity'
+def groupIdPrefix = project.findProperty('groupIdPrefix')
+def groupId = groupIdPrefix != null ? "${groupIdPrefix}.profilesimilarity" : "com.example.profilesimilarity"
+
+
+def myVersion = '2.0.1'
+version myVersion
 
 repositories {
     mavenCentral()
@@ -29,4 +37,34 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            def group = groupId.toString()
+
+            groupId=group
+            artifactId = 'profile-similarity'
+            version myVersion
+            from components.java
+
+            pom {
+                name = 'Profile-Similarity'
+                description = 'library to find similarities between users'
+
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username = project.nexusUser
+                password = project.nexusPassword
+            }
+            url = project.thirdPartyUrl
+            setAllowInsecureProtocol(true)
+
+        }
+    }
 }

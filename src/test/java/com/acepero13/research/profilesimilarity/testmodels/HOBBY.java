@@ -1,7 +1,6 @@
 package com.acepero13.research.profilesimilarity.testmodels;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import lombok.Data;
 
 
 public enum HOBBY implements CategoricalFeature<HOBBY> {

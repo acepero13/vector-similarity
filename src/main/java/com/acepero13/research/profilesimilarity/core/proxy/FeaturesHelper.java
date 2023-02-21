@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unchecked")
 final class FeaturesHelper {
     private FeaturesHelper() {
 

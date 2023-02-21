@@ -7,11 +7,8 @@ import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -91,11 +88,11 @@ class UserDataTest {
 
     private static class User extends AbstractVectorizable {
 
-        int age;
-        int income;
-        Gender gender;
-        int numChildren;
-        EcoFriendlyBehavior ecoFriendly;
+        final int age;
+        final int income;
+        final Gender gender;
+        final int numChildren;
+        final EcoFriendlyBehavior ecoFriendly;
 
         public User(@JsonProperty("age") int age,
                     @JsonProperty("income") int income,
