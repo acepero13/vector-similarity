@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class VectorizableProxy implements InvocationHandler {
     private final Object target;
@@ -57,7 +58,6 @@ public class VectorizableProxy implements InvocationHandler {
             wrapper = new VectorizableProxyWrapper(target);
             addNumericalFeatures(target, wrapper);
             addCategoricalFeatures(target, wrapper);
-
         } else {
             wrapper = new VectorizableProxyWrapper(target);
         }
@@ -273,10 +273,21 @@ public class VectorizableProxy implements InvocationHandler {
         }
 
         private Object[] getEnumValuesFrom(List<CategoricalFeature<Object>> values) {
+            Object[] constants;
             if (isListWithValuesFilled(values)) {
-                return originalValues.get(0).getClass().getEnumConstants();
+                constants = originalValues.get(0).getClass().getEnumConstants();
+                return filter(constants);
             }
-            return type.getEnumConstants();
+            constants = type.getEnumConstants();
+            return filter(constants);
+        }
+
+        private Object[] filter(Object[] constants) {
+            if(annotation.values() != null && annotation.values().length > 0 ) {
+                return Arrays.stream(constants).filter(c -> Stream.of(annotation.values()).anyMatch(a -> a.equals(c.toString())))
+                        .toArray();
+            }
+            return constants;
         }
 
         private boolean isNotEnum(List<CategoricalFeature<Object>> values) {

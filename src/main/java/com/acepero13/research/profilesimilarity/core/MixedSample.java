@@ -1,4 +1,4 @@
-package com.acepero13.research.profilesimilarity.api;
+package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;

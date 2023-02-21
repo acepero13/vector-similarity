@@ -54,10 +54,11 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 return wrapper.equals(args[0]);
             case "matches":
                 FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
-                return wrapper.matches((CategoricalFeature<?>) args[0]);
+                return objectEquals(args[0]);
             default:  throw new VectorizableProxyException("Error calling undefined method for Categoricaly Feature: " + methodName);
 
         }
+        throw new VectorizableProxyException("Error calling undefined method: " + methodName);
     }
 
     @Override
@@ -66,7 +67,38 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     }
 
 
-    @SuppressWarnings("rawtypes")
+    public boolean objectEquals(Object o) {
+        if (this.wrapper == o) return true;
+        if (o == null) return false;
+
+        if (isProxyClass(o)) {
+            CategoricalFeatureProxy proxy = toProxy(o);
+            return isEqualToTarget(proxy);
+        } else if (o instanceof CategoricalFeature) {
+            return equalToRealTarget((CategoricalFeature) o);
+        }
+        return false;
+    }
+
+
+    private boolean equalToRealTarget(CategoricalFeature another) {
+        return wrapper.originalValue().equals(another.originalValue());
+    }
+
+    private boolean isEqualToTarget(CategoricalFeatureProxy another) {
+        if (this.getClass() != another.getClass()) return false;
+        return wrapper.originalValue().equals(another.wrapper.originalValue());
+    }
+
+    private static CategoricalFeatureProxy toProxy(Object another) {
+        return (CategoricalFeatureProxy) Proxy.getInvocationHandler(another);
+    }
+
+    private static boolean isProxyClass(Object anotherRule) {
+        return Proxy.isProxyClass(anotherRule.getClass());
+    }
+
+
     private static class CategoricalWrapper implements CategoricalFeature {
         private final String name;
         private final Object target;

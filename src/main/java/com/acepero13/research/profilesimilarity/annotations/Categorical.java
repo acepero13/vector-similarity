@@ -12,4 +12,9 @@ public @interface Categorical {
     Class<?> type() default Object.class;
 
     boolean oneHotEncoding() default false;
+
+    Class<? extends Enum<?>> enumClass() default DefaultEnum.class;
+
+    String[] values() default {};
+
 }

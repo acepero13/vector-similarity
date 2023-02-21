@@ -1,10 +1,14 @@
 package com.acepero13.research.profilesimilarity.core.proxy;
 
+import com.acepero13.research.profilesimilarity.annotations.Categorical;
+import com.acepero13.research.profilesimilarity.annotations.Numerical;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 import com.acepero13.research.profilesimilarity.testmodels.User;
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -46,6 +50,44 @@ class VectorizableProxyTest {
     void vectorFilteringFeatures() {
         List<Feature<?>> features = List.of(Features.integerFeature(35, "age"), Features.integerFeature(70_000, "income"));
         assertThat(actual.vector(features), equalTo(DoubleVector.of(35.0, 70_000.0)));
+    }
+
+    @Test void reducedSetOfEncodingAllTagsAreInValues(){
+        var sut = VectorizableProxy.of(new PersonTestWithoutValues(33, List.of(TAG.SPORT, TAG.FAMILY)));
+        List<CategoricalFeature<?>> categorical = sut.toFeatureVector().categorical();
+
+        assertThat(categorical.get(0).originalValue(), equalTo(true));
+        assertThat(categorical.get(1).originalValue(), equalTo(true));
+        assertThat(categorical.size(), equalTo(8));
+    }
+
+    @Test void actualListHasMoreValuesThanAppected() {
+        var sut = VectorizableProxy.of(new PersonTest(33, List.of(TAG.SPORT, TAG.FAMILY, TAG.EMAIL)));
+        List<CategoricalFeature<?>> categorical = sut.toFeatureVector().categorical();
+
+        assertThat(categorical.size(), equalTo(3));
+    }
+    @com.acepero13.research.profilesimilarity.annotations.Vectorizable
+    @Data
+    private static class PersonTest {
+        @Numerical
+        private final int age;
+        @Categorical(name = "my-tags", oneHotEncoding = true, enumClass = TAG.class, values = {"SPORT", "FAMILY", "ECO"})
+        private final List<TAG> tags;
+
+    }
+
+    @com.acepero13.research.profilesimilarity.annotations.Vectorizable
+    @Data
+    private static class PersonTestWithoutValues {
+        @Numerical
+        private final int age;
+        @Categorical(name = "my-tags", oneHotEncoding = true)
+        private final List<TAG> tags;
+
+    }
+    private enum TAG {
+        SPORT, FAMILY, ECO, SAFETY, MUSIC, EVENTS, READING, EMAIL
     }
 
 
