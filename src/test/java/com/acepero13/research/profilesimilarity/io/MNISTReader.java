@@ -40,9 +40,10 @@ public class MNISTReader {
                 .filter(t -> t.first() == t.second())
                 .count();
 
-        double accuracy = (double) (correctClassification / test.size())*100;
-        System.out.println("accuracy = " + accuracy + "%");
-        assert accuracy > 89.0;
+        double accuracy =  (correctClassification / (double)test.size());
+        double percentage = accuracy * 100.0;
+        System.out.println("accuracy = " + percentage + "%");
+        assert percentage > 89.0;
     }
 
     public List<Vectorizable> load() throws IOException {
