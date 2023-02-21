@@ -5,14 +5,14 @@ package utils;
  *
  * @author Alvaro Cepero
  */
-public interface PredicateHelper  {
+public interface PredicateHelper {
     static PredicateHelper ifTrue(boolean condition) {
         return condition ? new TrueCondition() : new FalseCondition();
     }
 
     PredicateHelper and(boolean condition);
 
-     void then(Runnable func);
+    void then(Runnable func);
 
 
     class TrueCondition implements PredicateHelper {

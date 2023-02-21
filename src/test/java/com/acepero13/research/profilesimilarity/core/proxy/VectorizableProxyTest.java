@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class VectorizableProxyTest {
 
@@ -52,7 +52,8 @@ class VectorizableProxyTest {
         assertThat(actual.vector(features), equalTo(DoubleVector.of(35.0, 70_000.0)));
     }
 
-    @Test void reducedSetOfEncodingAllTagsAreInValues(){
+    @Test
+    void reducedSetOfEncodingAllTagsAreInValues() {
         var sut = VectorizableProxy.of(new PersonTestWithoutValues(33, List.of(TAG.SPORT, TAG.FAMILY)));
         List<CategoricalFeature<?>> categorical = sut.toFeatureVector().categorical();
 
@@ -61,12 +62,30 @@ class VectorizableProxyTest {
         assertThat(categorical.size(), equalTo(8));
     }
 
-    @Test void actualListHasMoreValuesThanAppected() {
+    @Test
+    void actualListHasMoreValuesThanAppected() {
         var sut = VectorizableProxy.of(new PersonTest(33, List.of(TAG.SPORT, TAG.FAMILY, TAG.EMAIL)));
         List<CategoricalFeature<?>> categorical = sut.toFeatureVector().categorical();
 
         assertThat(categorical.size(), equalTo(3));
     }
+
+    @Test
+    void equals() {
+        var default2 = VectorizableProxy.of(User.defaultUser());
+        assertThat(actual.equals(default2), equalTo(true));
+    }
+
+    @Test
+    void twoDifferentObjectsAreDifferent() {
+
+        assertThat(actual, not(equalTo("")));
+    }
+
+    private enum TAG {
+        SPORT, FAMILY, ECO, SAFETY, MUSIC, EVENTS, READING, EMAIL
+    }
+
     @com.acepero13.research.profilesimilarity.annotations.Vectorizable
     @Data
     private static class PersonTest {
@@ -85,9 +104,6 @@ class VectorizableProxyTest {
         @Categorical(name = "my-tags", oneHotEncoding = true)
         private final List<TAG> tags;
 
-    }
-    private enum TAG {
-        SPORT, FAMILY, ECO, SAFETY, MUSIC, EVENTS, READING, EMAIL
     }
 
 

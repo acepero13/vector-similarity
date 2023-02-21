@@ -12,10 +12,12 @@ public interface KnnResult {
     }
 
     CategoricalFeature<?> classify(String featureName);
+
     CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type);
 
     Double predict(String featureName);
-    default List<CategoricalFeature<?>> classifyOneHot(Predicate<String> featureNameMatcher){
+
+    default List<CategoricalFeature<?>> classifyOneHot(Predicate<String> featureNameMatcher) {
         throw new UnsupportedOperationException("classification for one hot vectors is not supported");
     }
 }

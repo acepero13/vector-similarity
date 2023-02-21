@@ -10,13 +10,13 @@ final class GowersMetric implements Metric {
     private final Metric numericalMetric;
     private final Metric categoricalMetric;
 
-    public static Metric forCosine() {
-        return new GowersMetric(new CosineMetric(), new StrictDiceSimilarity());
-    }
-
     public GowersMetric(Metric numericalMetric, Metric categoricalMetric) {
         this.numericalMetric = numericalMetric;
         this.categoricalMetric = categoricalMetric;
+    }
+
+    public static Metric forCosine() {
+        return new GowersMetric(new CosineMetric(), new StrictDiceSimilarity());
     }
 
     @Override

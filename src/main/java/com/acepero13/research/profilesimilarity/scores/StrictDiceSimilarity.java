@@ -12,9 +12,9 @@ final class StrictDiceSimilarity implements Metric {
     @Override
     public Double similarityScore(NormalizedVector vectorizable, NormalizedVector another) {
         long similar = vectorizable.zip(another)
-                                   .filter(t -> t.first().equals(t.second()))
-                                   .filter(t -> t.first().equals(1.0))
-                                   .count();
+                .filter(t -> t.first().equals(t.second()))
+                .filter(t -> t.first().equals(1.0))
+                .count();
         return similar / (double) vectorizable.size();
     }
 }

@@ -127,11 +127,13 @@ class NormalizedVectorTest {
         assertThat(vector1.toDouble(), equalTo(DoubleVector.of(1.0, 2.0, 3.0, 4.0, 5.0)));
     }
 
-    @Test void minMax(){
+    @Test
+    void minMax() {
         assertThat(vector1.minMax(), equalTo(new MinMax(1.0, 5.0)));
     }
 
-    @Test void sumDifferentSize(){
+    @Test
+    void sumDifferentSize() {
         var actual = vector1.add(DoubleVector.of(1.0), 0.0);
         assertThat(actual, equalTo(DoubleVector.of(2.0, 2.0, 3.0, 4.0, 5.0)));
     }

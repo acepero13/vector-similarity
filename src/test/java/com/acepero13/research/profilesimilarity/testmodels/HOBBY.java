@@ -8,10 +8,10 @@ public enum HOBBY implements CategoricalFeature<HOBBY> {
 
 
     public static HOBBY of(CategoricalFeature<?> str) {
-        if(str.featureName().contains(READ.name())) {
+        if (str.featureName().contains(READ.name())) {
             return READ;
         }
-        if(str.featureName().contains(SPORT.name())) {
+        if (str.featureName().contains(SPORT.name())) {
             return SPORT;
         }
         return MUSIC;

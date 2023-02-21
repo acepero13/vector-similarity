@@ -1,15 +1,15 @@
 package com.acepero13.research.profilesimilarity.core;
 
-import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A Description
@@ -21,7 +21,7 @@ public abstract class AbstractVectorizable implements Vectorizable {
     private final List<Feature<?>> features = new ArrayList<>();
 
     public AbstractVectorizable addNonNullFeature(Feature<?> value) {
-        if (value != null &&  value.originalValue() != null) {
+        if (value != null && value.originalValue() != null) {
             this.features.add(value);
         }
         return this;
@@ -37,9 +37,8 @@ public abstract class AbstractVectorizable implements Vectorizable {
     }
 
 
-
-    public <T extends CategoricalFeature<?>> AbstractVectorizable  addAsOneHotEncodingFeature(
-           T[] allPossibleElements , List<T> elements) {
+    public <T extends CategoricalFeature<?>> AbstractVectorizable addAsOneHotEncodingFeature(
+            T[] allPossibleElements, List<T> elements) {
         addAsOneHotEncodingFeature(OneHotEncodingExtractor.oneHotEncodingOf(allPossibleElements), elements);
         return this;
     }
@@ -53,7 +52,6 @@ public abstract class AbstractVectorizable implements Vectorizable {
     public List<Feature<?>> features() {
         return features;
     }
-
 
 
 }

@@ -14,6 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+enum Gender {
+    MALE,
+    FEMALE
+}
+
+enum EcoFriendlyBehavior {
+    LOW,
+    HIGH
+}
+
+enum TAG {
+    FAMILY, SPORT, ECO, SAFETY, AUDI, VW, EATING, HANDLING, ID3, MUSIC, RACING, TRAINING, TUNING, RECREATION
+}
+
 public class UserDataGenerator {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -39,8 +53,8 @@ public class UserDataGenerator {
             u.age = (int) Math.round(r.nextGaussian() * 15 + 40);
             u.income = (int) Math.round(r.nextGaussian() * 20000 + 50000);
             u.gender = r.nextBoolean()
-                       ? Gender.MALE
-                       : Gender.FEMALE;
+                    ? Gender.MALE
+                    : Gender.FEMALE;
             u.numChildren = r.nextInt(4);
 
             generateEcoFriendly(r, u);
@@ -70,27 +84,27 @@ public class UserDataGenerator {
                 .then(() -> u.addTag(TAG.FAMILY));
 
         PredicateHelper.ifTrue(u.ecoFriendly.equals(EcoFriendlyBehavior.HIGH))
-                       .and(r.nextDouble() < 0.8)
-                       .then(() -> u.addTag(TAG.ECO));
+                .and(r.nextDouble() < 0.8)
+                .then(() -> u.addTag(TAG.ECO));
 
 
         PredicateHelper.ifTrue(u.gender.equals(Gender.FEMALE))
-                       .and(r.nextDouble() < 0.6)
-                       .then(() -> u.addTag(TAG.SAFETY));
+                .and(r.nextDouble() < 0.6)
+                .then(() -> u.addTag(TAG.SAFETY));
 
         PredicateHelper.ifTrue(u.gender.equals(Gender.MALE))
-                       .and(r.nextDouble() < 0.6)
-                       .then(() -> u.addTag(TAG.RACING));
+                .and(r.nextDouble() < 0.6)
+                .then(() -> u.addTag(TAG.RACING));
 
         PredicateHelper.ifTrue(u.gender.equals(Gender.MALE))
-                       .and(r.nextDouble() < 0.6)
-                       .then(() -> u.addTag(TAG.TUNING));
+                .and(r.nextDouble() < 0.6)
+                .then(() -> u.addTag(TAG.TUNING));
 
     }
 
     private static void addRandomTag(Random r, User u, TAG tag) {
         PredicateHelper.ifTrue(r.nextDouble() < 0.5)
-                       .then(() -> u.addTag(tag));
+                .then(() -> u.addTag(tag));
     }
 
     private static void generateEcoFriendly(Random r, User u) {
@@ -112,23 +126,9 @@ public class UserDataGenerator {
 
     private static EcoFriendlyBehavior isEcoFriendly(boolean value) {
         return value
-               ? EcoFriendlyBehavior.HIGH
-               : EcoFriendlyBehavior.LOW;
+                ? EcoFriendlyBehavior.HIGH
+                : EcoFriendlyBehavior.LOW;
     }
-}
-
-enum Gender {
-    MALE,
-    FEMALE
-}
-
-enum EcoFriendlyBehavior {
-    LOW,
-    HIGH
-}
-
-enum TAG {
-    FAMILY, SPORT, ECO, SAFETY, AUDI, VW, EATING, HANDLING, ID3, MUSIC, RACING, TRAINING, TUNING, RECREATION
 }
 
 class User {
@@ -195,7 +195,7 @@ class User {
         return this;
     }
 
-    public List<TAG> getTags(){
+    public List<TAG> getTags() {
         return tags;
     }
 

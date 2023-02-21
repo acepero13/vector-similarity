@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 class AbstractNumericalTest {
     @Test
-    @SuppressWarnings("unchecked")
     void DoubleFeatureIsANumber() {
         //noinspection rawtypes this is just for testing purposes.
         AbstractNumericalFeature<Integer> integerFeat = Features.integerFeature(10, "number");

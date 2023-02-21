@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 
 class JaccardMetricTest {
-    private final Metric metricScorer = new JaccardMetric();
+    private final Metric metricScorer = Metrics.jaccardDistance();
 
     @Test
     void similarity() {

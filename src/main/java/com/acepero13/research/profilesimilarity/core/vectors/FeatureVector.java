@@ -11,21 +11,17 @@ import com.acepero13.research.profilesimilarity.utils.Tuple;
 import com.acepero13.research.profilesimilarity.utils.VectorCollector;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 @Data
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     private final List<CategoricalFeature<?>> categorical;
     private final Vector<Double> vector;
     private final List<Feature<?>> features;
-
-    public static FeatureVector of(List<Feature<?>> features) {
-        return new FeatureVector(features);
-    }
 
     private FeatureVector(List<Feature<?>> features) {
 
@@ -50,6 +46,9 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     }
 
+    public static FeatureVector of(List<Feature<?>> features) {
+        return new FeatureVector(features);
+    }
 
     @Override
     public Double norm() {

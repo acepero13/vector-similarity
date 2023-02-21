@@ -18,6 +18,16 @@ final class FeatureVectorResult implements KnnResult {
         this.vectors = vectors;
     }
 
+    private static CategoricalFeature<?> classify(Map<CategoricalFeature<?>, Long> groups) {
+        List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
+        sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        if (sortedEntries.isEmpty()) {
+            throw new KnnException("Could not find a suitable category ");
+        }
+        return sortedEntries.get(0).getKey();
+    }
+
     @Override
     public CategoricalFeature<?> classify(String featureName) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(featureName);
@@ -35,16 +45,6 @@ final class FeatureVectorResult implements KnnResult {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
 
         return classify(groups);
-    }
-
-    private static CategoricalFeature<?> classify(Map<CategoricalFeature<?>, Long> groups) {
-        List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
-        sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
-        if (sortedEntries.isEmpty()) {
-            throw new KnnException("Could not find a suitable category ");
-        }
-        return sortedEntries.get(0).getKey();
     }
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
@@ -88,20 +88,6 @@ final class FeatureVectorResult implements KnnResult {
         final Predicate<String> featureNameMatcher;
         final List<FeatureVector> vectors;
 
-        private List<CategoricalFeature<?>> classify() {
-            Set<String> feats = extractMatchingFeatures();
-
-            List<CategoricalFeature<?>> result = new ArrayList<>();
-            for (var featureName : feats) {
-                List<CategoricalFeature<?>> values = extractCategoricalFeatureFor(featureName);
-                Map<Object, List<CategoricalFeature<?>>> countMap = groupResultBy(values);
-                Map<Object, List<CategoricalFeature<?>>> sorted = sortValuesByOcurrence(countMap);
-                addMostCommonValueTo(result, sorted);
-            }
-
-            return result;
-        }
-
         private static void addMostCommonValueTo(List<CategoricalFeature<?>> result, Map<Object, List<CategoricalFeature<?>>> sorted) {
             sorted.values().stream()
                     .findFirst()
@@ -122,6 +108,20 @@ final class FeatureVectorResult implements KnnResult {
                     .parallel()
                     .collect(Collectors.groupingBy(CategoricalFeature::originalValue, HashMap::new,
                             Collectors.toList()));
+        }
+
+        private List<CategoricalFeature<?>> classify() {
+            Set<String> feats = extractMatchingFeatures();
+
+            List<CategoricalFeature<?>> result = new ArrayList<>();
+            for (var featureName : feats) {
+                List<CategoricalFeature<?>> values = extractCategoricalFeatureFor(featureName);
+                Map<Object, List<CategoricalFeature<?>>> countMap = groupResultBy(values);
+                Map<Object, List<CategoricalFeature<?>>> sorted = sortValuesByOcurrence(countMap);
+                addMostCommonValueTo(result, sorted);
+            }
+
+            return result;
         }
 
         private List<CategoricalFeature<?>> extractCategoricalFeatureFor(String featureName) {

@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class GowerTest {
 
 
-
     @Test
     void calculateDistance() {
         var person1 = new Person(22, RACE.CAUCASIAN, 3, 0.39, true, POLITIC.MODERATE);
@@ -60,7 +59,6 @@ public class GowerTest {
                     .addNonNullFeature(Gender.from(isMale))
                     .addNonNullFeature(politic);
         }
-
 
 
     }

@@ -20,7 +20,6 @@ final class JaccardMetric implements Metric {
     }
 
 
-
     private int numberOfAttributesEqualToOneForFirstAndAndZeroForTheOther(NormalizedVector vector, NormalizedVector anotherVector) {
         return (int) vector.zip(anotherVector)
                 .filter(t -> t.filterBoth(f -> f.equals(1.0), s -> s.equals(0.0)))

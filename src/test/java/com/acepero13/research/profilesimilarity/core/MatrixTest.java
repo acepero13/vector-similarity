@@ -34,14 +34,12 @@ class MatrixTest {
     }
 
 
-
     @Test
     void manualNormalization() {
         Matrix<Double> newMatrix = Matrix.of(List.of(
                 DoubleVector.of(10, 20, 1),
                 DoubleVector.of(100, 200, 0),
                 DoubleVector.of(1000, 2000, 1)));
-
 
 
         var minMax = MinMaxVector.of(newMatrix);

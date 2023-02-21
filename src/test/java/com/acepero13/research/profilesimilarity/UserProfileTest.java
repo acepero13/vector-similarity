@@ -12,21 +12,6 @@ class UserProfileTest {
     private static final Boolean YES = true;
     private static final Boolean NO = false;
 
-    @Test
-    void usingProfiles() {
-
-
-        var u1 = createUser1();
-        var u2 = createUser2();
-        var target = createUser3();
-
-        var dataset = MostSimilar.withDefaultMetric(u1, u2);
-
-        Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
-
-        assertThat(mostSimilarUser, equalTo(u1));
-    }
-
     private static UserProfile createUser1() {
         return UserProfile.builder()
                 .drivesInEcoMode(YES)
@@ -61,6 +46,21 @@ class UserProfileTest {
                 .name("u2")
                 .numberOfChildren(1)
                 .build();
+    }
+
+    @Test
+    void usingProfiles() {
+
+
+        var u1 = createUser1();
+        var u2 = createUser2();
+        var target = createUser3();
+
+        var dataset = MostSimilar.withDefaultMetric(u1, u2);
+
+        Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
+
+        assertThat(mostSimilarUser, equalTo(u1));
     }
 
     @Test

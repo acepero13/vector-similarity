@@ -51,7 +51,6 @@ public class Knn {
     }
 
 
-
     public static <T> Knn ofObjectsWithDefaultNormalizer(int k, List<T> data) {
         return new Knn(k, VectorizableProxy.of(data));
     }

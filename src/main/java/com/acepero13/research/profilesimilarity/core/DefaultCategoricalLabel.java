@@ -14,7 +14,7 @@ import java.util.Objects;
 public class DefaultCategoricalLabel<T> implements CategoricalLabel<T> {
     private final T value;
 
-    public  DefaultCategoricalLabel(T value) {
+    public DefaultCategoricalLabel(T value) {
         this.value = Objects.requireNonNull(value);
     }
 

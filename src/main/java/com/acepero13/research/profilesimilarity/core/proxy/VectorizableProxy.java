@@ -51,19 +51,6 @@ public class VectorizableProxy implements InvocationHandler {
 
     }
 
-    private VectorizableProxyWrapper from(Object target) {
-        var opAnnotation = AnnotationHelper.getAnnotation(target, com.acepero13.research.profilesimilarity.annotations.Vectorizable.class);
-        VectorizableProxyWrapper wrapper;
-        if (opAnnotation.isPresent()) {
-            wrapper = new VectorizableProxyWrapper(target);
-            addNumericalFeatures(target, wrapper);
-            addCategoricalFeatures(target, wrapper);
-        } else {
-            wrapper = new VectorizableProxyWrapper(target);
-        }
-        return wrapper;
-    }
-
     private static void addCategoricalFeatures(Object target, VectorizableProxyWrapper wrapper) {
         List<Tuple<Field, Categorical>> fields = AnnotationHelper.getAnnotatedFields(target, Categorical.class);
         fields.forEach(wrapper::addCategorical);
@@ -91,6 +78,26 @@ public class VectorizableProxy implements InvocationHandler {
                 .collect(Collectors.toList());
     }
 
+    private static VectorizableProxy toVectorizableProxy(Object another) {
+        return (VectorizableProxy) Proxy.getInvocationHandler(another);
+    }
+
+    private static boolean isProxyClass(Object anotherRule) {
+        return Proxy.isProxyClass(anotherRule.getClass());
+    }
+
+    private VectorizableProxyWrapper from(Object target) {
+        var opAnnotation = AnnotationHelper.getAnnotation(target, com.acepero13.research.profilesimilarity.annotations.Vectorizable.class);
+        VectorizableProxyWrapper wrapper;
+        if (opAnnotation.isPresent()) {
+            wrapper = new VectorizableProxyWrapper(target);
+            addNumericalFeatures(target, wrapper);
+            addCategoricalFeatures(target, wrapper);
+        } else {
+            wrapper = new VectorizableProxyWrapper(target);
+        }
+        return wrapper;
+    }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
@@ -128,7 +135,6 @@ public class VectorizableProxy implements InvocationHandler {
         return false;
     }
 
-
     private boolean equalToRealVectorizable(Vectorizable another) {
         return another.features().equals(vectorWrapper.features());
     }
@@ -137,15 +143,6 @@ public class VectorizableProxy implements InvocationHandler {
         if (this.getClass() != another.getClass()) return false;
         return vectorWrapper.features().equals(another.vectorWrapper.features());
     }
-
-    private static VectorizableProxy toVectorizableProxy(Object another) {
-        return (VectorizableProxy) Proxy.getInvocationHandler(another);
-    }
-
-    private static boolean isProxyClass(Object anotherRule) {
-        return Proxy.isProxyClass(anotherRule.getClass());
-    }
-
 
     private Vector<Double> executeVector(Object[] args) {
         if (args == null) {
@@ -238,7 +235,6 @@ public class VectorizableProxy implements InvocationHandler {
     }
 
 
-
     @Data
     private static class OneHotEncodingFieldExtractor {
         private final Object targetObject;
@@ -283,7 +279,7 @@ public class VectorizableProxy implements InvocationHandler {
         }
 
         private Object[] filter(Object[] constants) {
-            if(annotation.values() != null && annotation.values().length > 0 ) {
+            if (annotation.values() != null && annotation.values().length > 0) {
                 return Arrays.stream(constants).filter(c -> Stream.of(annotation.values()).anyMatch(a -> a.equals(c.toString())))
                         .toArray();
             }

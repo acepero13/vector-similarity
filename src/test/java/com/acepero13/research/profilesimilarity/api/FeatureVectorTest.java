@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FeatureVectorTest {
 
+    public static final FeatureVector ONE = FeatureVector.of(Collections.singletonList(Features.integerFeature(1, "one")));
+    public static final FeatureVector ZERO = FeatureVector.of(Collections.singletonList(Features.doubleFeature(0.0, "zero")));
     private static final List<Feature<?>> features1 = new ArrayList<>();
     private static final List<Feature<?>> features2 = new ArrayList<>();
-    public static final FeatureVector ONE =  FeatureVector.of(Collections.singletonList(Features.integerFeature(1, "one")));
-    public static final FeatureVector ZERO =  FeatureVector.of(Collections.singletonList(Features.doubleFeature(0.0, "zero")));
 
     static {
         features1.add(Features.integerFeature(1, "feat1"));
@@ -37,10 +37,11 @@ class FeatureVectorTest {
         features2.add(Features.integerFeature(30, "feat23"));
         features2.add(Features.integerFeature(40, "feat24"));
         features2.add(Features.integerFeature(50, "feat25"));
-        
+
     }
-    private final FeatureVector vector1 =  FeatureVector.of(features1);
-    private final FeatureVector vector2 =  FeatureVector.of(features2);
+
+    private final FeatureVector vector1 = FeatureVector.of(features1);
+    private final FeatureVector vector2 = FeatureVector.of(features2);
 
     @Test
     void multiply() {
@@ -48,7 +49,6 @@ class FeatureVectorTest {
         var expected = DoubleVector.of(10.0, 40.0, 90.0, 160.0, 250.0);
         assertThat(result, equalTo(expected));
     }
-
 
 
     @Test
@@ -118,24 +118,29 @@ class FeatureVectorTest {
         assertThat(norm, closeTo(7.41, 0.1));
     }
 
-    @Test void checkDifferentVectorSize(){
-        assertThrows(VectorException.class, ()-> vector1.checkSizeMatchWith(ONE));
+    @Test
+    void checkDifferentVectorSize() {
+        assertThrows(VectorException.class, () -> vector1.checkSizeMatchWith(ONE));
     }
 
-    @Test void size(){
+    @Test
+    void size() {
         assertThat(vector1.size(), equalTo(5));
     }
 
-    @Test void sum(){
+    @Test
+    void sum() {
         assertThat(vector1.sum(), equalTo(15.0));
     }
 
-    @Test void addDifferentSized(){
+    @Test
+    void addDifferentSized() {
         var actual = vector1.add(ONE, Features.doubleFeature(0.0, "z")).toDouble();
         assertThat(actual, equalTo(DoubleVector.of(2.0, 2.0, 3.0, 4.0, 5.0)));
     }
 
-    @Test void minMax(){
+    @Test
+    void minMax() {
         var actual = vector1.minMax();
         assertThat(actual, equalTo(new MinMax(1.0, 5.0)));
     }
@@ -151,7 +156,7 @@ class FeatureVectorTest {
     @Test
     void abs() {
 
-        var abs =  FeatureVector.of(List.of(f(1), f(-2))).abs().toDouble();
+        var abs = FeatureVector.of(List.of(f(1), f(-2))).abs().toDouble();
         assertThat(abs, equalTo(DoubleVector.of(1.0, 2.0)));
     }
 

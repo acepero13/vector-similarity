@@ -32,6 +32,6 @@ public class ListUtils {
             throw new IllegalStateException("Size of the lists are different. First size: " + first.size() + " second size: " + second.size());
         }
         return IntStream.range(0, first.size())
-                        .mapToObj(i -> Tuple.of(first.get(i), second.get(i)));
+                .mapToObj(i -> Tuple.of(first.get(i), second.get(i)));
     }
 }

@@ -49,7 +49,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
 
         for (T element : featureNames) {
             if (elements.stream().anyMatch(e -> e.matches(element))) {
-                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)) );
+                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)));
             } else {
                 oneHotVectorList.add(Features.categoricalBoolean(false, getName(element)));
             }
@@ -67,7 +67,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
 
         for (T element : featureNames) {
             if (elements.stream().anyMatch(e -> e.matches(element))) {
-                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)) );
+                oneHotVectorList.add(Features.categoricalBoolean(true, getName(element)));
             } else {
                 oneHotVectorList.add(Features.categoricalBoolean(false, getName(element)));
             }

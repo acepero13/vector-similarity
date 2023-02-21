@@ -52,7 +52,6 @@ public class KnnMixedData {
     }
 
 
-
     public static <T> KnnMixedData ofObjects(int k, List<T> dataset) {
         return of(k, VectorizableProxy.ofFeatureVector(dataset));
     }

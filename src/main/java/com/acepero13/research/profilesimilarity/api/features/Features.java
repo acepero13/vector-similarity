@@ -1,5 +1,9 @@
 package com.acepero13.research.profilesimilarity.api.features;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 public final class Features {
 
     public static final double DEFAULT_WEIGHT = 1.0;
@@ -16,17 +20,7 @@ public final class Features {
     }
 
     public static Feature<Boolean> categoricalBoolean(Boolean value, String name) {
-        return new CategoricalFeature<>() {
-            @Override
-            public Boolean originalValue() {
-                return value;
-            }
-
-            @Override
-            public String featureName() {
-                return name;
-            }
-        };
+        return new CategoricalBoolean(value, name);
     }
 
     public static AbstractNumericalFeature<Integer> integerFeature(Integer value, String name, double weight) {
@@ -48,6 +42,25 @@ public final class Features {
     public static AbstractNumericalFeature<Double> doubleFeature(Double value, String name, double weight) {
         return new DoubleFeature(value, name, weight);
     }
+
+    @Data
+    private static class CategoricalBoolean implements CategoricalFeature<Boolean> {
+        private final Boolean value;
+        private final String name;
+
+        @Override
+        public Boolean originalValue() {
+            return value;
+        }
+
+        @Override
+        public String featureName() {
+            return name;
+        }
+    }
+
+    @EqualsAndHashCode(callSuper = true)
+    @ToString(callSuper = true)
     private static class DoubleFeature extends AbstractNumericalFeature<Double> {
 
 
@@ -61,6 +74,8 @@ public final class Features {
         }
     }
 
+    @EqualsAndHashCode(callSuper = true)
+    @ToString(callSuper = true)
     private static class IntegerFeature extends AbstractNumericalFeature<Integer> {
 
 
@@ -74,7 +89,8 @@ public final class Features {
         }
     }
 
-
+    @EqualsAndHashCode(callSuper = false)
+    @ToString(callSuper = true)
     private static class BooleanFeature implements Feature<Boolean> {
 
 

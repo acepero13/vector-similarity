@@ -36,18 +36,17 @@ class KnnTest {
 
     }
 
-    @Test void classificationUsingAnnotation(){
+    @Test
+    void classificationUsingAnnotation() {
         var sample1 = new AnnotatedAcidDurability(7, 7, CLASSIFICATION.BAD);
         var sample2 = new AnnotatedAcidDurability(7, 4, CLASSIFICATION.BAD);
         var sample3 = new AnnotatedAcidDurability(3, 4, CLASSIFICATION.GOOD);
         var sample4 = new AnnotatedAcidDurability(1, 4, CLASSIFICATION.GOOD);
 
 
-
-
         var classifier = Knn.ofObjectsWithDefaultNormalizer(3, List.of(sample1, sample2, sample3, sample4));
 
-        var test = new AnnotatedAcidDurability(3, 7,null);
+        var test = new AnnotatedAcidDurability(3, 7, null);
 
         CategoricalFeature<?> result = classifier.fit(test)
                 .classify(CLASSIFICATION.class);

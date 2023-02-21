@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.equalTo;
 
 class CombinedMetricTest {
 
-    private final Metric scorer = new CombinedMetric();
+    private final Metric scorer = Metrics.normalizedEuclideanDistance();
 
     @Test
     void computeSimilarity() {
@@ -22,6 +23,15 @@ class CombinedMetricTest {
 
         double score = scorer.similarityScore(NormalizedVector.of(vec1.vector()), NormalizedVector.of(vec2.vector()));
 
-        assertThat(score, closeTo(0.62, 0.01));
+        assertThat(score, closeTo(0.84, 0.01));
+    }
+
+    @Test
+    void euclideanDistance() {
+        var v1 = NormalizedVector.of(DoubleVector.of(1, 1, 1, 1));
+        var v2 = NormalizedVector.of(DoubleVector.of(0, 0, 0, 0));
+
+        double score = Metrics.euclideanDistance().similarityScore(v1, v2);
+        assertThat(score, equalTo(2.0));
     }
 }

@@ -52,6 +52,32 @@ public class UserProfile extends AbstractVectorizable {
     }
 
 
+    enum Gender implements Feature<Gender> {
+        FEMALE(1), MALE(0);
+
+
+        private final double value;
+
+        Gender(int value) {
+            this.value = value;
+        }
+
+        @Override
+        public double featureValue() {
+            return value;
+        }
+
+        @Override
+        public Gender originalValue() {
+            return this;
+        }
+
+        @Override
+        public String featureName() {
+            return "gender";
+        }
+    }
+
     public static class Builder {
         private Boolean likesToBuyEcoProducts;
         private Boolean isInterestedInEcoProducts;
@@ -105,32 +131,6 @@ public class UserProfile extends AbstractVectorizable {
 
         public UserProfile build() {
             return new UserProfile(this);
-        }
-    }
-
-    enum Gender implements Feature<Gender> {
-        FEMALE(1), MALE(0);
-
-
-        private final double value;
-
-        Gender(int value) {
-            this.value = value;
-        }
-
-        @Override
-        public double featureValue() {
-            return value;
-        }
-
-        @Override
-        public Gender originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "gender";
         }
     }
 }

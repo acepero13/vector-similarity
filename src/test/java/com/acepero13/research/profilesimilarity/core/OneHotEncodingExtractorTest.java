@@ -22,9 +22,9 @@ class OneHotEncodingExtractorTest {
         var extractor = OneHotEncodingExtractor.oneHotEncodingOf(List.of(TAG.values()));
         var result = extractor.convert(List.of(TAG.SPORT, TAG.MUSIC, TAG.CONCERT));
         List<Boolean> booleanResult = result.stream()
-                                            .map(Feature::originalValue)
-                                            .map(Boolean.class::cast)
-                                            .collect(Collectors.toList());
+                .map(Feature::originalValue)
+                .map(Boolean.class::cast)
+                .collect(Collectors.toList());
 
         assertThat(booleanResult, equalTo(List.of(true, false, true, true, false)));
 
@@ -35,9 +35,9 @@ class OneHotEncodingExtractorTest {
         var extractor = OneHotEncodingExtractor.oneHotEncodingOf(TAG.values());
         var result = extractor.convert(List.of(TAG.SPORT, TAG.MUSIC, TAG.CONCERT));
         List<Boolean> booleanResult = result.stream()
-                                            .map(Feature::originalValue)
-                                            .map(Boolean.class::cast)
-                                            .collect(Collectors.toList());
+                .map(Feature::originalValue)
+                .map(Boolean.class::cast)
+                .collect(Collectors.toList());
 
         assertThat(booleanResult, equalTo(List.of(true, false, true, true, false)));
 

@@ -10,5 +10,6 @@ public @interface Numerical {
     String name() default "";
 
     Class<?> type() default Object.class;
+
     double weight() default 1.0;
 }

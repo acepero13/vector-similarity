@@ -22,7 +22,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
         this.matrix = Objects.requireNonNull(rows, "Rows cannot be null");
     }
 
-    public static <T extends Number> Matrix<T> of(List<Vector<T>> rows){
+    public static <T extends Number> Matrix<T> of(List<Vector<T>> rows) {
         return new Matrix<>(rows);
     }
 

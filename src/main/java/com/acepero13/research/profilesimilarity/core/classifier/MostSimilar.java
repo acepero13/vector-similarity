@@ -1,10 +1,10 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.Metric;
-import com.acepero13.research.profilesimilarity.core.MixedSample;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.core.MixedSample;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
@@ -37,7 +37,7 @@ public class MostSimilar {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
         var featureVector = vectorizables.stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
         this.categoricalDataSet = featureVector.stream().parallel().map(FeatureVector::categorical)
-                                               .collect(Collectors.toList());
+                .collect(Collectors.toList());
         this.metric = metric;
 
     }
@@ -79,9 +79,9 @@ public class MostSimilar {
 
 
         Optional<DataSet.Score> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
-                                                       .map(t -> new NormalizedSample(t, metric))
-                                                       .map(s -> s.score(normalizedTarget, categoricalTarget))
-                                                       .max(Comparator.comparingDouble(DataSet.Score::score));
+                .map(t -> new NormalizedSample(t, metric))
+                .map(s -> s.score(normalizedTarget, categoricalTarget))
+                .max(Comparator.comparingDouble(DataSet.Score::score));
 
 
         return finalResult.map(DataSet.Score::sample).orElseThrow();

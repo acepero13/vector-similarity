@@ -28,21 +28,22 @@ import static org.hamcrest.Matchers.equalTo;
  */
 
 class UserDataTest {
-    private static List<FeatureVector> dataset = new ArrayList<>();
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static List<FeatureVector> dataset = new ArrayList<>();
     //@BeforeAll
 
     public static void setUp() throws IOException {
-        List<User> users = objectMapper.readValue(load("users.json"), new TypeReference<>() {
+        List<User> users = objectMapper.readValue(load(), new TypeReference<>() {
         });
 
         dataset = users.stream().map(User::toFeatureVector).collect(Collectors.toList());
 
     }
 
-    private static InputStream load(String filename) {
-        return UserDataTest.class.getClassLoader().getResourceAsStream(filename);
+    private static InputStream load() {
+        return UserDataTest.class.getClassLoader().getResourceAsStream("users.json");
     }
+
     @Test
     @Disabled
     void findMostSimilar() {
@@ -123,6 +124,5 @@ class UserDataTest {
         }
 
 
-        
     }
 }

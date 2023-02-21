@@ -5,30 +5,37 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CategoricalProxyTest {
 
     private final com.acepero13.research.profilesimilarity.api.features.CategoricalFeature<Object> feat = CategoricalFeatureProxy.of(GENDER.MALE, "gender");
 
-    @Test void value(){
+    @Test
+    void value() {
         assertThat(feat.originalValue(), equalTo(GENDER.MALE));
     }
 
-    @Test void name() {
+    @Test
+    void name() {
         assertThat(feat.featureName(), equalTo("gender"));
     }
 
-    @Test void featureValueThrowsException(){
+    @Test
+    void featureValueThrowsException() {
         assertThrows(UnsupportedOperationException.class, feat::featureValue);
     }
-    @Test void weight(){
+
+    @Test
+    void weight() {
         assertThat(feat.weight(), equalTo(1.0));
     }
 
-    @Test void testToString(){
+    @Test
+    void testToString() {
         assertThat(feat.toString(), equalTo("MALE"));
     }
+
     @Categorical(name = "gender")
     private enum GENDER {
         MALE, FEMALE
