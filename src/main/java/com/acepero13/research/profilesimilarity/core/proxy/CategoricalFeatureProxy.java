@@ -58,7 +58,6 @@ public class CategoricalFeatureProxy implements InvocationHandler {
             default:  throw new VectorizableProxyException("Error calling undefined method for Categoricaly Feature: " + methodName);
 
         }
-        throw new VectorizableProxyException("Error calling undefined method: " + methodName);
     }
 
     @Override

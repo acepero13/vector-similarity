@@ -5,7 +5,6 @@ plugins {
 
 
 
-//def groupId = project.property('groupIdPrefix') + '.profilesimilarity'
 def groupIdPrefix = project.findProperty('groupIdPrefix')
 def groupId = groupIdPrefix != null ? "${groupIdPrefix}.profilesimilarity" : "com.example.profilesimilarity"
 
