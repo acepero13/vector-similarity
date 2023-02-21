@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class CategoricalFeatureProxy implements InvocationHandler {
 
 
@@ -27,6 +27,14 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 new Class[]{CategoricalFeature.class},
                 new CategoricalFeatureProxy(object, name)
         );
+    }
+
+    private static CategoricalFeatureProxy toProxy(Object another) {
+        return (CategoricalFeatureProxy) Proxy.getInvocationHandler(another);
+    }
+
+    private static boolean isProxyClass(Object anotherRule) {
+        return Proxy.isProxyClass(anotherRule.getClass());
     }
 
     @Override
@@ -51,11 +59,12 @@ public class CategoricalFeatureProxy implements InvocationHandler {
                 return wrapper.hashCode();
             case "equals":
                 FeaturesHelper.checkArguments(args, 1, FeaturesHelper.oneOf(CategoricalFeatureProxy.class, CategoricalFeature.class));
-                return wrapper.equals(args[0]);
+                return objectEquals(args[0]);
             case "matches":
                 FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
                 return objectEquals(args[0]);
-            default:  throw new VectorizableProxyException("Error calling undefined method for Categoricaly Feature: " + methodName);
+            default:
+                throw new VectorizableProxyException("Error calling undefined method for Categorical Feature: " + methodName);
 
         }
     }
@@ -64,7 +73,6 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     public String toString() {
         return wrapper.toString();
     }
-
 
     public boolean objectEquals(Object o) {
         if (this.wrapper == o) return true;
@@ -79,7 +87,6 @@ public class CategoricalFeatureProxy implements InvocationHandler {
         return false;
     }
 
-
     private boolean equalToRealTarget(CategoricalFeature another) {
         return wrapper.originalValue().equals(another.originalValue());
     }
@@ -89,15 +96,7 @@ public class CategoricalFeatureProxy implements InvocationHandler {
         return wrapper.originalValue().equals(another.wrapper.originalValue());
     }
 
-    private static CategoricalFeatureProxy toProxy(Object another) {
-        return (CategoricalFeatureProxy) Proxy.getInvocationHandler(another);
-    }
-
-    private static boolean isProxyClass(Object anotherRule) {
-        return Proxy.isProxyClass(anotherRule.getClass());
-    }
-
-
+    @SuppressWarnings("rawtypes")
     private static class CategoricalWrapper implements CategoricalFeature {
         private final String name;
         private final Object target;
