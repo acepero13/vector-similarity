@@ -27,8 +27,10 @@ public class KnnMixedData {
     private KnnMixedData(int k, List<FeatureVector> dataSet) {
         this.dataSet = dataSet;
         this.k = k;
-        this.numericalDataSet = dataSet.stream().parallel().map(FeatureVector::toDouble).collect(Collectors.toList());
-        this.categoricalDataSet = dataSet.stream().parallel().map(FeatureVector::categorical)
+        this.numericalDataSet = dataSet.stream()
+                .map(FeatureVector::toDouble).collect(Collectors.toList());
+        this.categoricalDataSet = dataSet.stream()
+                .map(FeatureVector::categorical)
                 .collect(Collectors.toList());
 
     }
@@ -128,7 +130,6 @@ public class KnnMixedData {
 
         private Matrix<Double> calculateCategoricalScore(List<CategoricalFeature<?>> categorical) {
             return Matrix.of(categoricalDataSet.stream()
-                    .parallel()
                     .map(l -> categoricalMatchBetween(l, categorical))
                     .collect(Collectors.toList()));
         }

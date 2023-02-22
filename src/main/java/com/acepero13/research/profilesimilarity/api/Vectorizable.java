@@ -22,7 +22,7 @@ public interface Vectorizable {
         if (whiteList.isEmpty()) {
             return vector();
         }
-        return DoubleVector.ofFeatures(features().stream().parallel()
+        return DoubleVector.ofFeatures(features().stream()
                 .filter(f -> f.isWhiteListed(whiteList))
                 .filter(f -> !(f instanceof CategoricalFeature))
                 .collect(Collectors.toList()));
@@ -30,7 +30,7 @@ public interface Vectorizable {
 
 
     default List<Feature<?>> numericalFeatures() {
-        return features().stream().parallel()
+        return features().stream()
                 .filter(f -> !(f instanceof CategoricalFeature))
                 .collect(Collectors.toList());
     }

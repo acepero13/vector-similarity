@@ -36,7 +36,9 @@ public class MostSimilar {
     private MostSimilar(Metric metric, List<Vectorizable> vectorizables) {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
         var featureVector = vectorizables.stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
-        this.categoricalDataSet = featureVector.stream().parallel().map(FeatureVector::categorical)
+        this.categoricalDataSet = featureVector.stream()
+
+                .map(FeatureVector::categorical)
                 .collect(Collectors.toList());
         this.metric = metric;
 
@@ -79,6 +81,7 @@ public class MostSimilar {
 
 
         Optional<DataSet.Score> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
+                .parallel()
                 .map(t -> new NormalizedSample(t, metric))
                 .map(s -> s.score(normalizedTarget, categoricalTarget))
                 .max(Comparator.comparingDouble(DataSet.Score::score));

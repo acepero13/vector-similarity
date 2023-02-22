@@ -49,7 +49,6 @@ final class FeatureVectorResult implements KnnResult {
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
         return vectors.stream()
-                .parallel()
                 .map(v -> Tuple.of(v.getCategoricalFeatureBy(type), v))
                 .filter(t -> t.first().isPresent())
                 .map(t -> t.mapFirst(Optional::get))
@@ -59,7 +58,6 @@ final class FeatureVectorResult implements KnnResult {
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(String featureName) {
 
         return vectors.stream()
-                .parallel()
                 .map(v -> Tuple.of(v.getCategoricalFeatureBy(featureName), v))
                 .filter(t -> t.first().isPresent())
                 .map(t -> t.mapFirst(Optional::get))
@@ -75,7 +73,6 @@ final class FeatureVectorResult implements KnnResult {
             throw new KnnException("List of vectors is empty");
         }
         return vectors.stream()
-                .parallel()
                 .map(v -> v.getNumericalFeatureBy(featureName))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
@@ -97,7 +94,6 @@ final class FeatureVectorResult implements KnnResult {
 
         private static Map<Object, List<CategoricalFeature<?>>> sortValuesByOcurrence(Map<Object, List<CategoricalFeature<?>>> countMap) {
             return countMap.entrySet().stream()
-                    .parallel()
                     .sorted((o1, o2) -> Integer.compare(o2.getValue().size(), o1.getValue().size()))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                             (v1, v2) -> v1, LinkedHashMap::new));
@@ -105,7 +101,6 @@ final class FeatureVectorResult implements KnnResult {
 
         private static Map<Object, List<CategoricalFeature<?>>> groupResultBy(List<CategoricalFeature<?>> values) {
             return values.stream()
-                    .parallel()
                     .collect(Collectors.groupingBy(CategoricalFeature::originalValue, HashMap::new,
                             Collectors.toList()));
         }
@@ -126,7 +121,6 @@ final class FeatureVectorResult implements KnnResult {
 
         private List<CategoricalFeature<?>> extractCategoricalFeatureFor(String featureName) {
             return vectors.stream()
-                    .parallel()
                     .map(v -> v.getCategoricalFeatureBy(featureName))
                     .flatMap(Optional::stream)
                     .collect(Collectors.toList());
@@ -135,7 +129,6 @@ final class FeatureVectorResult implements KnnResult {
 
         private Set<String> extractMatchingFeatures() {
             return vectors.stream()
-                    .parallel()
                     .flatMap(v -> v.categorical().stream())
                     .map(Feature::featureName)
                     .filter(featureNameMatcher)

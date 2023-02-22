@@ -87,6 +87,7 @@ public class Knn {
 
 
         List<FeatureVector> results = normalizedDataSet.stream()
+                .parallel()
                 .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
                 .map(t -> new DataSet.Score(t.second(), t.first()))
                 .sorted(ascendingScore())

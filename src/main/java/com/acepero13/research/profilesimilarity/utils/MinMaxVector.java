@@ -19,17 +19,14 @@ public class MinMaxVector {
 
     public static MinMaxVector of(List<MinMax> minMaxes) {
         List<Tuple<Double, Double>> values = minMaxes.stream()
-                .parallel()
                 .map(m -> Tuple.of(m.min(), m.max()))
                 .collect(Collectors.toList());
 
         Vector<Double> min = values.stream()
-                .parallel()
                 .map(Tuple::first)
                 .collect(VectorCollector.toVector());
 
         Vector<Double> max = values.stream()
-                .parallel()
                 .map(Tuple::second)
                 .collect(VectorCollector.toVector());
 

@@ -32,6 +32,8 @@ public class MNISTReader {
         var train = new MNISTReader(basePath + "train-images.idx3-ubyte", basePath + "train-labels.idx1-ubyte").load();
         var test = new MNISTReader(basePath + "t10k-images.idx3-ubyte", basePath + "t10k-labels.idx1-ubyte").load();
 
+        long startTime = System.currentTimeMillis();
+
         var knn = Knn.of(11, vector -> NormalizedVector.of(vector.divide(255.0)), train);
 
         long correctClassification = test.stream()
@@ -43,6 +45,12 @@ public class MNISTReader {
         double accuracy =  (correctClassification / (double)test.size());
         double percentage = accuracy * 100.0;
         System.out.println("accuracy = " + percentage + "%");
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        double elapsedMinutes = elapsedTime / (1000.0 * 60.0); // divide by 1000 to get seconds, divide by 60 to get minutes
+        System.out.println("Elapsed time: " + elapsedMinutes + " minutes");
         assert percentage > 89.0;
     }
 

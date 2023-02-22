@@ -26,11 +26,10 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     private FeatureVector(List<Feature<?>> features) {
 
         this.categorical = features.stream()
-                .parallel()
                 .filter(CategoricalFeature.class::isInstance)
                 .map(f -> (CategoricalFeature<?>) f)
                 .collect(Collectors.toList());
-        this.vector = features.stream().parallel()
+        this.vector = features.stream()
                 .filter(f -> f instanceof AbstractNumericalFeature)
                 .map(f -> ((AbstractNumericalFeature<?>) f).doubleValue())
                 .collect(VectorCollector.toVector());
@@ -151,13 +150,12 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     public Optional<Feature<?>> getNumericalFeatureBy(String featureName) {
         return features.stream()
-                .parallel()
                 .filter(f -> f.featureName().equals(featureName))
                 .filter(f -> f instanceof NumericalFeature)
                 .findFirst();
     }
 
     public Optional<CategoricalFeature<?>> getCategoricalFeatureBy(Class<? extends CategoricalFeature<?>> type) {
-        return categorical.stream().parallel().filter(type::isInstance).findFirst();
+        return categorical.stream().filter(type::isInstance).findFirst();
     }
 }

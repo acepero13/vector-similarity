@@ -45,7 +45,6 @@ final class DataSet {
         log.info("Target is: " + target);
 
         Vector<Double> weights = target.numericalFeatures().stream()
-                .parallel()
                 .map(Feature::weight)
                 .collect(VectorCollector.toVector());
 

@@ -57,7 +57,10 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
 
     public <R> List<R> reduceColumnWise(Function<Vector<T>, R> mapper) {
         Matrix<T> transposed = transpose();
-        return transposed.matrix.stream().parallel().map(mapper).collect(Collectors.toList());
+        return transposed.matrix.stream()
+                .parallel()
+                .map(mapper)
+                .collect(Collectors.toList());
     }
 
     private void checkNumberOfColumnsMatch() throws MatrixException {
@@ -89,7 +92,8 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     }
 
     public <R extends Number> Matrix<R> map(Function<Vector<T>, Vector<R>> mapper) {
-        return new Matrix<>(matrix.stream().parallel().map(mapper)
+        return new Matrix<>(matrix.stream()
+                .parallel().map(mapper)
                 .collect(Collectors.toList()));
     }
 
