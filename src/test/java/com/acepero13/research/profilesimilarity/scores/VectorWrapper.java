@@ -1,9 +1,9 @@
 package com.acepero13.research.profilesimilarity.scores;
 
-import com.acepero13.research.profilesimilarity.api.features.Feature;
-import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
+import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ public class VectorWrapper implements Vectorizable {
     public Vector<Double> vector(List<Feature<?>> whiteList) {
         return vector;
     }
-
 
 
 }

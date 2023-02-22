@@ -1,0 +1,1424 @@
+[
+  {
+    "age": 38,
+    "income": 37476,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 53,
+    "income": 97794,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 38678,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 40,
+    "income": 31924,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "SPORT",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 71956,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SPORT",
+      "ECO"
+    ]
+  },
+  {
+    "age": 54,
+    "income": 37702,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 15,
+    "income": 18767,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "RECREATION",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 7,
+    "income": 37876,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "SPORT",
+      "RECREATION",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 56610,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "TRAINING",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 54,
+    "income": 99915,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 32,
+    "income": 43293,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "SPORT",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 32483,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "AUDI",
+      "SPORT",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 66,
+    "income": 57560,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 58,
+    "income": 48520,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 47,
+    "income": 111420,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "RECREATION",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 56660,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 52996,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 80821,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 28,
+    "income": 64158,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "AUDI",
+      "TRAINING",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 40,
+    "income": 48681,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 29,
+    "income": 12179,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "SPORT",
+      "RECREATION",
+      "FAMILY",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 69,
+    "income": 75456,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "RACING"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 44732,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SPORT",
+      "RECREATION"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 30729,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "ID3",
+      "TRAINING",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 14039,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 80,
+    "income": 64987,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "RECREATION",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 34,
+    "income": 53063,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 29,
+    "income": 29912,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "TRAINING",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 29,
+    "income": 68554,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "SPORT",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 23454,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI"
+    ]
+  },
+  {
+    "age": 38,
+    "income": 57729,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "ID3",
+      "SPORT",
+      "ECO"
+    ]
+  },
+  {
+    "age": 16,
+    "income": 63082,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 48,
+    "income": 15875,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "RECREATION",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 60,
+    "income": 37097,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 38,
+    "income": 54291,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 55,
+    "income": 44505,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "SPORT",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 33,
+    "income": 65954,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 47568,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "RECREATION",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 35633,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "RECREATION",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 19,
+    "income": 65603,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 51,
+    "income": 69799,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "AUDI",
+      "ID3",
+      "TRAINING",
+      "RECREATION",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 38,
+    "income": 44330,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 34729,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 68,
+    "income": 34678,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 43,
+    "income": 61234,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 44,
+    "income": 45503,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 22261,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 21,
+    "income": 32440,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "AUDI",
+      "ID3",
+      "RECREATION",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 63916,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 33,
+    "income": 22554,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 54,
+    "income": 90975,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "RECREATION"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 28455,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 20,
+    "income": 49656,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 32,
+    "income": 37183,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "ECO"
+    ]
+  },
+  {
+    "age": 36,
+    "income": 43477,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 35,
+    "income": 17758,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "SPORT",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 35,
+    "income": 63272,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 52,
+    "income": 70964,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 47,
+    "income": 34597,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 54563,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "ID3",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 33,
+    "income": 65210,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "RECREATION",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 71866,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "FAMILY",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 44,
+    "income": 10865,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "ID3",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 35,
+    "income": 43844,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "RECREATION",
+      "ECO"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 35938,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "ID3",
+      "TRAINING",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 21,
+    "income": 64818,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "ID3",
+      "TRAINING",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 37,
+    "income": 87886,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "SPORT"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 43046,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "AUDI",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 17,
+    "income": 64992,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 66645,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "TRAINING",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 30,
+    "income": 32630,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "FAMILY",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 53739,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "TRAINING",
+      "RECREATION",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 84,
+    "income": 63967,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SPORT",
+      "RECREATION",
+      "ECO"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 66425,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 29,
+    "income": 46245,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "AUDI",
+      "SPORT",
+      "TRAINING",
+      "ECO"
+    ]
+  },
+  {
+    "age": 17,
+    "income": 12715,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ECO"
+    ]
+  },
+  {
+    "age": 47,
+    "income": 54442,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 61509,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "RECREATION",
+      "RACING"
+    ]
+  },
+  {
+    "age": 31,
+    "income": 48048,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 47,
+    "income": 71456,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "SPORT",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 60,
+    "income": 26483,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "ID3"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 64465,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ECO"
+    ]
+  },
+  {
+    "age": 63,
+    "income": 17830,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC"
+    ]
+  },
+  {
+    "age": 25,
+    "income": 49392,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "RECREATION",
+      "RACING"
+    ]
+  },
+  {
+    "age": 64,
+    "income": 821,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "TRAINING",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 34,
+    "income": 74342,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 48,
+    "income": 47780,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "TRAINING",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 50314,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 32,
+    "income": 80055,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "AUDI",
+      "ID3",
+      "TRAINING",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 57,
+    "income": 32118,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "AUDI",
+      "SPORT",
+      "RECREATION",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 2,
+    "income": 37113,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "ID3",
+      "SPORT"
+    ]
+  },
+  {
+    "age": 24,
+    "income": 49560,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "SPORT"
+    ]
+  },
+  {
+    "age": 38,
+    "income": 61826,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "EATING",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 16,
+    "income": 45739,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SPORT",
+      "RECREATION",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 34,
+    "income": 37306,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "RECREATION",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 29,
+    "income": 89635,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "RECREATION",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 68806,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 15960,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "TRAINING",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 9,
+    "income": 46579,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 27,
+    "income": 92810,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "ID3",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "SAFETY"
+    ]
+  }
+]

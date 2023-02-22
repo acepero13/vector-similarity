@@ -1,6 +1,9 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
-import com.acepero13.research.profilesimilarity.api.*;
+import com.acepero13.research.profilesimilarity.api.Metric;
+import com.acepero13.research.profilesimilarity.api.Normalizer;
+import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
@@ -34,15 +37,16 @@ final class DataSet {
         return Matrix.buildMinMaxNormalizerFrom(Matrix.ofVectors(featureReducedDataSet));
     }
 
+    public static Double calculateScore(Metric metric, NormalizedVector normalizedTarget, NormalizedVector v) {
+        return metric.similarityScore(normalizedTarget, v);
+    }
+
     List<Tuple<Vectorizable, NormalizedVector>> scaleAndScore(Vectorizable target, Normalizer normalizer) {
         log.info("Target is: " + target);
 
         Vector<Double> weights = target.numericalFeatures().stream()
-                .parallel()
                 .map(Feature::weight)
                 .collect(VectorCollector.toVector());
-
-
 
 
         return this.dataPoints.stream()
@@ -52,11 +56,6 @@ final class DataSet {
                 .map(t -> t.mapSecond(weights::multiply))
                 .map(t -> t.mapSecond(NormalizedVector::of))
                 .collect(Collectors.toList());
-    }
-
-
-    public static Double calculateScore(Metric metric, NormalizedVector normalizedTarget, NormalizedVector v) {
-        return metric.similarityScore(normalizedTarget, v);
     }
 
     public int size() {

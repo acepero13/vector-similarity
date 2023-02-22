@@ -1,12 +1,14 @@
 package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.testmodels.Gender;
+import com.acepero13.research.profilesimilarity.testmodels.POLITIC;
+import com.acepero13.research.profilesimilarity.testmodels.RACE;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class GowerTest {
 
+
     @Test
     void calculateDistance() {
         var person1 = new Person(22, RACE.CAUCASIAN, 3, 0.39, true, POLITIC.MODERATE);
@@ -24,13 +27,13 @@ public class GowerTest {
         var person3 = new Person(52, RACE.CAUCASIAN, 2, 0.51, true, POLITIC.MODERATE);
         var person4 = new Person(46, RACE.BLACK, 3, 0.63, true, POLITIC.CONSERVATIVE);
 
-        var dataset = List.of(
+        List<FeatureVector> dataset = List.of(
                 person1.toFeatureVector(),
                 person2.toFeatureVector(),
                 person3.toFeatureVector(),
                 person4.toFeatureVector());
 
-        KnnMixedData knn = new KnnMixedData(3, dataset);
+        KnnMixedData knn = KnnMixedData.of(3, dataset);
         KnnResult result = knn.fit(person2.toFeatureVector());
         CategoricalFeature<?> actualRace = result
                 .classify("race");
@@ -41,7 +44,7 @@ public class GowerTest {
         assertThat(actualAge, closeTo(35.6, 0.1));
 
         CategoricalFeature<?> actualPolitics = result
-                .classify(GowerTest.POLITIC.class);
+                .classify(POLITIC.class);
 
         assertThat(actualPolitics, equalTo(POLITIC.MODERATE));
 
@@ -58,54 +61,6 @@ public class GowerTest {
         }
 
 
-        public FeatureVector toFeatureVector() {
-            return new FeatureVector(features());
-        }
     }
 
-    private enum RACE implements CategoricalFeature<RACE> {
-        CAUCASIAN, BLACK, ASIAN;
-
-        @Override
-        public RACE originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "race";
-        }
-    }
-
-    private enum Gender implements CategoricalFeature<Gender> {
-        FEMALE, MALE;
-
-        public static Feature<?> from(boolean isMale) {
-            return isMale ? MALE : FEMALE;
-        }
-
-        @Override
-        public Gender originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "gender";
-        }
-    }
-
-    private enum POLITIC implements CategoricalFeature<POLITIC> {
-        MODERATE, LIBERAL, CONSERVATIVE;
-
-        @Override
-        public POLITIC originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "politic";
-        }
-    }
 }

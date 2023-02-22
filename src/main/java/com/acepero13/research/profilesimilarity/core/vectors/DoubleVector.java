@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.core.vectors;
 
-import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
@@ -24,12 +24,12 @@ public class DoubleVector implements Vector<Double> {
     private final List<Double> features;
     private final int size;
 
-    public DoubleVector(List<Double> arr) {
+    private DoubleVector(List<Double> arr) {
         this.features = Objects.requireNonNull(arr, "Features cannot be null");
         this.size = features.size();
     }
 
-    public DoubleVector(Double[] arr) {
+    private DoubleVector(Double[] arr) {
         this(List.of(arr));
     }
 
@@ -50,7 +50,6 @@ public class DoubleVector implements Vector<Double> {
 
     public static DoubleVector ofFeatures(List<Feature<?>> features) {
         return new DoubleVector(features.stream()
-                .parallel()
                 .map(Feature::featureValue)
                 .collect(Collectors.toList()));
     }
@@ -59,7 +58,6 @@ public class DoubleVector implements Vector<Double> {
     public Double norm() {
         return Math.sqrt(
                 features.stream()
-                        .parallel()
                         .mapToDouble(f -> Math.pow(f, 2))
                         .sum()
         );
@@ -105,7 +103,7 @@ public class DoubleVector implements Vector<Double> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<Double> another) {
+    public void checkSizeMatchWith(Vector<Double> another) throws VectorException {
         if (size != another.size()) {
             log.warning("Vectors do not match");
             throw new VectorException("Vector length do not match. Vector length is: " + size + " and the other vector's length is: " + another.size());
@@ -139,8 +137,10 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public MinMax minMax() {
-        double min = features.stream().parallel().min(Double::compare).orElse(Double.MIN_VALUE - 1);
-        double max = features.stream().parallel().max(Double::compare).orElse(Double.MIN_VALUE - 1);
+        double min = features.stream()
+                .min(Double::compare).orElse(Double.MIN_VALUE - 1);
+        double max = features.stream()
+                .max(Double::compare).orElse(Double.MIN_VALUE - 1);
         return new MinMax(min, max);
     }
 
@@ -154,7 +154,7 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public double sum() {
-        return features.stream().parallel().mapToDouble(f -> f).sum();
+        return features.stream().mapToDouble(f -> f).sum();
     }
 
     @Override
@@ -163,7 +163,7 @@ public class DoubleVector implements Vector<Double> {
             log.warning("Division by zero is not allowed");
             throw new VectorException("value cannot be zero");
         }
-        return features.stream().parallel().map(f -> f / value).collect(VectorCollector.toVector());
+        return features.stream().map(f -> f / value).collect(VectorCollector.toVector());
     }
 
     @Override
@@ -173,7 +173,7 @@ public class DoubleVector implements Vector<Double> {
 
     @Override
     public Vector<Double> abs() {
-        return features.stream().parallel().map(Math::abs).collect(VectorCollector.toVector());
+        return features.stream().map(Math::abs).collect(VectorCollector.toVector());
     }
 
     @Override
@@ -186,7 +186,7 @@ public class DoubleVector implements Vector<Double> {
             DoubleVector padded = new DoubleVector(ListUtils.padding(((DoubleVector) anotherVector).features, padding, Math.abs(difference)));
             return this.add(padded);
         }
-        return new DoubleVector(ListUtils.padding(features, padding, difference)).add(anotherVector);
+        return new DoubleVector(ListUtils.padding(features, padding, Math.abs(difference))).add(anotherVector);
     }
 
 

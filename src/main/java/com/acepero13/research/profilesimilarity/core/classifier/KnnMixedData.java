@@ -1,9 +1,11 @@
 package com.acepero13.research.profilesimilarity.core.classifier;
 
 import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.MinMaxVector;
@@ -22,13 +24,40 @@ public class KnnMixedData {
     private final int k;
     private final List<List<CategoricalFeature<?>>> categoricalDataSet;
 
-    public KnnMixedData(int k, List<FeatureVector> dataSet) {
+    private KnnMixedData(int k, List<FeatureVector> dataSet) {
         this.dataSet = dataSet;
         this.k = k;
-        this.numericalDataSet = dataSet.stream().parallel().map(FeatureVector::toDouble).collect(Collectors.toList());
-        this.categoricalDataSet = dataSet.stream().parallel().map(FeatureVector::categorical).collect(Collectors.toList());
+        this.numericalDataSet = dataSet.stream()
+                .map(FeatureVector::toDouble).collect(Collectors.toList());
+        this.categoricalDataSet = dataSet.stream()
+                .map(FeatureVector::categorical)
+                .collect(Collectors.toList());
 
     }
+
+    public static KnnMixedData ofVectorizable(int k, List<Vectorizable> dataSet) {
+        var featureVectors = dataSet.stream().map(Vectorizable::toFeatureVector)
+                .collect(Collectors.toList());
+        return new KnnMixedData(k, featureVectors);
+    }
+
+    public static KnnMixedData ofVectorizable(int k, Vectorizable... dataSet) {
+        return ofVectorizable(k, List.of(dataSet));
+    }
+
+    public static KnnMixedData of(int k, FeatureVector... dataSet) {
+        return new KnnMixedData(k, List.of(dataSet));
+    }
+
+    public static KnnMixedData of(int k, List<FeatureVector> dataSet) {
+        return new KnnMixedData(k, dataSet);
+    }
+
+
+    public static <T> KnnMixedData ofObjects(int k, List<T> dataset) {
+        return of(k, VectorizableProxy.ofFeatureVector(dataset));
+    }
+
 
     public KnnResult fit(FeatureVector target) {
         var metric = new GowerMetric();
@@ -43,8 +72,14 @@ public class KnnMixedData {
 
 
         return KnnResult.of(similarNeighbors);
+    }
 
+    public KnnResult fit(Vectorizable target) {
+        return fit(target.toFeatureVector());
+    }
 
+    public KnnResult fit(Object target) {
+        return fit(VectorizableProxy.of(target));
     }
 
     private class GowerMetric {
@@ -53,10 +88,9 @@ public class KnnMixedData {
         private final Matrix<Double> matrix;
 
         public GowerMetric() {
-            this.matrix = new Matrix<>(numericalDataSet);
+            this.matrix = Matrix.of(numericalDataSet);
         }
 
-        // TODO: Refactor this
         public List<Tuple<Double, FeatureVector>> calculate(FeatureVector target) {
             MinMaxVector minMaxVector = MinMaxVector.of(matrix);
             Vector<Double> difference = minMaxVector.difference();
@@ -95,15 +129,23 @@ public class KnnMixedData {
         }
 
         private Matrix<Double> calculateCategoricalScore(List<CategoricalFeature<?>> categorical) {
-            return new Matrix<>(categoricalDataSet.stream()
-                    .parallel()
+            return Matrix.of(categoricalDataSet.stream()
                     .map(l -> categoricalMatchBetween(l, categorical))
                     .collect(Collectors.toList()));
         }
 
         private Vector<Double> categoricalMatchBetween(List<CategoricalFeature<?>> categorical, List<CategoricalFeature<?>> target) {
-            return ListUtils.zip(target, categorical, CategoricalFeature::matches)
-                    .map(v -> v ? 0.0 : 1.0)
+            List<CategoricalFeature<?>> filteredCategorical = categorical.stream()
+                    .filter(c -> target.stream()
+                            .anyMatch(t -> t
+                                    .featureName()
+                                    .equals(c.featureName())))
+                    .collect(Collectors.toList());
+
+            return ListUtils.zip(target, filteredCategorical, CategoricalFeature::matches)
+                    .map(v -> v
+                            ? 0.0
+                            : 1.0)
                     .collect(VectorCollector.toVector());
         }
 

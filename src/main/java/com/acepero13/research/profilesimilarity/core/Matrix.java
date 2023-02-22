@@ -18,10 +18,13 @@ import java.util.stream.Stream;
 public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     private final List<Vector<T>> matrix;
 
-    public Matrix(List<Vector<T>> rows) {
+    private Matrix(List<Vector<T>> rows) {
         this.matrix = Objects.requireNonNull(rows, "Rows cannot be null");
     }
 
+    public static <T extends Number> Matrix<T> of(List<Vector<T>> rows) {
+        return new Matrix<>(rows);
+    }
 
     public static Normalizer buildMinMaxNormalizerFrom(Matrix<Double> matrix) {
         return Normalizer.minMaxNormalizer(matrix);
@@ -54,7 +57,10 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
 
     public <R> List<R> reduceColumnWise(Function<Vector<T>, R> mapper) {
         Matrix<T> transposed = transpose();
-        return transposed.matrix.stream().parallel().map(mapper).collect(Collectors.toList());
+        return transposed.matrix.stream()
+                .parallel()
+                .map(mapper)
+                .collect(Collectors.toList());
     }
 
     private void checkNumberOfColumnsMatch() throws MatrixException {
@@ -86,7 +92,8 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
     }
 
     public <R extends Number> Matrix<R> map(Function<Vector<T>, Vector<R>> mapper) {
-        return new Matrix<>(matrix.stream().parallel().map(mapper)
+        return new Matrix<>(matrix.stream()
+                .parallel().map(mapper)
                 .collect(Collectors.toList()));
     }
 

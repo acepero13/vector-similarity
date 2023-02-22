@@ -2,7 +2,7 @@ package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
-import com.acepero13.research.profilesimilarity.scores.CosineMetric;
+import com.acepero13.research.profilesimilarity.scores.Metrics;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,7 +10,18 @@ import static org.hamcrest.Matchers.closeTo;
 
 class MetricTest {
 
-    final Metric scorer = new CosineMetric();
+    final Metric scorer = Metrics.cosineSimilarity();
+
+    private static UserProfile createEcoProfile() {
+        return UserProfile.builder()
+                .isInterestedInEcoProducts(true)
+                .drivesInEcoMode(true)
+                .likesToBuyEcoProducts(true)
+                .gender(UserProfile.Gender.MALE)
+                .salary(1)
+                .numberOfChildren(1)
+                .build();
+    }
 
     @Test
     void usersWithSameProfileHavePerfectScore() {
@@ -22,7 +33,8 @@ class MetricTest {
         assertThat(result, closeTo(1.0, 0.1));
     }
 
-    @Test void usersWithOppositeProfilesHasZeroScore(){
+    @Test
+    void usersWithOppositeProfilesHasZeroScore() {
         var userProfile1 = createEcoProfile();
         var userProfile2 = UserProfile.builder()
                 .isInterestedInEcoProducts(false)
@@ -36,17 +48,6 @@ class MetricTest {
         var result = scorer.similarityScore(NormalizedVector.of(userProfile1.vector()), NormalizedVector.of(userProfile2.vector()));
 
         assertThat(result, closeTo(0.0, 0.1));
-    }
-
-    private static UserProfile createEcoProfile() {
-        return UserProfile.builder()
-                .isInterestedInEcoProducts(true)
-                .drivesInEcoMode(true)
-                .likesToBuyEcoProducts(true)
-                .gender(UserProfile.Gender.MALE)
-                .salary(1)
-                .numberOfChildren(1)
-                .build();
     }
 
 }

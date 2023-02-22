@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.utils;
 
-import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.core.Matrix;
 import lombok.Data;
 
 import java.util.List;
@@ -19,17 +19,14 @@ public class MinMaxVector {
 
     public static MinMaxVector of(List<MinMax> minMaxes) {
         List<Tuple<Double, Double>> values = minMaxes.stream()
-                .parallel()
                 .map(m -> Tuple.of(m.min(), m.max()))
                 .collect(Collectors.toList());
 
         Vector<Double> min = values.stream()
-                .parallel()
                 .map(Tuple::first)
                 .collect(VectorCollector.toVector());
 
         Vector<Double> max = values.stream()
-                .parallel()
                 .map(Tuple::second)
                 .collect(VectorCollector.toVector());
 

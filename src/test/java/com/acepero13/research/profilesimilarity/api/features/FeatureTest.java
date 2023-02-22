@@ -17,7 +17,8 @@ class FeatureTest {
 
     }
 
-    @Test void booleanFeatureOfTrue(){
+    @Test
+    void booleanFeatureOfTrue() {
         Feature<Boolean> feat = Features.booleanFeature(true, "feat");
         assertThat(feat.featureValue(), closeTo(1.0, 0.01));
         assertThat(feat.originalValue(), equalTo(true));

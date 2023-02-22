@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
@@ -26,19 +27,36 @@ public class Knn {
     private List<Tuple<Vectorizable, NormalizedVector>> normalizedDataSet = new ArrayList<>();
 
 
-    public Knn(int k, Vectorizable... data) {
-        this(k, List.of(data));
-    }
-
-    public Knn(int k, List<Vectorizable> data) {
+    private Knn(int k, List<Vectorizable> data) {
         this.k = k;
         this.dataSet = new DataSet(requireNonNull(data));
     }
 
-    public Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
+    private Knn(int k, Normalizer normalizer, List<Vectorizable> data) {
         this.k = k;
         this.dataSet = new DataSet(requireNonNull(data));
         this.normalizer = normalizer;
+    }
+
+    public static Knn of(int k, Normalizer normalizer, List<Vectorizable> data) {
+        return new Knn(k, normalizer, data);
+    }
+
+    public static Knn withDefaultNormalizer(int k, List<Vectorizable> data) {
+        return new Knn(k, data);
+    }
+
+    public static Knn withDefaultNormalizer(int k, Vectorizable... data) {
+        return new Knn(k, List.of(data));
+    }
+
+
+    public static <T> Knn ofObjectsWithDefaultNormalizer(int k, List<T> data) {
+        return new Knn(k, VectorizableProxy.of(data));
+    }
+
+    public static <T> Knn ofObjects(int k, Normalizer normalizer, List<T> data) {
+        return new Knn(k, normalizer, VectorizableProxy.of(data));
     }
 
 
@@ -53,6 +71,10 @@ public class Knn {
         return classify(normalizedTarget);
     }
 
+    public KnnResult fit(Object target) {
+        return fit(VectorizableProxy.of(target));
+    }
+
     private void logInitialInformation() {
         log.info(String.format("Classifying using Categorical KNN with k=%d.", k));
         log.info("Number of samples: " + dataSet.size());
@@ -65,6 +87,7 @@ public class Knn {
 
 
         List<FeatureVector> results = normalizedDataSet.stream()
+                .parallel()
                 .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
                 .map(t -> new DataSet.Score(t.second(), t.first()))
                 .sorted(ascendingScore())

@@ -8,45 +8,46 @@ import com.acepero13.research.profilesimilarity.api.features.NumericalFeature;
 import com.acepero13.research.profilesimilarity.exceptions.VectorException;
 import com.acepero13.research.profilesimilarity.utils.MinMax;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import com.acepero13.research.profilesimilarity.utils.VectorCollector;
+import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Data
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     private final List<CategoricalFeature<?>> categorical;
-    private final List<Double> numerical;
     private final Vector<Double> vector;
     private final List<Feature<?>> features;
 
-    public FeatureVector(List<Feature<?>> features) {
-        this.numerical = features.stream().parallel().filter(f -> f instanceof AbstractNumericalFeature).map(f -> ((AbstractNumericalFeature<?>) f).doubleValue()).collect(Collectors.toList());
+    private FeatureVector(List<Feature<?>> features) {
+
         this.categorical = features.stream()
-                .parallel()
                 .filter(CategoricalFeature.class::isInstance)
                 .map(f -> (CategoricalFeature<?>) f)
                 .collect(Collectors.toList());
-        this.vector = DoubleVector.of(numerical);
+        this.vector = features.stream()
+                .filter(f -> f instanceof AbstractNumericalFeature)
+                .map(f -> ((AbstractNumericalFeature<?>) f).doubleValue())
+                .collect(VectorCollector.toVector());
         this.features = features;
 
 
     }
 
-    public FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical, List<Feature<?>> features) {
+    private FeatureVector(Vector<Double> vector, List<CategoricalFeature<?>> categorical, List<Feature<?>> features) {
         this.vector = vector;
         this.categorical = categorical;
-        List<Double> values = new ArrayList<>();
-        for (int i = 0; i < vector.size(); i++) {
-            values.add(vector.getFeature(i));
-        }
-        this.numerical = values;
         this.features = features;
 
     }
 
+    public static FeatureVector of(List<Feature<?>> features) {
+        return new FeatureVector(features);
+    }
 
     @Override
     public Double norm() {
@@ -79,7 +80,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<AbstractNumericalFeature<Double>> another) {
+    public void checkSizeMatchWith(Vector<AbstractNumericalFeature<Double>> another) throws VectorException {
         vector.checkSizeMatchWith(another.toDouble());
     }
 
@@ -100,7 +101,7 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     @Override
     public int size() {
-        return this.categorical.size() + this.numerical.size();
+        return this.categorical.size() + this.vector.size();
     }
 
     @Override
@@ -149,13 +150,12 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     public Optional<Feature<?>> getNumericalFeatureBy(String featureName) {
         return features.stream()
-                .parallel()
                 .filter(f -> f.featureName().equals(featureName))
                 .filter(f -> f instanceof NumericalFeature)
                 .findFirst();
     }
 
     public Optional<CategoricalFeature<?>> getCategoricalFeatureBy(Class<? extends CategoricalFeature<?>> type) {
-        return categorical.stream().parallel().filter(type::isInstance).findFirst();
+        return categorical.stream().filter(type::isInstance).findFirst();
     }
 }

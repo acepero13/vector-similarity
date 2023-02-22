@@ -1,5 +1,6 @@
 package com.acepero13.research.profilesimilarity;
 
+import com.acepero13.research.profilesimilarity.annotations.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import lombok.Data;
@@ -13,7 +14,7 @@ import static com.acepero13.research.profilesimilarity.api.features.Features.int
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-
+@Vectorizable
 public class UserProfile extends AbstractVectorizable {
 
     private final Boolean likesToBuyEcoProducts;
@@ -50,6 +51,32 @@ public class UserProfile extends AbstractVectorizable {
         return new Builder();
     }
 
+
+    enum Gender implements Feature<Gender> {
+        FEMALE(1), MALE(0);
+
+
+        private final double value;
+
+        Gender(int value) {
+            this.value = value;
+        }
+
+        @Override
+        public double featureValue() {
+            return value;
+        }
+
+        @Override
+        public Gender originalValue() {
+            return this;
+        }
+
+        @Override
+        public String featureName() {
+            return "gender";
+        }
+    }
 
     public static class Builder {
         private Boolean likesToBuyEcoProducts;
@@ -104,32 +131,6 @@ public class UserProfile extends AbstractVectorizable {
 
         public UserProfile build() {
             return new UserProfile(this);
-        }
-    }
-
-    enum Gender implements Feature<Gender> {
-        FEMALE(1), MALE(0);
-
-
-        private final double value;
-
-        Gender(int value) {
-            this.value = value;
-        }
-
-        @Override
-        public double featureValue() {
-            return value;
-        }
-
-        @Override
-        public Gender originalValue() {
-            return this;
-        }
-
-        @Override
-        public String featureName() {
-            return "gender";
         }
     }
 }

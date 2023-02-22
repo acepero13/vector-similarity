@@ -1,6 +1,11 @@
 package com.acepero13.research.profilesimilarity.api.features;
 
-public abstract class AbstractNumericalFeature <T extends Number> extends Number implements NumericalFeature<T>{
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@ToString
+@EqualsAndHashCode(callSuper = false)
+public abstract class AbstractNumericalFeature<T extends Number> extends Number implements NumericalFeature<T> {
 
     private final T value;
     private final String name;

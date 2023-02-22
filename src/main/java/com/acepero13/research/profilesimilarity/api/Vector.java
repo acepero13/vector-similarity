@@ -14,9 +14,10 @@ public interface Vector<T extends Number> {
     @SuppressWarnings("unchecked")
     static <T extends Number> Vector<T> of(List<T> features) {
         if (features.stream().allMatch(Double.class::isInstance)) {
-            return (Vector<T>) new DoubleVector(features.stream().parallel().map(Double.class::cast).collect(Collectors.toList()));
+            return (Vector<T>) DoubleVector.of(features.stream()
+                    .map(Double.class::cast).collect(Collectors.toList()));
         }
-        return (Vector<T>) new DoubleVector(new ArrayList<>());
+        return (Vector<T>) DoubleVector.of(new ArrayList<>());
     }
 
     Double norm();
@@ -31,7 +32,7 @@ public interface Vector<T extends Number> {
 
     Vector<T> subtract(Vector<T> another) throws VectorException;
 
-    void checkSizeMatchWith(Vector<T> another);
+    void checkSizeMatchWith(Vector<T> another) throws VectorException;
 
     Stream<Tuple<Double, Double>> zip(Vector<T> another);
 
@@ -42,7 +43,6 @@ public interface Vector<T extends Number> {
     int size();
 
     MinMax minMax();
-
 
 
     Vector<Double> divide(Vector<Double> difference);

@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class NormalizedVector implements Vector<Double> {
     private final Vector<Double> vector;
 
-    public NormalizedVector(Vector<Double> original, Normalizer normalizer) {
+    private NormalizedVector(Vector<Double> original, Normalizer normalizer) {
         this.vector = normalizer.normalize(original);
     }
 
@@ -62,7 +62,7 @@ public class NormalizedVector implements Vector<Double> {
     }
 
     @Override
-    public void checkSizeMatchWith(Vector<Double> another) {
+    public void checkSizeMatchWith(Vector<Double> another) throws VectorException {
         vector.checkSizeMatchWith(another);
     }
 

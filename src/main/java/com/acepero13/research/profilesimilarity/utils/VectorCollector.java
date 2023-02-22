@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.utils;
 
-import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 import com.acepero13.research.profilesimilarity.api.Vector;
+import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,10 @@ import java.util.stream.Collector;
  * @author Alvaro Cepero
  */
 public class VectorCollector implements Collector<Double, List<Double>, Vector<Double>> {
-    public static VectorCollector toVector(){
+    public static VectorCollector toVector() {
         return new VectorCollector();
     }
+
     @Override
     public Supplier<List<Double>> supplier() {
         return ArrayList::new;

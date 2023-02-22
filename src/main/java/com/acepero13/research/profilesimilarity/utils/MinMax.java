@@ -7,6 +7,17 @@ public class MinMax {
     private final double min;
     private final double max;
 
+    public MinMax(double min, double max) {
+        if (max == min) {
+            this.min = 0;
+            this.max = 1;
+        } else {
+            this.min = min;
+            this.max = max;
+        }
+
+    }
+
 
     public double difference() {
         return max - min;

@@ -12,21 +12,6 @@ class UserProfileTest {
     private static final Boolean YES = true;
     private static final Boolean NO = false;
 
-    @Test
-    void usingProfiles() {
-
-
-        var u1 = createUser1();
-        var u2 = createUser2();
-        var target = createUser3();
-
-        var dataset = new MostSimilar(u1, u2);
-
-        Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
-
-        assertThat(mostSimilarUser, equalTo(u1));
-    }
-
     private static UserProfile createUser1() {
         return UserProfile.builder()
                 .drivesInEcoMode(YES)
@@ -64,6 +49,21 @@ class UserProfileTest {
     }
 
     @Test
+    void usingProfiles() {
+
+
+        var u1 = createUser1();
+        var u2 = createUser2();
+        var target = createUser3();
+
+        var dataset = MostSimilar.withDefaultMetric(u1, u2);
+
+        Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
+
+        assertThat(mostSimilarUser, equalTo(u1));
+    }
+
+    @Test
     @DisplayName("target object has some missing features. Compute similarity only using those features")
     void compare() {
         /*
@@ -85,7 +85,7 @@ class UserProfileTest {
 
         UserProfile user1 = createUser1();
         UserProfile user2 = createUser2();
-        var dataset = new MostSimilar(user1, user2);
+        var dataset = MostSimilar.withDefaultMetric(user1, user2);
 
         Vectorizable mostSimilarUser = dataset.mostSimilarTo(target);
 
