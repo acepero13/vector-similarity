@@ -1,4 +1,4 @@
 package com.acepero13.research.profilesimilarity.annotations;
 
-public enum DefaultEnum {
+enum DefaultEnum {
 }

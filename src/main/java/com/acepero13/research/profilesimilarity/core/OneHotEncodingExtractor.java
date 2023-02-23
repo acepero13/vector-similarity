@@ -112,6 +112,13 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
     }
 
 
+    /**
+     * Converts a list of CategoricalFeature objects into a list of Feature objects that represent the same data as
+     * one-hot vectors.
+     *
+     * @param elements a list of CategoricalFeature objects to convert into one-hot vectors.
+     * @return a list of Feature objects that represent the same data as one-hot vectors.
+     */
     public List<Feature<?>> convertCategoricalFeature(List<CategoricalFeature<Object>> elements) {
         List<Feature<?>> oneHotVectorList = new ArrayList<>();
 

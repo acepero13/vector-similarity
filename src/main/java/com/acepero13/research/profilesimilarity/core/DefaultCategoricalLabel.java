@@ -5,19 +5,35 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Objects;
 
+
 /**
- * A Description
+ * A default implementation of the CategoricalLabel interface.
  *
- * @author Alvaro Cepero
+ * @param <T> the type of the categorical label.
  */
 @EqualsAndHashCode
 public class DefaultCategoricalLabel<T> implements CategoricalLabel<T> {
+
+    /**
+     * The value of the categorical label.
+     */
     private final T value;
 
+    /**
+     * Constructs a DefaultCategoricalLabel object with the given value.
+     *
+     * @param value the value of the categorical label.
+     * @throws NullPointerException if the given value is null.
+     */
     public DefaultCategoricalLabel(T value) {
         this.value = Objects.requireNonNull(value);
     }
 
+    /**
+     * Returns the value of the categorical label.
+     *
+     * @return the value of the categorical label.
+     */
     @Override
     public T value() {
         return value;
