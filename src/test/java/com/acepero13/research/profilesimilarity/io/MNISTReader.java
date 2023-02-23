@@ -34,7 +34,7 @@ public class MNISTReader {
 
         long startTime = System.currentTimeMillis();
 
-        var knn = Knn.of(11, vector -> NormalizedVector.of(vector.divide(255.0)), train);
+        var knn = Knn.of(7, vector -> NormalizedVector.of(vector.divide(255.0)), train);
 
         long correctClassification = test.stream()
                 .parallel()

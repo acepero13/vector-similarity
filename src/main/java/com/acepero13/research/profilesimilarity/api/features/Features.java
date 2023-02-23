@@ -4,44 +4,115 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * The {@code Features} class provides static utility methods for creating {@link Feature} instances.
+ */
 public final class Features {
 
+    /**
+     * The default weight for a feature.
+     */
     public static final double DEFAULT_WEIGHT = 1.0;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private Features() {
     }
 
+    /**
+     * Returns a new boolean {@link Feature} instance with the specified value, name and default weight.
+     *
+     * @param value the boolean value of the feature.
+     * @param name  the name of the feature.
+     * @return a new boolean {@link Feature} instance with the specified value, name and default weight.
+     */
     public static Feature<Boolean> booleanFeature(Boolean value, String name) {
         return new BooleanFeature(value, name, DEFAULT_WEIGHT);
     }
 
+    /**
+     * Returns a new boolean {@link Feature} instance with the specified value, name and weight.
+     *
+     * @param value  the boolean value of the feature.
+     * @param name   the name of the feature.
+     * @param weight the weight of the feature.
+     * @return a new boolean {@link Feature} instance with the specified value, name and weight.
+     */
     public static Feature<Boolean> booleanFeature(Boolean value, String name, double weight) {
         return new BooleanFeature(value, name, weight);
     }
+
+    /**
+     * Returns a new categorical boolean {@link Feature} instance with the specified value and name.
+     *
+     * @param value the boolean value of the feature.
+     * @param name  the name of the feature.
+     * @return a new categorical boolean {@link Feature} instance with the specified value and name.
+     */
 
     public static Feature<Boolean> categoricalBoolean(Boolean value, String name) {
         return new CategoricalBoolean(value, name);
     }
 
+    /**
+     * Returns a new integer {@link AbstractNumericalFeature} instance with the specified value, name and weight.
+     *
+     * @param value  the integer value of the feature.
+     * @param name   the name of the feature.
+     * @param weight the weight of the feature.
+     * @return a new integer {@link AbstractNumericalFeature} instance with the specified value, name and weight.
+     */
     public static AbstractNumericalFeature<Integer> integerFeature(Integer value, String name, double weight) {
         return new IntegerFeature(value, name, weight);
     }
 
+    /**
+     * Returns a new integer {@link AbstractNumericalFeature} instance with the specified value, name and default weight.
+     *
+     * @param value the integer value of the feature.
+     * @param name  the name of the feature.
+     * @return a new integer {@link AbstractNumericalFeature} instance with the specified value, name and default weight.
+     */
     public static AbstractNumericalFeature<Integer> integerFeature(Integer value, String name) {
         return new IntegerFeature(value, name, DEFAULT_WEIGHT);
     }
 
+    /**
+     * Returns a new double {@link AbstractNumericalFeature} instance with the specified value, name and default weight.
+     *
+     * @param value the double value of the feature.
+     * @param name  the name of the feature.
+     * @return a new double {@link AbstractNumericalFeature} instance with the specified value, name and default weight.
+     */
     public static AbstractNumericalFeature<Double> doubleFeature(double value, String name) {
         return new DoubleFeature(value, name, DEFAULT_WEIGHT);
     }
 
+    /**
+     * Creates a new {@link DoubleFeature} with the given {@code value}, {@code name}, and {@code weight}.
+     *
+     * @param value  the double value of the feature
+     * @param name   the name of the feature
+     * @param weight the weight of the feature
+     * @return a new instance of {@link DoubleFeature}
+     */
     public static AbstractNumericalFeature<Double> doubleFeature(double value, String name, double weight) {
         return new DoubleFeature(value, name, weight);
     }
 
+    /**
+     * Creates a new {@link DoubleFeature} with the given {@code value}, {@code name}, and {@code weight}.
+     *
+     * @param value  the double value of the feature
+     * @param name   the name of the feature
+     * @param weight the weight of the feature
+     * @return a new instance of {@link DoubleFeature}
+     */
     public static AbstractNumericalFeature<Double> doubleFeature(Double value, String name, double weight) {
         return new DoubleFeature(value, name, weight);
     }
+
 
     @Data
     private static class CategoricalBoolean implements CategoricalFeature<Boolean> {
