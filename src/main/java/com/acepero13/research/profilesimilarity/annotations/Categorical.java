@@ -22,14 +22,40 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.TYPE})
 public @interface Categorical {
+
+    /**
+     * the name of the categorical feature. By default, the name of the field or constructor parameter is used.
+     *
+     * @return the name of the feature
+     */
     String name() default "";
 
+    /**
+     * the type of the categorical feature. By default, the type of the annotated element is used.
+     *
+     * @return type of categorical feature
+     */
     Class<?> type() default Object.class;
 
+    /**
+     * a boolean indicating whether or not the categorical feature should be one-hot encoded. By default, this is false.
+     *
+     * @return true if the feature should be one-hot encoded
+     */
     boolean oneHotEncoding() default false;
 
+    /**
+     * By default, {@link DefaultEnum} is used.
+     *
+     * @return the type of the categorical feature
+     */
     Class<? extends Enum<?>> enumClass() default DefaultEnum.class;
 
+    /**
+     * Possible values that the one hot feature can take. This is optional.
+     *
+     * @return list of possible values
+     */
     String[] values() default {};
 
 }

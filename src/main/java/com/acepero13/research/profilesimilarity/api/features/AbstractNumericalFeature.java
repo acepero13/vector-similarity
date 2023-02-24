@@ -11,6 +11,8 @@ import lombok.ToString;
  * This class represents a numerical feature with a value, a name and a weight.
  * <p>
  * The value of the feature is of type T which extends Number.
+ *
+ * @param <T> The type of the numerical value
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
