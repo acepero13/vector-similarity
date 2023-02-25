@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+/**
+ * A {@link Vector} implementation that represents a collection of double values.
+ */
 @EqualsAndHashCode
 @ToString
 @Log
@@ -33,21 +36,45 @@ public class DoubleVector implements Vector<Double> {
         this(List.of(arr));
     }
 
+
+    /**
+     * Creates a new DoubleVector object from an array of double values.
+     *
+     * @param features the array of double values to create the DoubleVector object from.
+     * @return a new DoubleVector object initialized with the specified values.
+     */
     public static DoubleVector of(Double... features) {
         return new DoubleVector(features);
     }
 
+    /**
+     * Creates a new DoubleVector object from a list of double values.
+     *
+     * @param features the list of double values to create the DoubleVector object from.
+     * @return a new DoubleVector object initialized with the specified values.
+     */
     public static DoubleVector of(List<Double> features) {
         return new DoubleVector(features);
     }
 
-
+    /**
+     * Creates a new DoubleVector object from an array of integer values.
+     *
+     * @param features the array of integer values to create the DoubleVector object from.
+     * @return a new DoubleVector object initialized with the specified values, where each integer value is converted to double.
+     */
     public static DoubleVector of(Integer... features) {
         return new DoubleVector(Stream.of(features)
                 .map(Integer::doubleValue)
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Creates a new DoubleVector object from a list of features, where each feature provides its own value to the DoubleVector object.
+     *
+     * @param features the list of features to create the DoubleVector object from.
+     * @return a new DoubleVector object initialized with the specified values, where each feature's value is collected into a list of doubles.
+     */
     public static DoubleVector ofFeatures(List<Feature<?>> features) {
         return new DoubleVector(features.stream()
                 .map(Feature::featureValue)

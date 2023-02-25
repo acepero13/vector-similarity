@@ -10,6 +10,9 @@ import lombok.ToString;
 
 import java.util.stream.Stream;
 
+/**
+ * A {@link Vector} implementation that represents a collection of normalized double values.
+ */
 @EqualsAndHashCode
 @ToString
 public class NormalizedVector implements Vector<Double> {
@@ -23,10 +26,23 @@ public class NormalizedVector implements Vector<Double> {
         this.vector = original;
     }
 
+    /**
+     * Creates a new {@link NormalizedVector} object from the specified {@link Vector} of double values and {@link Normalizer}.
+     *
+     * @param vector     the vector of double values to create the {@link NormalizedVector} object from.
+     * @param normalizer the {@link Normalizer} object to be used to normalize the vector.
+     * @return a new {@link NormalizedVector} object initialized with the specified vector and normalizer.
+     */
     public static NormalizedVector of(Vector<Double> vector, Normalizer normalizer) {
         return new NormalizedVector(vector, normalizer);
     }
 
+    /**
+     * Creates a new {@link NormalizedVector} object from the specified {@link Vector} of double values, using the default {@link Normalizer}.
+     *
+     * @param vector the vector of double values to create the {@link NormalizedVector} object from.
+     * @return a new {@link NormalizedVector} object initialized with the specified vector and default {@link Normalizer}.
+     */
     public static NormalizedVector of(Vector<Double> vector) {
         return new NormalizedVector(vector);
     }

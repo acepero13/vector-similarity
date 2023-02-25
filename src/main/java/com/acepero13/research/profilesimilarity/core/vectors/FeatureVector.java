@@ -16,6 +16,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A {@link Vector} implementation that represents a collection of numerical features with double values.
+ */
 @Data
 public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
@@ -45,6 +48,12 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
 
     }
 
+    /**
+     * Creates a new FeatureVector object from a list of {@link Feature}s, where each feature provides its own numerical value.
+     *
+     * @param features the list of features to create the FeatureVector object from.
+     * @return a new FeatureVector object initialized with the specified values, where each feature's numerical value is collected into a list of {@link AbstractNumericalFeature<Double>}.
+     */
     public static FeatureVector of(List<Feature<?>> features) {
         return new FeatureVector(features);
     }
@@ -140,13 +149,29 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
     }
 
 
+    /**
+     * Returns a list of {@link CategoricalFeature}  features
+     * @return list of categorical features
+     */
     public List<CategoricalFeature<?>> categorical() {
         return categorical;
     }
 
+    /**
+     * Returns a {@link CategoricalFeature} given its name
+     * @param featureName the name of the feature we want to obtain
+     * @return {@link Optional} of the feature
+     */
+
     public Optional<CategoricalFeature<?>> getCategoricalFeatureBy(String featureName) {
         return categorical.stream().filter(c -> c.featureName().equals(featureName)).findFirst();
     }
+
+    /**
+     * Returns a {@link NumericalFeature} given its name
+     * @param featureName the name of the feature we want to obtain
+     * @return {@link Optional} of the feature
+     */
 
     public Optional<Feature<?>> getNumericalFeatureBy(String featureName) {
         return features.stream()
@@ -155,6 +180,11 @@ public class FeatureVector implements Vector<AbstractNumericalFeature<Double>> {
                 .findFirst();
     }
 
+    /**
+     * Returns a {@link CategoricalFeature} given the type of its {@link CategoricalFeature#originalValue()}
+     * @param type the type of the feature we want to obtain
+     * @return {@link Optional} of the feature
+     */
     public Optional<CategoricalFeature<?>> getCategoricalFeatureBy(Class<? extends CategoricalFeature<?>> type) {
         return categorical.stream().filter(type::isInstance).findFirst();
     }
