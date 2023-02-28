@@ -18,6 +18,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The Knn (K-nearest neighbors) algorithm implementation that finds the k-nearest neighbors of a given data point
+ * <p>
+ * and determines its classification based on the classification of its neighbors. This implementation uses {@link FeatureVector}
+ * because it can take numerical and categorical data
+ */
 public class KnnMixedData {
     private final List<FeatureVector> dataSet;
     private final List<Vector<Double>> numericalDataSet;

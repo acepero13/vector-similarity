@@ -19,6 +19,8 @@ import java.util.List;
 public class MNISTReader {
     public static final int LABEL_FILE_MAGIC_NUMBER = 2049;
     public static final int IMAGE_FILE_MAGIC_NUMBER = 2051;
+    public static final int K = 3;
+    public static final double REDUCE = 1.0;
     private final String filePath;
     private final String labelFilePath;
 
@@ -34,7 +36,7 @@ public class MNISTReader {
 
         long startTime = System.currentTimeMillis();
 
-        var knn = Knn.of(7, vector -> NormalizedVector.of(vector.divide(255.0)), train);
+        var knn = Knn.of(K, vector -> NormalizedVector.of(vector.divide(255.0)), train);
 
         long correctClassification = test.stream()
                 .parallel()
@@ -67,7 +69,7 @@ public class MNISTReader {
             throw new IllegalArgumentException("Invalid label file magic number: " + magic);
         }
 
-        int numImages = imageStream.readInt() / 10;
+        int numImages = (int) (imageStream.readInt() / REDUCE);
         int numRows = imageStream.readInt();
         int numCols = imageStream.readInt();
         var total = numRows * numCols;

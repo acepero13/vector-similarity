@@ -24,7 +24,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("ALL")
 public class VectorizableProxy implements InvocationHandler {
     private final Object target;
     private final VectorizableProxyWrapper vectorWrapper;
