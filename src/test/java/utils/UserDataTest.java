@@ -52,7 +52,8 @@ class UserDataTest {
         KnnMixedData knn = KnnMixedData.of(3, dataset);
         KnnResult result = knn.fit(highEarningFemale.toFeatureVector());
         CategoricalFeature<?> actualBehavior = result
-                .classify(EcoFriendlyBehavior.class);
+                .classify(EcoFriendlyBehavior.class)
+               ;
 
         assertThat(actualBehavior, equalTo(EcoFriendlyBehavior.HIGH));
     }

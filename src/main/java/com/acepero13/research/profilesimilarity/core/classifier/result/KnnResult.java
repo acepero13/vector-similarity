@@ -44,6 +44,15 @@ public interface KnnResult {
     CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type);
 
     /**
+     * Returns a the classification result that represents the predicted class and a score of the classification of the input feature vector. The feature type
+     * is specified as a {@code Class} parameter.
+     *
+     * @param type the class of the feature to classify.
+     * @return Classification that represents the predicted class of the input feature vector and a score.
+     */
+    Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type);
+
+    /**
      * Returns a numerical feature that represents the predicted value of the input feature vector. The feature name
      * is specified as a string parameter.
      *

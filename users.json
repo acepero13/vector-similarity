@@ -1,570 +1,637 @@
 [
   {
-    "age": 38,
-    "income": 37476,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 53,
-    "income": 97794,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "SPORT",
-      "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 41,
-    "income": 38678,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "RECREATION",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 40,
-    "income": 31924,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "SPORT",
-      "FAMILY",
-      "ECO"
-    ]
-  },
-  {
-    "age": 49,
-    "income": 71956,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "SPORT",
-      "ECO"
-    ]
-  },
-  {
-    "age": 54,
-    "income": 37702,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "RACING"
-    ]
-  },
-  {
-    "age": 15,
-    "income": 18767,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "RECREATION",
-      "FAMILY",
-      "RACING"
-    ]
-  },
-  {
-    "age": 7,
-    "income": 37876,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "ID3",
-      "SPORT",
-      "RECREATION",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 42,
-    "income": 56610,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "TRAINING",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 54,
-    "income": 99915,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 32,
-    "income": 43293,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "SPORT",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 23,
-    "income": 32483,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "AUDI",
-      "SPORT",
-      "FAMILY",
-      "ECO"
-    ]
-  },
-  {
-    "age": 66,
-    "income": 57560,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 58,
-    "income": 48520,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "SPORT",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 47,
-    "income": 111420,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "RECREATION",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 42,
-    "income": 56660,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY"
-    ]
-  },
-  {
-    "age": 41,
-    "income": 52996,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "RECREATION",
-      "FAMILY",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 49,
-    "income": 80821,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "SPORT",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 28,
-    "income": 64158,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "AUDI",
-      "TRAINING",
-      "FAMILY",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 40,
-    "income": 48681,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "ECO",
-      "RACING"
-    ]
-  },
-  {
-    "age": 29,
-    "income": 12179,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "SPORT",
-      "RECREATION",
-      "FAMILY",
-      "ECO",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 69,
-    "income": 75456,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "SPORT",
-      "RACING"
-    ]
-  },
-  {
-    "age": 39,
-    "income": 44732,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "SPORT",
-      "RECREATION"
-    ]
-  },
-  {
-    "age": 39,
-    "income": 30729,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "ID3",
-      "TRAINING",
-      "ECO",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 39,
-    "income": 14039,
+    "age": 46,
+    "income": 46670,
     "gender": "FEMALE",
     "numChildren": 2,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "FAMILY",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 80,
-    "income": 64987,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "RECREATION",
-      "FAMILY"
-    ]
-  },
-  {
-    "age": 34,
-    "income": 53063,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "FAMILY"
-    ]
-  },
-  {
-    "age": 29,
-    "income": 29912,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "TRAINING",
-      "FAMILY",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 29,
-    "income": 68554,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "SPORT",
-      "FAMILY",
-      "ECO"
-    ]
-  },
-  {
-    "age": 45,
-    "income": 23454,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI"
-    ]
-  },
-  {
-    "age": 38,
-    "income": 57729,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "ID3",
-      "SPORT",
-      "ECO"
-    ]
-  },
-  {
-    "age": 16,
-    "income": 63082,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
       "EATING",
       "SPORT",
       "TRAINING",
-      "RECREATION",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 48,
-    "income": 15875,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "ID3",
-      "RECREATION",
+      "AUDI",
+      "FAMILY",
       "SAFETY"
     ]
   },
   {
     "age": 60,
-    "income": 37097,
-    "gender": "MALE",
-    "numChildren": 3,
+    "income": 16922,
+    "gender": "FEMALE",
+    "numChildren": 1,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "EATING",
-      "SPORT",
       "TRAINING",
+      "AUDI",
       "FAMILY"
     ]
   },
   {
-    "age": 38,
-    "income": 54291,
+    "age": 24,
+    "income": 62678,
     "gender": "FEMALE",
     "numChildren": 2,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "EATING",
+      "MUSIC",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 6,
+    "income": 71814,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "SPORT",
       "RECREATION",
-      "FAMILY",
+      "ID3",
       "ECO"
     ]
   },
   {
-    "age": 55,
-    "income": 44505,
-    "gender": "MALE",
+    "age": 50,
+    "income": 51305,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 30235,
+    "gender": "FEMALE",
     "numChildren": 3,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "RECREATION",
+      "ID3",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 32,
+    "income": 54394,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "AUDI",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 53,
+    "income": 52461,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 14,
+    "income": 26114,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "AUDI",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 80,
+    "income": 62348,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
       "MUSIC",
       "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 60,
+    "income": 76975,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 37,
+    "income": 30838,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
       "SPORT",
+      "TRAINING",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 25,
+    "income": 54835,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 59365,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "ID3",
       "FAMILY",
       "RACING",
       "TUNING"
     ]
   },
   {
-    "age": 33,
-    "income": 65954,
+    "age": 50,
+    "income": 40513,
     "gender": "FEMALE",
-    "numChildren": 3,
+    "numChildren": 1,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "MUSIC",
       "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "SAFETY"
+      "AUDI",
+      "ECO"
     ]
   },
   {
-    "age": 41,
-    "income": 47568,
+    "age": 33,
+    "income": 79546,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 63,
+    "income": 62555,
     "gender": "FEMALE",
     "numChildren": 0,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "MUSIC",
-      "EATING",
       "RECREATION",
+      "ID3",
       "ECO",
       "SAFETY"
     ]
   },
   {
-    "age": 49,
-    "income": 35633,
-    "gender": "FEMALE",
-    "numChildren": 0,
+    "age": 11,
+    "income": 50998,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 43,
+    "income": 46234,
+    "gender": "MALE",
+    "numChildren": 2,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "TRAINING",
+      "ID3",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 24,
+    "income": 40849,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
       "MUSIC",
       "EATING",
-      "ID3",
+      "SPORT",
       "RECREATION",
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 34,
+    "income": 53094,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "AUDI",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 66,
+    "income": 59605,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 50056,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "ECO",
       "SAFETY"
     ]
   },
   {
-    "age": 19,
-    "income": 65603,
+    "age": 27,
+    "income": 19725,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 58,
+    "income": 61779,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 41,
+    "income": 26627,
     "gender": "FEMALE",
     "numChildren": 3,
-    "ecoFriendly": "HIGH",
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
       "MUSIC",
       "EATING",
+      "RECREATION",
+      "ID3",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 56,
+    "income": 44992,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "RECREATION",
       "AUDI",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 36,
+    "income": 57166,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 43127,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 39,
+    "income": -2917,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "ID3",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 39648,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "RACING"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 40953,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "AUDI",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 35,
+    "income": 21909,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 62,
+    "income": 69450,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 55688,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 35714,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 53,
+    "income": 45387,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
       "ID3",
       "FAMILY",
       "SAFETY"
@@ -572,853 +639,1089 @@
   },
   {
     "age": 51,
-    "income": 69799,
+    "income": 62614,
     "gender": "MALE",
     "numChildren": 1,
-    "ecoFriendly": "LOW",
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "AUDI",
+      "MUSIC",
+      "SPORT",
       "ID3",
+      "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 77796,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
       "TRAINING",
-      "RECREATION",
-      "RACING",
+      "ID3"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 64176,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "ID3",
+      "FAMILY",
+      "ECO",
       "TUNING"
     ]
   },
   {
     "age": 38,
-    "income": 44330,
+    "income": 51529,
     "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "MUSIC",
       "EATING",
       "ID3",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 19544,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 51663,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "AUDI",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 55,
+    "income": 39279,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 54,
+    "income": 34091,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "AUDI",
+      "ECO"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 71864,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
       "SPORT",
       "TRAINING",
       "RECREATION",
+      "ID3"
+    ]
+  },
+  {
+    "age": 54,
+    "income": 21702,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 28,
+    "income": 68428,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 53,
+    "income": 35824,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 63994,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 24,
+    "income": 46527,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 73742,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "ID3",
       "FAMILY",
       "RACING"
     ]
   },
   {
+    "age": 62,
+    "income": 42630,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 36,
+    "income": 46728,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 30,
+    "income": 88995,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 56,
+    "income": 57360,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 32,
+    "income": 50734,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
     "age": 41,
-    "income": 34729,
+    "income": 35890,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 31,
+    "income": 72700,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "TRAINING",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 57,
+    "income": 34603,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "AUDI",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 50,
+    "income": 42431,
     "gender": "MALE",
     "numChildren": 2,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
+      "TRAINING",
       "ID3",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 61,
+    "income": 48222,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "TRAINING",
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 42,
+    "income": 50653,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 20,
+    "income": 39808,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "AUDI"
+    ]
+  },
+  {
+    "age": 60,
+    "income": 17480,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "TRAINING",
+      "AUDI",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 59,
+    "income": 61054,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 17324,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "ID3",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 49,
+    "income": 71862,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "TRAINING",
+      "ID3"
+    ]
+  },
+  {
+    "age": 27,
+    "income": 29515,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "AUDI",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 54141,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "TRAINING",
+      "RECREATION",
+      "AUDI",
       "RACING",
       "TUNING"
     ]
   },
   {
     "age": 68,
-    "income": 34678,
+    "income": 50554,
     "gender": "FEMALE",
-    "numChildren": 1,
+    "numChildren": 3,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "MUSIC",
       "EATING",
-      "SPORT",
       "TRAINING",
-      "RECREATION",
+      "AUDI",
       "ECO",
       "SAFETY"
     ]
   },
   {
-    "age": 43,
-    "income": 61234,
+    "age": 46,
+    "income": 54097,
     "gender": "FEMALE",
-    "numChildren": 2,
+    "numChildren": 3,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "MUSIC",
-      "EATING",
-      "ID3",
+      "SPORT",
+      "TRAINING",
       "RECREATION",
+      "ID3",
       "FAMILY",
       "SAFETY"
     ]
   },
   {
     "age": 44,
-    "income": 45503,
+    "income": 39870,
     "gender": "FEMALE",
-    "numChildren": 1,
+    "numChildren": 3,
     "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
+      "TRAINING",
       "RECREATION",
+      "ID3",
       "FAMILY",
       "SAFETY"
     ]
   },
   {
-    "age": 39,
-    "income": 22261,
+    "age": 22,
+    "income": 48629,
     "gender": "MALE",
     "numChildren": 3,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "AUDI",
+      "EATING",
+      "ID3",
       "FAMILY",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 24,
+    "income": 62596,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "RECREATION",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 55,
+    "income": 46301,
+    "gender": "MALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "TRAINING",
+      "ID3",
       "ECO",
       "RACING",
       "TUNING"
     ]
   },
   {
-    "age": 21,
-    "income": 32440,
-    "gender": "FEMALE",
-    "numChildren": 1,
+    "age": 26,
+    "income": 35479,
+    "gender": "MALE",
+    "numChildren": 3,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
     "tags": [
-      "AUDI",
-      "ID3",
+      "TRAINING",
       "RECREATION",
-      "FAMILY"
+      "AUDI",
+      "FAMILY",
+      "ECO"
     ]
   },
   {
-    "age": 41,
-    "income": 63916,
+    "age": 18,
+    "income": 57989,
     "gender": "FEMALE",
-    "numChildren": 0,
+    "numChildren": 2,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
     "tags": [
-      "EATING",
-      "SPORT",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
       "ECO",
       "SAFETY"
     ]
   },
   {
     "age": 33,
-    "income": 22554,
+    "income": 57358,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "SPORT",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "ECO",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 36,
+    "income": 30452,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "SPORT",
+      "TRAINING",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 15,
+    "income": 75979,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "AUDI",
+      "FAMILY",
+      "ECO",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 46,
+    "income": 19147,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "RECREATION",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 71,
+    "income": 27262,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "RECREATION",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 23,
+    "income": 12318,
+    "gender": "FEMALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "TRAINING",
+      "AUDI",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 68919,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "ID3",
+      "ECO",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 16,
+    "income": 51766,
     "gender": "MALE",
     "numChildren": 1,
-    "ecoFriendly": "HIGH",
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
       "EATING",
       "ID3",
+      "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 39,
+    "income": 31646,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
       "SPORT",
       "TRAINING",
+      "RECREATION",
+      "ID3",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 38,
+    "income": 48215,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "ID3",
       "FAMILY",
+      "RACING",
+      "TUNING"
+    ]
+  },
+  {
+    "age": 47,
+    "income": 68313,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "ID3",
+      "FAMILY",
+      "SAFETY"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 64032,
+    "gender": "FEMALE",
+    "numChildren": 1,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "SHORT",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "RECREATION",
+      "AUDI",
+      "FAMILY",
+      "ECO"
+    ]
+  },
+  {
+    "age": 45,
+    "income": 79637,
+    "gender": "FEMALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "FAMILY"
+    ]
+  },
+  {
+    "age": 43,
+    "income": 28555,
+    "gender": "MALE",
+    "numChildren": 2,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "FAMILY",
+      "RACING"
+    ]
+  },
+  {
+    "age": 59,
+    "income": 29471,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "TRAINING",
+      "ID3",
       "ECO",
+      "RACING",
       "TUNING"
     ]
   },
   {
     "age": 54,
-    "income": 90975,
+    "income": 45868,
     "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "RECREATION"
-    ]
-  },
-  {
-    "age": 39,
-    "income": 28455,
-    "gender": "FEMALE",
-    "numChildren": 0,
+    "numChildren": 2,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 20,
-    "income": 49656,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "ID3",
       "SPORT",
       "TRAINING",
       "RECREATION",
+      "ID3"
+    ]
+  },
+  {
+    "age": 25,
+    "income": 64465,
+    "gender": "MALE",
+    "numChildren": 3,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
+    "tags": [
+      "EATING",
+      "SPORT",
+      "TRAINING",
+      "RECREATION",
+      "ID3",
+      "ECO",
+      "RACING"
+    ]
+  },
+  {
+    "age": 34,
+    "income": 92462,
+    "gender": "MALE",
+    "numChildren": 0,
+    "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "MUSIC",
+      "EATING",
+      "ID3",
+      "ECO",
       "TUNING"
+    ]
+  },
+  {
+    "age": 26,
+    "income": 48070,
+    "gender": "FEMALE",
+    "numChildren": 3,
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
+    "tags": [
+      "EATING",
+      "AUDI",
+      "FAMILY",
+      "SAFETY"
     ]
   },
   {
     "age": 32,
-    "income": 37183,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "ECO"
-    ]
-  },
-  {
-    "age": 36,
-    "income": 43477,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "SPORT",
-      "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 35,
-    "income": 17758,
-    "gender": "FEMALE",
+    "income": 27203,
+    "gender": "MALE",
     "numChildren": 1,
     "ecoFriendly": "HIGH",
+    "drivingStyle": "ECO",
+    "carType": "VW_ID3",
+    "chargingType": "SHORT",
     "tags": [
-      "EATING",
-      "AUDI",
-      "SPORT",
-      "RECREATION",
-      "FAMILY",
-      "SAFETY"
+      "TRAINING",
+      "ID3",
+      "FAMILY"
     ]
   },
   {
-    "age": 35,
-    "income": 63272,
-    "gender": "FEMALE",
+    "age": 34,
+    "income": 52231,
+    "gender": "MALE",
     "numChildren": 2,
-    "ecoFriendly": "HIGH",
+    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
-      "FAMILY",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 52,
-    "income": 70964,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "SPORT",
       "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 47,
-    "income": 34597,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 42,
-    "income": 54563,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "ID3",
+      "AUDI",
       "FAMILY",
-      "ECO"
-    ]
-  },
-  {
-    "age": 33,
-    "income": 65210,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "RECREATION",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 49,
-    "income": 71866,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "FAMILY",
-      "ECO",
-      "RACING",
       "TUNING"
     ]
   },
   {
     "age": 44,
-    "income": 10865,
-    "gender": "FEMALE",
-    "numChildren": 2,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "ID3",
-      "FAMILY",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 35,
-    "income": 43844,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "RECREATION",
-      "ECO"
-    ]
-  },
-  {
-    "age": 42,
-    "income": 35938,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "ID3",
-      "TRAINING",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 21,
-    "income": 64818,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "ID3",
-      "TRAINING",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 37,
-    "income": 87886,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "ID3",
-      "SPORT"
-    ]
-  },
-  {
-    "age": 23,
-    "income": 43046,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "AUDI",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 17,
-    "income": 64992,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "SPORT",
-      "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 49,
-    "income": 66645,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "TRAINING",
-      "FAMILY",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 30,
-    "income": 32630,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "FAMILY",
-      "ECO",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 41,
-    "income": 53739,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "ID3",
-      "TRAINING",
-      "RECREATION",
-      "ECO",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 84,
-    "income": 63967,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "SPORT",
-      "RECREATION",
-      "ECO"
-    ]
-  },
-  {
-    "age": 45,
-    "income": 66425,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 29,
-    "income": 46245,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "AUDI",
-      "SPORT",
-      "TRAINING",
-      "ECO"
-    ]
-  },
-  {
-    "age": 17,
-    "income": 12715,
-    "gender": "FEMALE",
-    "numChildren": 2,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "ECO"
-    ]
-  },
-  {
-    "age": 47,
-    "income": 54442,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "TRAINING",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 41,
-    "income": 61509,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "TRAINING",
-      "RECREATION",
-      "RACING"
-    ]
-  },
-  {
-    "age": 31,
-    "income": 48048,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "SPORT",
-      "TRAINING",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 47,
-    "income": 71456,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "AUDI",
-      "SPORT",
-      "ECO",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 60,
-    "income": 26483,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "ID3"
-    ]
-  },
-  {
-    "age": 50,
-    "income": 64465,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "ECO"
-    ]
-  },
-  {
-    "age": 63,
-    "income": 17830,
+    "income": 67434,
     "gender": "FEMALE",
     "numChildren": 2,
     "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC"
-    ]
-  },
-  {
-    "age": 25,
-    "income": 49392,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
+    "drivingStyle": "SPORTY",
+    "carType": "AUDI_E_TRON",
+    "chargingType": "MAXIMUM_REST_CHARGE",
     "tags": [
       "MUSIC",
       "EATING",
-      "RECREATION",
-      "RACING"
-    ]
-  },
-  {
-    "age": 64,
-    "income": 821,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "TRAINING",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 34,
-    "income": 74342,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "EATING",
-      "TRAINING",
-      "FAMILY",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 48,
-    "income": 47780,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "TRAINING",
-      "ECO",
-      "RACING"
-    ]
-  },
-  {
-    "age": 39,
-    "income": 50314,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "FAMILY",
-      "ECO"
-    ]
-  },
-  {
-    "age": 32,
-    "income": 80055,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "AUDI",
-      "ID3",
-      "TRAINING",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 57,
-    "income": 32118,
-    "gender": "MALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "AUDI",
       "SPORT",
       "RECREATION",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 2,
-    "income": 37113,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
       "AUDI",
-      "ID3",
-      "SPORT"
-    ]
-  },
-  {
-    "age": 24,
-    "income": 49560,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "SPORT"
-    ]
-  },
-  {
-    "age": 38,
-    "income": 61826,
-    "gender": "MALE",
-    "numChildren": 2,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "EATING",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
       "FAMILY"
-    ]
-  },
-  {
-    "age": 16,
-    "income": 45739,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "ID3",
-      "SPORT",
-      "RECREATION",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 34,
-    "income": 37306,
-    "gender": "FEMALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "RECREATION",
-      "FAMILY",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 29,
-    "income": 89635,
-    "gender": "FEMALE",
-    "numChildren": 3,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "RECREATION",
-      "FAMILY",
-      "ECO",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 41,
-    "income": 68806,
-    "gender": "MALE",
-    "numChildren": 1,
-    "ecoFriendly": "HIGH",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "ECO",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 45,
-    "income": 15960,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "AUDI",
-      "TRAINING",
-      "SAFETY"
-    ]
-  },
-  {
-    "age": 9,
-    "income": 46579,
-    "gender": "MALE",
-    "numChildren": 3,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "FAMILY",
-      "RACING",
-      "TUNING"
-    ]
-  },
-  {
-    "age": 27,
-    "income": 92810,
-    "gender": "FEMALE",
-    "numChildren": 0,
-    "ecoFriendly": "LOW",
-    "tags": [
-      "MUSIC",
-      "EATING",
-      "AUDI",
-      "ID3",
-      "SPORT",
-      "TRAINING",
-      "RECREATION",
-      "SAFETY"
     ]
   }
 ]
