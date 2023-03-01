@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
+import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
@@ -63,12 +64,12 @@ public class KnnMixedData {
         var metric = new GowerMetric();
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
-        List<FeatureVector> similarNeighbors = scores.stream()
-                .parallel()
-                .sorted(Comparator.comparingDouble(Tuple::first))
-                .limit(k)
-                .map(Tuple::second)
-                .collect(Collectors.toList());
+        List<Score> similarNeighbors = scores.stream()
+                                             .parallel()
+                                             .sorted(Comparator.comparingDouble(Tuple::first))
+                                             .limit(k)
+                                             .map(t -> new Score(t.first(), t.second()))
+                                             .collect(Collectors.toList());
 
 
         return KnnResult.of(similarNeighbors);

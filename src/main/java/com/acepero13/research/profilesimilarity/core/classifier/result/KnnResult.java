@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.core.classifier.result;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.core.Score;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -21,7 +21,7 @@ public interface KnnResult {
      * @param vectors the list of feature vectors to include in the result.
      * @return a new instance of {@code KnnResult} containing the provided list of feature vectors.
      */
-    static KnnResult of(List<FeatureVector> vectors) {
+    static KnnResult of(List<Score> vectors) {
         return new FeatureVectorResult(vectors);
     }
 
@@ -60,6 +60,16 @@ public interface KnnResult {
      * @return a numerical feature that represents the predicted value of the input feature vector.
      */
     Double predict(String featureName);
+
+    /**
+     * Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector. The feature name
+     * is specified as a string parameter.
+     *
+     * @param featureName the name of the feature to predict.
+     * @return The prediction of a numerical feature that represents the predicted value of the input feature vector.
+     */
+
+    Prediction predictWithScore(String featureName);
 
     /**
      * Returns a list of categorical features that represent the predicted classes of the input feature vector,

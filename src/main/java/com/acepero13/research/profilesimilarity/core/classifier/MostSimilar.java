@@ -5,12 +5,15 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.MixedSample;
+import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.scores.Metrics;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -80,14 +83,14 @@ public class MostSimilar {
         var categoricalTarget = target.toFeatureVector().categorical();
 
 
-        Optional<DataSet.Score> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
-                .parallel()
-                .map(t -> new NormalizedSample(t, metric))
-                .map(s -> s.score(normalizedTarget, categoricalTarget))
-                .max(Comparator.comparingDouble(DataSet.Score::score));
+        Optional<SimilarScore> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
+                                               .parallel()
+                                               .map(t -> new NormalizedSample(t, metric))
+                                               .map(s -> s.score(normalizedTarget, categoricalTarget))
+                                               .max(Comparator.comparingDouble(SimilarScore::score));
 
 
-        return finalResult.map(DataSet.Score::sample).orElseThrow();
+        return finalResult.map(SimilarScore::sample).orElseThrow();
 
     }
 
@@ -112,12 +115,19 @@ public class MostSimilar {
             this.metric = metric;
         }
 
-        public DataSet.Score score(NormalizedVector normalizedTarget, List<CategoricalFeature<?>> categoricalTarget) {
+        public SimilarScore score(NormalizedVector normalizedTarget, List<CategoricalFeature<?>> categoricalTarget) {
 
             var sample = MixedSample.of(vector.second(), categorical);
             var another = MixedSample.of(normalizedTarget, categoricalTarget);
-            return new DataSet.Score(metric.similarityScore(sample, another), vector.first());
+            return new SimilarScore(metric.similarityScore(sample, another), vector.first());
         }
+    }
+
+    @Data
+    @Accessors(fluent = true)
+    private static class SimilarScore{
+        private final double score;
+        private final Vectorizable sample;
     }
 
 

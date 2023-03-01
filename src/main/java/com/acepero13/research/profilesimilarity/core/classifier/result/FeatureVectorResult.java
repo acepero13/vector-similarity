@@ -2,6 +2,7 @@ package com.acepero13.research.profilesimilarity.core.classifier.result;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
+import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.exceptions.KnnException;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
@@ -12,11 +13,18 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * The confidence score for a KNN regression prediction can be calculated using the following formula:
+ *
+ * confidence score = 1 / (∑(distance to K nearest neighbors)^p)
+ */
 final class FeatureVectorResult implements KnnResult {
     private final List<FeatureVector> vectors;
+    private final List<Score> scoredVectors;
 
-    public FeatureVectorResult(List<FeatureVector> vectors) {
-        this.vectors = vectors;
+    public FeatureVectorResult(List<Score> scoredVectors) {
+        this.vectors = scoredVectors.stream().map(Score::sample).collect(Collectors.toList());
+        this.scoredVectors = scoredVectors;
     }
 
     private Classification classify(Map<CategoricalFeature<?>, Long> groups) {
@@ -89,6 +97,21 @@ final class FeatureVectorResult implements KnnResult {
                       .map(Optional::get)
                       .mapToDouble(Feature::featureValue)
                       .sum() / vectors.size();
+    }
+
+    @Override
+    public Prediction predictWithScore(String featureName) {
+
+        Double value = predict(featureName);
+
+        var sum = scoredVectors.stream()
+                     .map(sv -> Math.pow(sv.score(), 2))
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        double score = sum == 0 ? 0.0 : (1 / sum);
+
+        return new Prediction(value, score);
     }
 
     @Data

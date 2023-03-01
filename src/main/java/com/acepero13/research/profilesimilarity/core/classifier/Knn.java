@@ -4,9 +4,9 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.Matrix;
+import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -108,8 +108,8 @@ public class Knn {
     }
 
 
-    private static Comparator<DataSet.Score> ascendingScore() {
-        return Comparator.comparingDouble(DataSet.Score::score);
+    private static Comparator<Score> ascendingScore() {
+        return Comparator.comparingDouble(Score::score);
     }
 
     /**
@@ -151,15 +151,13 @@ public class Knn {
     private KnnResult classify(NormalizedVector normalizedTarget) {
 
 
-        List<FeatureVector> results = normalizedDataSet.stream()
-                .parallel()
-                .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
-                .map(t -> new DataSet.Score(t.second(), t.first()))
-                .sorted(ascendingScore())
-                .limit(k)
-                .map(DataSet.Score::sample)
-                .map(Vectorizable::toFeatureVector)
-                .collect(Collectors.toList());
+        List<Score> results = normalizedDataSet.stream()
+                                               .parallel()
+                                               .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
+                                               .map(t -> new Score(t.second(), t.first().toFeatureVector()))
+                                               .sorted(ascendingScore())
+                                               .limit(k)
+                                               .collect(Collectors.toList());
 
         return KnnResult.of(results);
     }
