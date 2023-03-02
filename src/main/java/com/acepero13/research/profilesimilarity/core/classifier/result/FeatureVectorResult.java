@@ -37,7 +37,7 @@ final class FeatureVectorResult implements KnnResult {
         Map.Entry<CategoricalFeature<?>, Long> best = sortedEntries.get(0);
         CategoricalFeature<?> classification = best.getKey();
         double score = best.getValue() / (double) vectors.size();
-        return new Classification(classification, CalculationUtils.roundedTwoDecimals(score));
+        return new Classification(classification, Probability.of(score));
     }
 
     @Override

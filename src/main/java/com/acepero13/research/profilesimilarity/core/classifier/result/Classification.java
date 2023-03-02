@@ -10,5 +10,5 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class Classification {
     CategoricalFeature<?> classification;
-    double score;
+    Probability probability;
 }

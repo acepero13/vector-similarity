@@ -55,7 +55,7 @@ class KnnTest {
                                           .classifyWithScore(CLASSIFICATION.class);
 
         assertThat(result.classification(), equalTo(CLASSIFICATION.GOOD));
-        assertThat(result.score(), closeTo(0.67, 0.1));
+        assertThat(result.probability().value(), closeTo(0.67, 0.1));
     }
 
     private enum CLASSIFICATION implements CategoricalFeature<CLASSIFICATION> {
