@@ -1,10 +1,12 @@
 package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -43,5 +45,44 @@ public class MixedSample {
      */
     public static MixedSample of(NormalizedVector sample, List<CategoricalFeature<?>> features) {
         return new MixedSample(sample, features);
+    }
+
+    public boolean hasFeature(CategoricalFeature<?> feat) {
+        return features.stream().map(Feature::featureName).anyMatch(n -> n.equals(feat.featureName()));
+    }
+
+    public Optional<CategoricalFeature<?>> feature(CategoricalFeature<?> feat) {
+        return features.stream().filter(f -> f.featureName().equals(feat.featureName())).findFirst();
+    }
+
+    /**
+     * Returns the number of categorical features that match the given MixedSample.
+     *
+     * @param another the MixedSample to compare against
+     * @return the number of matching categorical features
+     */
+    public int numberOfMatches(MixedSample another) {
+
+        return (int) another.features.stream()
+                .filter(another::hasFeature)
+                .map(a -> feature(a).filter(thisFeat -> thisFeat.matches(a)))
+                .map(Optional::isPresent)
+                .filter(b -> b)
+                .count();
+
+
+    }
+
+    /**
+     * Returns the number of features that exist in both this MixedSample and the given MixedSample.
+     *
+     * @param another the MixedSample to compare against
+     * @return the number of matching features
+     */
+    public int numberOfMatchingFeatures(MixedSample another) {
+        // Use stream to count the number of features that exist in both MixedSamples
+        return (int) another.getFeatures().stream()
+                .filter(another::hasFeature)
+                .count();
     }
 }

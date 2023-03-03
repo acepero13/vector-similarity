@@ -4,11 +4,16 @@ import com.acepero13.research.profilesimilarity.api.Metric;
 import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.MixedSample;
-import com.acepero13.research.profilesimilarity.core.Score;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Classification;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Prediction;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Probability;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
+import com.acepero13.research.profilesimilarity.exceptions.KnnException;
 import com.acepero13.research.profilesimilarity.scores.Metrics;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -70,6 +75,32 @@ public class MostSimilar {
 
 
     public Vectorizable mostSimilarTo(Vectorizable target) {
+        Optional<SimilarScore> finalResult = highestSimilarScore(target);
+
+
+        return finalResult.map(SimilarScore::sample).orElseThrow();
+
+    }
+
+    public Vectorizable mostSimilarTo(Object target) {
+        return mostSimilarTo(VectorizableProxy.of(target));
+    }
+
+    public Result resultOfMostSimilarTo(Object target) {
+        return highestSimilarScore(VectorizableProxy.of(target)).map(MostSimilarResult::new).orElseThrow();
+    }
+
+    public Result resultOfMostSimilarTo(Vectorizable target) {
+        return highestSimilarScore(target).map(MostSimilarResult::new).orElseThrow();
+    }
+
+    public <T> Optional<T> mostSimilarTo(Object target, Class<T> type) {
+        Vectorizable result = mostSimilarTo(VectorizableProxy.of(target));
+        return VectorizableProxy.targetOf(result, type);
+
+    }
+
+    private Optional<SimilarScore> highestSimilarScore(Vectorizable target) {
         requireNonNull(target);
         Normalizer normalizer = DataSet.minMaxNormalizer(target, dataSet);
 
@@ -83,25 +114,53 @@ public class MostSimilar {
         var categoricalTarget = target.toFeatureVector().categorical();
 
 
-        Optional<SimilarScore> finalResult = ListUtils.zip(normalizedDataSet, categoricalDataSet)
-                                               .parallel()
-                                               .map(t -> new NormalizedSample(t, metric))
-                                               .map(s -> s.score(normalizedTarget, categoricalTarget))
-                                               .max(Comparator.comparingDouble(SimilarScore::score));
-
-
-        return finalResult.map(SimilarScore::sample).orElseThrow();
-
+        return ListUtils.zip(normalizedDataSet, categoricalDataSet)
+                .parallel()
+                .map(t -> new NormalizedSample(t, metric))
+                .map(s -> s.score(normalizedTarget, categoricalTarget))
+                .max(Comparator.comparingDouble(SimilarScore::score));
     }
 
-    public Vectorizable mostSimilarTo(Object target) {
-        return mostSimilarTo(VectorizableProxy.of(target));
-    }
 
-    public <T> Optional<T> mostSimilarTo(Object target, Class<T> type) {
-        Vectorizable result = mostSimilarTo(VectorizableProxy.of(target));
-        return VectorizableProxy.targetOf(result, type);
+    private static class MostSimilarResult implements Result {
 
+        private final SimilarScore mostSimilar;
+
+        private MostSimilarResult(SimilarScore mostSimilar) {
+            this.mostSimilar = mostSimilar;
+        }
+
+        @Override
+        public CategoricalFeature<?> classify(String featureName) {
+            return mostSimilar.sample.toFeatureVector().getCategoricalFeatureBy(featureName)
+                    .orElseThrow(() -> new KnnException("Could not find a suitable category for: " + featureName));
+        }
+
+        @Override
+        public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
+            return mostSimilar.sample.toFeatureVector().getCategoricalFeatureBy(type)
+                    .orElseThrow(() -> new KnnException("Could not find a suitable category for: " + type));
+        }
+
+        @Override
+        public Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type) {
+            CategoricalFeature<?> classification = classify(type);
+            return new Classification(classification, Probability.of(mostSimilar.score));
+        }
+
+        @Override
+        public Double predict(String featureName) {
+            return mostSimilar.sample.toFeatureVector().getNumericalFeatureBy(featureName)
+                    .map(Feature::featureValue)
+                    .orElseThrow(() -> new KnnException("Could not find a suitable category for: " + featureName));
+        }
+
+        @Override
+        public Prediction predictWithScore(String featureName) {
+            double prediction = predict(featureName);
+
+            return new Prediction(prediction, mostSimilar.score * 100); // TODO: To rethink this part
+        }
     }
 
     private static class NormalizedSample {
@@ -125,7 +184,7 @@ public class MostSimilar {
 
     @Data
     @Accessors(fluent = true)
-    private static class SimilarScore{
+    private static class SimilarScore {
         private final double score;
         private final Vectorizable sample;
     }

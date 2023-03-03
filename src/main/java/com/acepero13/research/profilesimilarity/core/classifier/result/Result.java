@@ -13,7 +13,7 @@ import java.util.function.Predicate;
  *
  * @since 1.0
  */
-public interface KnnResult {
+public interface Result {
 
     /**
      * Returns a new instance of {@code KnnResult} containing the provided list of feature vectors.
@@ -21,7 +21,7 @@ public interface KnnResult {
      * @param vectors the list of feature vectors to include in the result.
      * @return a new instance of {@code KnnResult} containing the provided list of feature vectors.
      */
-    static KnnResult of(List<Score> vectors) {
+    static Result of(List<Score> vectors) {
         return new FeatureVectorResult(vectors);
     }
 

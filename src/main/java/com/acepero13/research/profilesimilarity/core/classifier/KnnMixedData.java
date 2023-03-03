@@ -5,7 +5,7 @@ import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.Score;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
@@ -60,7 +60,7 @@ public class KnnMixedData {
     }
 
 
-    public KnnResult fit(FeatureVector target) {
+    public Result fit(FeatureVector target) {
         var metric = new GowerMetric();
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
@@ -72,14 +72,14 @@ public class KnnMixedData {
                                              .collect(Collectors.toList());
 
 
-        return KnnResult.of(similarNeighbors);
+        return Result.of(similarNeighbors);
     }
 
-    public KnnResult fit(Vectorizable target) {
+    public Result fit(Vectorizable target) {
         return fit(target.toFeatureVector());
     }
 
-    public KnnResult fit(Object target) {
+    public Result fit(Object target) {
         return fit(VectorizableProxy.of(target));
     }
 

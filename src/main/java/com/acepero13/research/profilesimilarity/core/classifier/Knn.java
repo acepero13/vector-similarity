@@ -5,7 +5,7 @@ import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.Matrix;
 import com.acepero13.research.profilesimilarity.core.Score;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
@@ -120,7 +120,7 @@ public class Knn {
      * @return a KnnResult object containing the predicted label and the distances to the k nearest neighbors
      * @throws NullPointerException if the target vectorizable is null
      */
-    public KnnResult fit(Vectorizable target) {
+    public Result fit(Vectorizable target) {
         requireNonNull(target, "Target cannot be null");
         logInitialInformation();
         NormalizedVector normalizedTarget = normalize(target);
@@ -136,7 +136,7 @@ public class Knn {
      * @throws NullPointerException if the target object is null
      */
 
-    public KnnResult fit(Object target) {
+    public Result fit(Object target) {
         return fit(VectorizableProxy.of(target));
     }
 
@@ -148,7 +148,7 @@ public class Knn {
         }
     }
 
-    private KnnResult classify(NormalizedVector normalizedTarget) {
+    private Result classify(NormalizedVector normalizedTarget) {
 
 
         List<Score> results = normalizedDataSet.stream()
@@ -159,7 +159,7 @@ public class Knn {
                                                .limit(k)
                                                .collect(Collectors.toList());
 
-        return KnnResult.of(results);
+        return Result.of(results);
     }
 
     private NormalizedVector normalize(Vectorizable target) {

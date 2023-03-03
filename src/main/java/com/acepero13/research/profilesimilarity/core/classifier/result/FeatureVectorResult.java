@@ -5,7 +5,6 @@ import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.exceptions.KnnException;
-import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
 
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
  *
  * confidence score = 1 / (∑(distance to K nearest neighbors)^p)
  */
-final class FeatureVectorResult implements KnnResult {
+final class FeatureVectorResult implements Result {
     private final List<FeatureVector> vectors;
     private final List<Score> scoredVectors;
 
