@@ -54,7 +54,7 @@ public @interface Categorical {
     /**
      * Possible values that the one hot feature can take. This is optional.
      *
-     * @return list of possible values
+     * @return array of possible values
      */
     String[] values() default {};
 

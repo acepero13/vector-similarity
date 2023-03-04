@@ -47,10 +47,22 @@ public class MixedSample {
         return new MixedSample(sample, features);
     }
 
+    /**
+     * Returns true if a sample has a given {@link CategoricalFeature}
+     * @param feat the feature we want to know if is present
+     * @return true in case the feature exists, false otherwise
+     */
     public boolean hasFeature(CategoricalFeature<?> feat) {
         return features.stream().map(Feature::featureName).anyMatch(n -> n.equals(feat.featureName()));
     }
 
+    /**
+     * Returns an Optional containing the CategoricalFeature in this MixedSample with the same feature name
+     * as the given CategoricalFeature, or an empty Optional if no matching feature is found.
+     *
+     * @param feat the CategoricalFeature to search for in this MixedSample
+     * @return an Optional containing the matching CategoricalFeature, or an empty Optional if no matching feature is found
+     */
     public Optional<CategoricalFeature<?>> feature(CategoricalFeature<?> feat) {
         return features.stream().filter(f -> f.featureName().equals(feat.featureName())).findFirst();
     }

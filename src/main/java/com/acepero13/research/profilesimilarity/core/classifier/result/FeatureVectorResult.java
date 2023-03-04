@@ -4,7 +4,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
-import com.acepero13.research.profilesimilarity.exceptions.KnnException;
+import com.acepero13.research.profilesimilarity.exceptions.PredictionException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * The confidence score for a KNN regression prediction can be calculated using the following formula:
- *
+ * <p>
  * confidence score = 1 / (∑(distance to K nearest neighbors)^p)
  */
 final class FeatureVectorResult implements Result {
@@ -31,7 +31,7 @@ final class FeatureVectorResult implements Result {
         sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         if (sortedEntries.isEmpty()) {
-            throw new KnnException("Could not find a suitable category ");
+            throw new PredictionException("Could not find a suitable category ");
         }
         Map.Entry<CategoricalFeature<?>, Long> best = sortedEntries.get(0);
         CategoricalFeature<?> classification = best.getKey();
@@ -88,7 +88,7 @@ final class FeatureVectorResult implements Result {
     @Override
     public Double predict(String featureName) {
         if (vectors.isEmpty()) {
-            throw new KnnException("List of vectors is empty");
+            throw new PredictionException("List of vectors is empty");
         }
         return vectors.stream()
                       .map(v -> v.getNumericalFeatureBy(featureName))
