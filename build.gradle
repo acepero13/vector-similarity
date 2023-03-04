@@ -8,7 +8,7 @@ def groupIdPrefix = project.findProperty('groupIdPrefix')
 def groupId = groupIdPrefix != null ? "${groupIdPrefix}.profilesimilarity" : "com.example.profilesimilarity"
 
 
-def myVersion = '2.0.2'
+def myVersion = '2.1.0'
 version myVersion
 group = groupId
 repositories {
