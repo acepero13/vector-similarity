@@ -2,8 +2,9 @@ package com.acepero13.research.profilesimilarity.core.classifier.result;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
+import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
-import com.acepero13.research.profilesimilarity.exceptions.KnnException;
+import com.acepero13.research.profilesimilarity.exceptions.PredictionException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
 
@@ -11,28 +12,38 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-final class FeatureVectorResult implements KnnResult {
+/**
+ * The confidence score for a KNN regression prediction can be calculated using the following formula:
+ * <p>
+ * confidence score = 1 / (∑(distance to K nearest neighbors)^p)
+ */
+final class FeatureVectorResult implements Result {
     private final List<FeatureVector> vectors;
+    private final List<Score> scoredVectors;
 
-    public FeatureVectorResult(List<FeatureVector> vectors) {
-        this.vectors = vectors;
+    public FeatureVectorResult(List<Score> scoredVectors) {
+        this.vectors = scoredVectors.stream().map(Score::sample).collect(Collectors.toList());
+        this.scoredVectors = scoredVectors;
     }
 
-    private static CategoricalFeature<?> classify(Map<CategoricalFeature<?>, Long> groups) {
+    private Classification classify(Map<CategoricalFeature<?>, Long> groups) {
         List<Map.Entry<CategoricalFeature<?>, Long>> sortedEntries = new ArrayList<>(groups.entrySet());
         sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         if (sortedEntries.isEmpty()) {
-            throw new KnnException("Could not find a suitable category ");
+            throw new PredictionException("Could not find a suitable category ");
         }
-        return sortedEntries.get(0).getKey();
+        Map.Entry<CategoricalFeature<?>, Long> best = sortedEntries.get(0);
+        CategoricalFeature<?> classification = best.getKey();
+        double score = best.getValue() / (double) vectors.size();
+        return new Classification(classification, Probability.of(score));
     }
 
     @Override
     public CategoricalFeature<?> classify(String featureName) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(featureName);
 
-        return classify(groups);
+        return classify(groups).classification();
     }
 
     @Override
@@ -44,24 +55,31 @@ final class FeatureVectorResult implements KnnResult {
     public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
 
+        return classify(groups).classification();
+    }
+
+    @Override
+    public Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type) {
+        Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(type);
+
         return classify(groups);
     }
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
         return vectors.stream()
-                .map(v -> Tuple.of(v.getCategoricalFeatureBy(type), v))
-                .filter(t -> t.first().isPresent())
-                .map(t -> t.mapFirst(Optional::get))
-                .collect(Collectors.groupingBy(Tuple::first, Collectors.counting()));
+                      .map(v -> Tuple.of(v.getCategoricalFeatureBy(type), v))
+                      .filter(t -> t.first().isPresent())
+                      .map(t -> t.mapFirst(Optional::get))
+                      .collect(Collectors.groupingBy(Tuple::first, Collectors.counting()));
     }
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(String featureName) {
 
         return vectors.stream()
-                .map(v -> Tuple.of(v.getCategoricalFeatureBy(featureName), v))
-                .filter(t -> t.first().isPresent())
-                .map(t -> t.mapFirst(Optional::get))
-                .collect(Collectors.groupingBy(Tuple::first, Collectors.counting()));
+                      .map(v -> Tuple.of(v.getCategoricalFeatureBy(featureName), v))
+                      .filter(t -> t.first().isPresent())
+                      .map(t -> t.mapFirst(Optional::get))
+                      .collect(Collectors.groupingBy(Tuple::first, Collectors.counting()));
 
 
     }
@@ -70,14 +88,29 @@ final class FeatureVectorResult implements KnnResult {
     @Override
     public Double predict(String featureName) {
         if (vectors.isEmpty()) {
-            throw new KnnException("List of vectors is empty");
+            throw new PredictionException("List of vectors is empty");
         }
         return vectors.stream()
-                .map(v -> v.getNumericalFeatureBy(featureName))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .mapToDouble(Feature::featureValue)
-                .sum() / vectors.size();
+                      .map(v -> v.getNumericalFeatureBy(featureName))
+                      .filter(Optional::isPresent)
+                      .map(Optional::get)
+                      .mapToDouble(Feature::featureValue)
+                      .sum() / vectors.size();
+    }
+
+    @Override
+    public Prediction predictWithScore(String featureName) {
+
+        Double value = predict(featureName);
+
+        var sum = scoredVectors.stream()
+                     .map(sv -> Math.pow(sv.score(), 2))
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        double score = sum == 0 ? 0.0 : (1 / sum);
+
+        return new Prediction(value, score);
     }
 
     @Data
@@ -87,22 +120,22 @@ final class FeatureVectorResult implements KnnResult {
 
         private static void addMostCommonValueTo(List<CategoricalFeature<?>> result, Map<Object, List<CategoricalFeature<?>>> sorted) {
             sorted.values().stream()
-                    .findFirst()
-                    .flatMap(l -> l.stream().findFirst())
-                    .ifPresent(result::add);
+                  .findFirst()
+                  .flatMap(l -> l.stream().findFirst())
+                  .ifPresent(result::add);
         }
 
         private static Map<Object, List<CategoricalFeature<?>>> sortValuesByOcurrence(Map<Object, List<CategoricalFeature<?>>> countMap) {
             return countMap.entrySet().stream()
-                    .sorted((o1, o2) -> Integer.compare(o2.getValue().size(), o1.getValue().size()))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (v1, v2) -> v1, LinkedHashMap::new));
+                           .sorted((o1, o2) -> Integer.compare(o2.getValue().size(), o1.getValue().size()))
+                           .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                   (v1, v2) -> v1, LinkedHashMap::new));
         }
 
         private static Map<Object, List<CategoricalFeature<?>>> groupResultBy(List<CategoricalFeature<?>> values) {
             return values.stream()
-                    .collect(Collectors.groupingBy(CategoricalFeature::originalValue, HashMap::new,
-                            Collectors.toList()));
+                         .collect(Collectors.groupingBy(CategoricalFeature::originalValue, HashMap::new,
+                                 Collectors.toList()));
         }
 
         private List<CategoricalFeature<?>> classify() {
@@ -121,18 +154,18 @@ final class FeatureVectorResult implements KnnResult {
 
         private List<CategoricalFeature<?>> extractCategoricalFeatureFor(String featureName) {
             return vectors.stream()
-                    .map(v -> v.getCategoricalFeatureBy(featureName))
-                    .flatMap(Optional::stream)
-                    .collect(Collectors.toList());
+                          .map(v -> v.getCategoricalFeatureBy(featureName))
+                          .flatMap(Optional::stream)
+                          .collect(Collectors.toList());
         }
 
 
         private Set<String> extractMatchingFeatures() {
             return vectors.stream()
-                    .flatMap(v -> v.categorical().stream())
-                    .map(Feature::featureName)
-                    .filter(featureNameMatcher)
-                    .collect(Collectors.toSet());
+                          .flatMap(v -> v.categorical().stream())
+                          .map(Feature::featureName)
+                          .filter(featureNameMatcher)
+                          .collect(Collectors.toSet());
         }
 
     }

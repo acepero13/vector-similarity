@@ -2,10 +2,13 @@ package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.MostSimilar;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Classification;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
 
 class UserProfileTest {
@@ -64,6 +67,40 @@ class UserProfileTest {
     }
 
     @Test
+    void classifyGender() {
+
+
+        var u1 = createUser1();
+        var u2 = createUser2();
+        var target = createUser3();
+
+        var dataset = MostSimilar.withDefaultMetric(u1, u2);
+
+        Result result = dataset.resultOfMostSimilarTo(target);
+
+
+        assertThat(result.classify("gender"), equalTo(UserProfile.Gender.FEMALE));
+    }
+
+    @Test
+    void classifyGenderWithScore() {
+
+
+        var u1 = createUser1();
+        var u2 = createUser2();
+        var target = createUser3();
+
+        var dataset = MostSimilar.withDefaultMetric(u1, u2);
+
+        Classification result = dataset.resultOfMostSimilarTo(target).classifyWithScore(UserProfile.Gender.class);
+
+
+
+        assertThat(result.classification(), equalTo(UserProfile.Gender.FEMALE));
+        assertThat(result.probability().asPercentage(), closeTo(88.81, 0.1));
+    }
+
+    @Test
     @DisplayName("target object has some missing features. Compute similarity only using those features")
     void compare() {
         /*
@@ -119,6 +156,6 @@ class UserProfileTest {
 
         var another = createUser1();
 
-        assertThat(another.vector(target.features()).size(), equalTo(4));
+        assertThat(another.vector(target.features()).size(), equalTo(3));
     }
 }

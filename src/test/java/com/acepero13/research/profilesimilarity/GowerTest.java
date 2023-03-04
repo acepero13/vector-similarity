@@ -4,7 +4,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.testmodels.Gender;
 import com.acepero13.research.profilesimilarity.testmodels.POLITIC;
@@ -34,7 +34,7 @@ public class GowerTest {
                 person4.toFeatureVector());
 
         KnnMixedData knn = KnnMixedData.of(3, dataset);
-        KnnResult result = knn.fit(person2.toFeatureVector());
+        Result result = knn.fit(person2.toFeatureVector());
         CategoricalFeature<?> actualRace = result
                 .classify("race");
 

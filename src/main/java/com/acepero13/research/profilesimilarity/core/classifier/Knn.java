@@ -4,9 +4,9 @@ import com.acepero13.research.profilesimilarity.api.Normalizer;
 import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.core.Matrix;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.Score;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
@@ -108,8 +108,8 @@ public class Knn {
     }
 
 
-    private static Comparator<DataSet.Score> ascendingScore() {
-        return Comparator.comparingDouble(DataSet.Score::score);
+    private static Comparator<Score> ascendingScore() {
+        return Comparator.comparingDouble(Score::score);
     }
 
     /**
@@ -120,7 +120,7 @@ public class Knn {
      * @return a KnnResult object containing the predicted label and the distances to the k nearest neighbors
      * @throws NullPointerException if the target vectorizable is null
      */
-    public KnnResult fit(Vectorizable target) {
+    public Result fit(Vectorizable target) {
         requireNonNull(target, "Target cannot be null");
         logInitialInformation();
         NormalizedVector normalizedTarget = normalize(target);
@@ -136,7 +136,7 @@ public class Knn {
      * @throws NullPointerException if the target object is null
      */
 
-    public KnnResult fit(Object target) {
+    public Result fit(Object target) {
         return fit(VectorizableProxy.of(target));
     }
 
@@ -148,20 +148,18 @@ public class Knn {
         }
     }
 
-    private KnnResult classify(NormalizedVector normalizedTarget) {
+    private Result classify(NormalizedVector normalizedTarget) {
 
 
-        List<FeatureVector> results = normalizedDataSet.stream()
-                .parallel()
-                .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
-                .map(t -> new DataSet.Score(t.second(), t.first()))
-                .sorted(ascendingScore())
-                .limit(k)
-                .map(DataSet.Score::sample)
-                .map(Vectorizable::toFeatureVector)
-                .collect(Collectors.toList());
+        List<Score> results = normalizedDataSet.stream()
+                                               .parallel()
+                                               .map(t -> t.mapSecond(v -> DataSet.calculateScore(Vector::distanceTo, normalizedTarget, v)))
+                                               .map(t -> new Score(t.second(), t.first().toFeatureVector()))
+                                               .sorted(ascendingScore())
+                                               .limit(k)
+                                               .collect(Collectors.toList());
 
-        return KnnResult.of(results);
+        return Result.of(results);
     }
 
     private NormalizedVector normalize(Vectorizable target) {

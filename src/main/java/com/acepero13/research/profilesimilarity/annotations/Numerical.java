@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.CONSTRUCTOR, ElementType.FIELD})
+@Target({ElementType.FIELD})
 public @interface Numerical {
     /**
      * The name of the numerical feature. By default, this is an empty string.

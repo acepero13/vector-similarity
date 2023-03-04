@@ -12,7 +12,8 @@ public interface PredicateHelper {
 
     PredicateHelper and(boolean condition);
 
-    void then(Runnable func);
+    PredicateHelper then(Runnable func);
+    void elseDo(Runnable func);
 
 
     class TrueCondition implements PredicateHelper {
@@ -23,8 +24,14 @@ public interface PredicateHelper {
         }
 
         @Override
-        public void then(Runnable func) {
+        public PredicateHelper then(Runnable func) {
             func.run();
+            return this;
+        }
+
+        @Override
+        public void elseDo(Runnable func) {
+            // Do nothing
         }
 
 
@@ -37,8 +44,13 @@ public interface PredicateHelper {
         }
 
         @Override
-        public void then(Runnable func) {
-            // Do nothing
+        public PredicateHelper then(Runnable func) {
+            return this;
+        }
+
+        @Override
+        public void elseDo(Runnable func) {
+            func.run();
         }
     }
 }

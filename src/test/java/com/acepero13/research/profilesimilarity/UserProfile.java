@@ -1,6 +1,7 @@
 package com.acepero13.research.profilesimilarity;
 
 import com.acepero13.research.profilesimilarity.annotations.Vectorizable;
+import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import lombok.Data;
@@ -52,7 +53,7 @@ public class UserProfile extends AbstractVectorizable {
     }
 
 
-    enum Gender implements Feature<Gender> {
+    enum Gender implements CategoricalFeature<Gender> {
         FEMALE(1), MALE(0);
 
 

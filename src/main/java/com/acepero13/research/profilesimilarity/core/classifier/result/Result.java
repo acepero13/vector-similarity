@@ -1,7 +1,7 @@
 package com.acepero13.research.profilesimilarity.core.classifier.result;
 
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
-import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.core.Score;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -13,7 +13,7 @@ import java.util.function.Predicate;
  *
  * @since 1.0
  */
-public interface KnnResult {
+public interface Result {
 
     /**
      * Returns a new instance of {@code KnnResult} containing the provided list of feature vectors.
@@ -21,7 +21,7 @@ public interface KnnResult {
      * @param vectors the list of feature vectors to include in the result.
      * @return a new instance of {@code KnnResult} containing the provided list of feature vectors.
      */
-    static KnnResult of(List<FeatureVector> vectors) {
+    static Result of(List<Score> vectors) {
         return new FeatureVectorResult(vectors);
     }
 
@@ -44,6 +44,15 @@ public interface KnnResult {
     CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type);
 
     /**
+     * Returns a the classification result that represents the predicted class and a score of the classification of the input feature vector. The feature type
+     * is specified as a {@code Class} parameter.
+     *
+     * @param type the class of the feature to classify.
+     * @return Classification that represents the predicted class of the input feature vector and a score.
+     */
+    Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type);
+
+    /**
      * Returns a numerical feature that represents the predicted value of the input feature vector. The feature name
      * is specified as a string parameter.
      *
@@ -51,6 +60,16 @@ public interface KnnResult {
      * @return a numerical feature that represents the predicted value of the input feature vector.
      */
     Double predict(String featureName);
+
+    /**
+     * Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector. The feature name
+     * is specified as a string parameter.
+     *
+     * @param featureName the name of the feature to predict.
+     * @return The prediction of a numerical feature that represents the predicted value of the input feature vector.
+     */
+
+    Prediction predictWithScore(String featureName);
 
     /**
      * Returns a list of categorical features that represent the predicted classes of the input feature vector,

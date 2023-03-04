@@ -4,7 +4,8 @@ import com.acepero13.research.profilesimilarity.api.Vector;
 import com.acepero13.research.profilesimilarity.api.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.core.Matrix;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.Score;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
@@ -30,6 +31,12 @@ public class KnnMixedData {
     private final int k;
     private final List<List<CategoricalFeature<?>>> categoricalDataSet;
 
+    /**
+     * Creates a new KnnMixedData object with the given k value and dataset of FeatureVectors.
+     *
+     * @param k       the number of nearest neighbors to consider
+     * @param dataSet the dataset of FeatureVectors to use for classification
+     */
     private KnnMixedData(int k, List<FeatureVector> dataSet) {
         this.dataSet = dataSet;
         this.k = k;
@@ -41,50 +48,109 @@ public class KnnMixedData {
 
     }
 
+    /**
+     * Creates a new KnnMixedData object with the given k value and list of Vectorizable objects.
+     * Converts each Vectorizable object to a FeatureVector before creating the dataset.
+     *
+     * @param k       the number of nearest neighbors to consider
+     * @param dataSet the list of Vectorizable objects to use for classification
+     * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
+     */
     public static KnnMixedData ofVectorizable(int k, List<Vectorizable> dataSet) {
         var featureVectors = dataSet.stream().map(Vectorizable::toFeatureVector)
                 .collect(Collectors.toList());
         return new KnnMixedData(k, featureVectors);
     }
 
+    /**
+     * Creates a new KnnMixedData object with the given k value and array of Vectorizable objects.
+     * Converts each Vectorizable object to a FeatureVector before creating the dataset.
+     *
+     * @param k       the number of nearest neighbors to consider
+     * @param dataSet the array of Vectorizable objects to use for classification
+     * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
+     */
     public static KnnMixedData ofVectorizable(int k, Vectorizable... dataSet) {
         return ofVectorizable(k, List.of(dataSet));
     }
 
+    /**
+     * Creates a new KnnMixedData object with the given k value and array of FeatureVector objects.
+     *
+     * @param k       the number of nearest neighbors to consider
+     * @param dataSet the array of FeatureVector objects to use for classification
+     * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
+     */
     public static KnnMixedData of(int k, FeatureVector... dataSet) {
         return new KnnMixedData(k, List.of(dataSet));
     }
 
+
+    /**
+     * Creates a new KnnMixedData object with the given k value and list of FeatureVector objects.
+     *
+     * @param k       the number of nearest neighbors to consider
+     * @param dataSet the list of FeatureVector objects to use for classification
+     * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
+     */
     public static KnnMixedData of(int k, List<FeatureVector> dataSet) {
         return new KnnMixedData(k, dataSet);
     }
 
 
-    public static <T> KnnMixedData ofObjects(int k, List<T> dataset) {
-        return of(k, VectorizableProxy.ofFeatureVector(dataset));
+    /**
+     * Returns a new KnnMixedData object constructed from a list of Vectorizable objects.
+     * Each Vectorizable object is converted to a FeatureVector, and the resulting list of FeatureVectors
+     * is used to construct a new KnnMixedData object.
+     *
+     * @param k       the number of nearest neighbors to consider for classification/regression
+     * @param dataSet the list of Vectorizable objects to use for constructing the KnnMixedData object
+     * @param <T>     the type of the Vectorizable objects
+     * @return a new KnnMixedData object constructed from the list of Vectorizable objects
+     */
+    public static <T> KnnMixedData ofObjects(int k, List<T> dataSet) {
+        return of(k, VectorizableProxy.ofFeatureVector(dataSet));
     }
 
 
-    public KnnResult fit(FeatureVector target) {
+    /**
+     * Returns a Result object representing the k-Nearest Neighbors of the given FeatureVector target.
+     *
+     * @param target the FeatureVector to find the k-Nearest Neighbors of
+     * @return a Result object representing the k-Nearest Neighbors of the target FeatureVector
+     */
+    public Result fit(FeatureVector target) {
         var metric = new GowerMetric();
 
         List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
-        List<FeatureVector> similarNeighbors = scores.stream()
+        List<Score> similarNeighbors = scores.stream()
                 .parallel()
                 .sorted(Comparator.comparingDouble(Tuple::first))
                 .limit(k)
-                .map(Tuple::second)
+                .map(t -> new Score(t.first(), t.second()))
                 .collect(Collectors.toList());
 
 
-        return KnnResult.of(similarNeighbors);
+        return Result.of(similarNeighbors);
     }
 
-    public KnnResult fit(Vectorizable target) {
+    /**
+     * Returns a Result object representing the k-Nearest Neighbors of the given Vectorizable target.
+     *
+     * @param target the Vectorizable object to find the k-Nearest Neighbors of
+     * @return a Result object representing the k-Nearest Neighbors of the target Vectorizable object
+     */
+    public Result fit(Vectorizable target) {
         return fit(target.toFeatureVector());
     }
 
-    public KnnResult fit(Object target) {
+    /**
+     * Returns a Result object representing the k-Nearest Neighbors of the given Vectorizable target.
+     *
+     * @param target the Vectorizable object (as a Proxy) to find the k-Nearest Neighbors of
+     * @return a Result object representing the k-Nearest Neighbors of the target Vectorizable object
+     */
+    public Result fit(Object target) {
         return fit(VectorizableProxy.of(target));
     }
 

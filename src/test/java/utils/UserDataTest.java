@@ -4,7 +4,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.KnnMixedData;
-import com.acepero13.research.profilesimilarity.core.classifier.result.KnnResult;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -50,9 +50,10 @@ class UserDataTest {
 
         var highEarningFemale = new User(25, 80_000, Gender.FEMALE, 1, null);
         KnnMixedData knn = KnnMixedData.of(3, dataset);
-        KnnResult result = knn.fit(highEarningFemale.toFeatureVector());
+        Result result = knn.fit(highEarningFemale.toFeatureVector());
         CategoricalFeature<?> actualBehavior = result
-                .classify(EcoFriendlyBehavior.class);
+                .classify(EcoFriendlyBehavior.class)
+               ;
 
         assertThat(actualBehavior, equalTo(EcoFriendlyBehavior.HIGH));
     }

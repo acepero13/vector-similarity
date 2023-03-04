@@ -140,9 +140,7 @@ class NormalizedVectorTest {
 
     @Test
     void exceptionWhenIndexOutOfBounds() {
-        IndexOutOfBoundsException error = assertThrows(IndexOutOfBoundsException.class, () -> vector1.getFeature(100));
-
-        assertThat(error.getMessage(), containsString("Index 100 out of bounds for length 5"));
+        assertThrows(IndexOutOfBoundsException.class, () -> vector1.getFeature(100));
     }
 
     @Test

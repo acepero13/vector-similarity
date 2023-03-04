@@ -6,12 +6,14 @@ import com.acepero13.research.profilesimilarity.annotations.Vectorizable;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Classification;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
 
 class KnnTest {
@@ -30,7 +32,8 @@ class KnnTest {
         var test = new AcidDurability(3, 7);
 
         CategoricalFeature<?> result = classifier.fit(test)
-                .classify(CLASSIFICATION.class);
+                .classify(CLASSIFICATION.class)
+                ;
 
         assertThat(result, equalTo(CLASSIFICATION.GOOD));
 
@@ -48,10 +51,11 @@ class KnnTest {
 
         var test = new AnnotatedAcidDurability(3, 7, null);
 
-        CategoricalFeature<?> result = classifier.fit(test)
-                .classify(CLASSIFICATION.class);
+        Classification result = classifier.fit(test)
+                                          .classifyWithScore(CLASSIFICATION.class);
 
-        assertThat(result, equalTo(CLASSIFICATION.GOOD));
+        assertThat(result.classification(), equalTo(CLASSIFICATION.GOOD));
+        assertThat(result.probability().value(), closeTo(0.67, 0.1));
     }
 
     private enum CLASSIFICATION implements CategoricalFeature<CLASSIFICATION> {
