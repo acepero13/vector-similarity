@@ -6,10 +6,9 @@ import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.proxy.CategoricalFeatureProxy;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Utility class for one-hot encoding a set of categorical features.
@@ -33,7 +32,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
      * @param featureNames the set of feature names to encode
      */
     public OneHotEncodingExtractor(Set<T> featureNames) {
-        this.featureNames = featureNames;
+        this.featureNames = requireNonNull(featureNames);
     }
 
     /**
@@ -44,7 +43,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
      * @return a OneHotEncodingExtractor instance for the given list of feature values
      */
     public static <T extends CategoricalFeature<?>> OneHotEncodingExtractor<T> oneHotEncodingOf(List<T> elements) {
-        Set<T> map = new LinkedHashSet<>(elements);
+        Set<T> map = new LinkedHashSet<>(requireNonNull(elements));
         return new OneHotEncodingExtractor<>(map);
 
     }
@@ -58,7 +57,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
      */
     @SafeVarargs
     public static <T extends CategoricalFeature<?>> OneHotEncodingExtractor<T> oneHotEncodingOf(T... values) {
-        return oneHotEncodingOf(List.of(values));
+        return oneHotEncodingOf(List.of(requireNonNull(values)));
     }
 
     /**
@@ -76,7 +75,7 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
             if (value == null) {
                 continue;
             }
-            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(value, annotation.name());
+            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(requireNonNull(value), annotation.name());
             features.add(feature);
         }
         return features;

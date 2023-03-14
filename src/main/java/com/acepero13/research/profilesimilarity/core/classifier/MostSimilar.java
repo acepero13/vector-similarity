@@ -49,12 +49,12 @@ public class MostSimilar {
 
     private MostSimilar(Metric metric, List<Vectorizable> vectorizables) {
         this.dataSet = new DataSet(requireNonNull(vectorizables));
-        var featureVector = vectorizables.stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
+        var featureVector = requireNonNull(vectorizables).stream().map(Vectorizable::toFeatureVector).collect(Collectors.toList());
         this.categoricalDataSet = featureVector.stream()
 
                 .map(FeatureVector::categorical)
                 .collect(Collectors.toList());
-        this.metric = metric;
+        this.metric = requireNonNull(metric);
 
     }
 
@@ -75,7 +75,7 @@ public class MostSimilar {
      * @return a new MostSimilar instance with default metric
      */
     public static MostSimilar withDefaultMetric(Object... vectorizables) {
-        return new MostSimilar(Metrics.cosineSimilarity(), VectorizableProxy.of(List.of(vectorizables)));
+        return new MostSimilar(Metrics.cosineSimilarity(), VectorizableProxy.of(List.of(requireNonNull(vectorizables))));
     }
 
     /**
@@ -86,7 +86,7 @@ public class MostSimilar {
      * @return a new MostSimilar instance with specified metric and vectorizables
      */
     public static MostSimilar of(Metric metric, List<Vectorizable> vectorizables) {
-        return new MostSimilar(metric, vectorizables);
+        return new MostSimilar(requireNonNull(metric), requireNonNull(vectorizables));
     }
 
     /**
@@ -97,7 +97,7 @@ public class MostSimilar {
      * @return a new MostSimilar instance with specified metric and vectorizables
      */
     public static MostSimilar of(Metric metric, Vectorizable... vectorizables) {
-        return new MostSimilar(metric, List.of(vectorizables));
+        return new MostSimilar(requireNonNull(metric), List.of(requireNonNull(vectorizables)));
     }
 
     /**
@@ -110,7 +110,7 @@ public class MostSimilar {
      * @return a new MostSimilar instance with specified metric and vectorizables
      */
     public static <T> MostSimilar ofObjects(Metric metric, List<T> vectorizables) {
-        return new MostSimilar(metric, VectorizableProxy.of(vectorizables));
+        return new MostSimilar(requireNonNull(metric), VectorizableProxy.of(requireNonNull(vectorizables)));
     }
 
     /**
@@ -121,7 +121,7 @@ public class MostSimilar {
      * @throws NoSuchElementException if the list of Vectorizables is empty
      */
     public Vectorizable mostSimilarTo(Vectorizable target) throws NoSuchElementException {
-        Optional<SimilarScore> finalResult = highestSimilarScore(target);
+        Optional<SimilarScore> finalResult = highestSimilarScore(requireNonNull(target));
 
 
         return finalResult.map(SimilarScore::sample).orElseThrow();
@@ -137,7 +137,7 @@ public class MostSimilar {
      * @throws NoSuchElementException if the list of Vectorizables is empty
      */
     public Vectorizable mostSimilarTo(Object target) throws NoSuchElementException {
-        return mostSimilarTo(VectorizableProxy.of(target));
+        return mostSimilarTo(VectorizableProxy.of(requireNonNull(target)));
     }
 
     /**
@@ -150,7 +150,7 @@ public class MostSimilar {
      * @throws NoSuchElementException if no Vectorizable object in the dataset is similar to the given target
      */
     public Result resultOfMostSimilarTo(Object target) throws NoSuchElementException {
-        return highestSimilarScore(VectorizableProxy.of(target)).map(MostSimilarResult::new).orElseThrow();
+        return highestSimilarScore(VectorizableProxy.of(requireNonNull(target))).map(MostSimilarResult::new).orElseThrow();
     }
 
     /**
@@ -163,7 +163,7 @@ public class MostSimilar {
      * @throws NoSuchElementException if no Vectorizable object in the dataset is similar to the given target
      */
     public Result resultOfMostSimilarTo(Vectorizable target) {
-        return highestSimilarScore(target).map(MostSimilarResult::new).orElseThrow();
+        return highestSimilarScore(requireNonNull(target)).map(MostSimilarResult::new).orElseThrow();
     }
 
     /**
@@ -177,7 +177,7 @@ public class MostSimilar {
      */
     public <T> Optional<T> mostSimilarTo(Object target, Class<T> type) {
         Vectorizable result = mostSimilarTo(VectorizableProxy.of(Objects.requireNonNull(target)));
-        return VectorizableProxy.targetOf(result, type);
+        return VectorizableProxy.targetOf(requireNonNull(result), type);
 
     }
 

@@ -1,5 +1,7 @@
 package com.acepero13.research.profilesimilarity.exceptions;
 
+import java.util.Objects;
+
 /**
  * A {@code RuntimeException} that indicates an error occurred while performing an operation on a {@code Vector}.
  */
@@ -11,6 +13,6 @@ public class VectorException extends RuntimeException {
      * @param message The detail message.
      */
     public VectorException(String message) {
-        super(message);
+        super(Objects.requireNonNull(message));
     }
 }

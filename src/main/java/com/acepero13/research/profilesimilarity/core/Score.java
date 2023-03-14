@@ -2,6 +2,8 @@ package com.acepero13.research.profilesimilarity.core;
 
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 
+import java.util.Objects;
+
 /**
  * The Score class represents a score associated with a sample. A score is typically the result
  * <p>
@@ -28,7 +30,7 @@ public class Score {
      */
     public Score(double score, FeatureVector sample) {
         this.score = score;
-        this.sample = sample;
+        this.sample = Objects.requireNonNull(sample);
     }
 
     /**

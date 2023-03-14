@@ -15,6 +15,7 @@ import lombok.extern.java.Log;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -53,7 +54,7 @@ public class Knn {
      * @return a new instance of the Knn algorithm
      */
     public static Knn of(int k, Normalizer normalizer, List<Vectorizable> data) {
-        return new Knn(k, normalizer, data);
+        return new Knn(k, Objects.requireNonNull(normalizer), Objects.requireNonNull(data));
     }
 
     /**
@@ -65,7 +66,7 @@ public class Knn {
      * @return a new instance of the Knn algorithm
      */
     public static Knn withDefaultNormalizer(int k, List<Vectorizable> data) {
-        return new Knn(k, data);
+        return new Knn(k, requireNonNull(data));
     }
 
     /**
@@ -77,7 +78,7 @@ public class Knn {
      * @return a new instance of the Knn algorithm
      */
     public static Knn withDefaultNormalizer(int k, Vectorizable... data) {
-        return new Knn(k, List.of(data));
+        return new Knn(k, List.of(requireNonNull(data)));
     }
 
 
@@ -91,7 +92,7 @@ public class Knn {
      * @return a new instance of the Knn algorithm
      */
     public static <T> Knn ofObjectsWithDefaultNormalizer(int k, List<T> data) {
-        return new Knn(k, VectorizableProxy.of(data));
+        return new Knn(k, VectorizableProxy.of(requireNonNull(data)));
     }
 
     /**
@@ -104,7 +105,7 @@ public class Knn {
      * @return a new instance of the Knn algorithm
      */
     public static <T> Knn ofObjects(int k, Normalizer normalizer, List<T> data) {
-        return new Knn(k, normalizer, VectorizableProxy.of(data));
+        return new Knn(k, requireNonNull(normalizer), VectorizableProxy.of(requireNonNull(data)));
     }
 
 
@@ -137,7 +138,7 @@ public class Knn {
      */
 
     public Result fit(Object target) {
-        return fit(VectorizableProxy.of(target));
+        return fit(VectorizableProxy.of(requireNonNull(target)));
     }
 
     private void logInitialInformation() {

@@ -1,6 +1,8 @@
 package com.acepero13.research.profilesimilarity.exceptions;
 
 
+import java.util.Objects;
+
 /**
  * An exception class that is thrown when an error occurs while working with a VectorizableProxy object.
  */
@@ -22,6 +24,6 @@ public class VectorizableProxyException extends RuntimeException {
      * @param e   the cause of the exception
      */
     public VectorizableProxyException(String msg, Throwable e) {
-        super(msg, e);
+        super(Objects.requireNonNull(msg), e);
     }
 }

@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * The Knn (K-nearest neighbors) algorithm implementation that finds the k-nearest neighbors of a given data point
  * <p>
@@ -38,9 +40,9 @@ public class KnnMixedData {
      * @param dataSet the dataset of FeatureVectors to use for classification
      */
     private KnnMixedData(int k, List<FeatureVector> dataSet) {
-        this.dataSet = dataSet;
+        this.dataSet = requireNonNull(dataSet);
         this.k = k;
-        this.numericalDataSet = dataSet.stream()
+        this.numericalDataSet = requireNonNull(dataSet).stream()
                 .map(FeatureVector::toDouble).collect(Collectors.toList());
         this.categoricalDataSet = dataSet.stream()
                 .map(FeatureVector::categorical)
@@ -57,7 +59,7 @@ public class KnnMixedData {
      * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
      */
     public static KnnMixedData ofVectorizable(int k, List<Vectorizable> dataSet) {
-        var featureVectors = dataSet.stream().map(Vectorizable::toFeatureVector)
+        var featureVectors = requireNonNull(dataSet).stream().map(Vectorizable::toFeatureVector)
                 .collect(Collectors.toList());
         return new KnnMixedData(k, featureVectors);
     }
@@ -71,7 +73,7 @@ public class KnnMixedData {
      * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
      */
     public static KnnMixedData ofVectorizable(int k, Vectorizable... dataSet) {
-        return ofVectorizable(k, List.of(dataSet));
+        return ofVectorizable(k, List.of(requireNonNull(dataSet)));
     }
 
     /**
@@ -82,7 +84,7 @@ public class KnnMixedData {
      * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
      */
     public static KnnMixedData of(int k, FeatureVector... dataSet) {
-        return new KnnMixedData(k, List.of(dataSet));
+        return new KnnMixedData(k, List.of(requireNonNull(dataSet)));
     }
 
 
@@ -94,7 +96,7 @@ public class KnnMixedData {
      * @return a new KnnMixedData object with the given k value and dataset of FeatureVectors
      */
     public static KnnMixedData of(int k, List<FeatureVector> dataSet) {
-        return new KnnMixedData(k, dataSet);
+        return new KnnMixedData(k, requireNonNull(dataSet));
     }
 
 
@@ -109,7 +111,7 @@ public class KnnMixedData {
      * @return a new KnnMixedData object constructed from the list of Vectorizable objects
      */
     public static <T> KnnMixedData ofObjects(int k, List<T> dataSet) {
-        return of(k, VectorizableProxy.ofFeatureVector(dataSet));
+        return of(k, VectorizableProxy.ofFeatureVector(requireNonNull(dataSet)));
     }
 
 
@@ -122,7 +124,7 @@ public class KnnMixedData {
     public Result fit(FeatureVector target) {
         var metric = new GowerMetric();
 
-        List<Tuple<Double, FeatureVector>> scores = metric.calculate(target);
+        List<Tuple<Double, FeatureVector>> scores = metric.calculate(requireNonNull(target));
         List<Score> similarNeighbors = scores.stream()
                 .parallel()
                 .sorted(Comparator.comparingDouble(Tuple::first))
@@ -141,7 +143,7 @@ public class KnnMixedData {
      * @return a Result object representing the k-Nearest Neighbors of the target Vectorizable object
      */
     public Result fit(Vectorizable target) {
-        return fit(target.toFeatureVector());
+        return fit(requireNonNull(target).toFeatureVector());
     }
 
     /**
@@ -151,7 +153,7 @@ public class KnnMixedData {
      * @return a Result object representing the k-Nearest Neighbors of the target Vectorizable object
      */
     public Result fit(Object target) {
-        return fit(VectorizableProxy.of(target));
+        return fit(VectorizableProxy.of(requireNonNull(target)));
     }
 
     private class GowerMetric {

@@ -14,6 +14,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * The Matrix class represents a mathematical matrix, which is a two-dimensional array of numbers.
  * <p>
@@ -34,7 +36,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
      * @throws NullPointerException if rows is null
      */
     private Matrix(List<Vector<T>> rows) {
-        this.matrix = Objects.requireNonNull(rows, "Rows cannot be null");
+        this.matrix = requireNonNull(rows, "Rows cannot be null");
     }
 
     /**
@@ -45,7 +47,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
      * @return a new Matrix object
      */
     public static <T extends Number> Matrix<T> of(List<Vector<T>> rows) {
-        return new Matrix<>(rows);
+        return new Matrix<>(requireNonNull(rows));
     }
 
     /**
@@ -56,7 +58,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
      * @return a Normalizer object
      */
     public static Normalizer buildMinMaxNormalizerFrom(Matrix<Double> matrix) {
-        return Normalizer.minMaxNormalizer(matrix);
+        return Normalizer.minMaxNormalizer(requireNonNull(matrix));
     }
 
     /**
@@ -66,7 +68,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
      * @return a new Matrix object
      */
     public static Matrix<Double> ofVectors(List<Vector<Double>> vectors) {
-        return new Matrix<>(vectors);
+        return new Matrix<>(requireNonNull(vectors));
     }
 
 
@@ -112,7 +114,7 @@ public class Matrix<T extends Number> implements Iterable<Vector<T>> {
         Matrix<T> transposed = transpose();
         return transposed.matrix.stream()
                 .parallel()
-                .map(mapper)
+                .map(requireNonNull(mapper))
                 .collect(Collectors.toList());
     }
 

@@ -1,5 +1,7 @@
 package com.acepero13.research.profilesimilarity.exceptions;
 
+import java.util.Objects;
+
 /**
  * The ArgumentException class is a subclass of RuntimeException that represents an
  * <p>
@@ -13,6 +15,6 @@ public class ArgumentException extends RuntimeException {
      * @param msg the error message associated with the exception
      */
     public ArgumentException(String msg) {
-        super(msg);
+        super(Objects.requireNonNull(msg));
     }
 }

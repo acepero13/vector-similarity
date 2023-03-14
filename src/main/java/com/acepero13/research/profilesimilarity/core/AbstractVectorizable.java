@@ -62,7 +62,7 @@ public abstract class AbstractVectorizable implements Vectorizable {
      */
     public <T extends CategoricalFeature<?>> AbstractVectorizable addAsOneHotEncodingFeature(
             T[] allPossibleElements, List<T> elements) {
-        addAsOneHotEncodingFeature(OneHotEncodingExtractor.oneHotEncodingOf(allPossibleElements), elements);
+        addAsOneHotEncodingFeature(OneHotEncodingExtractor.oneHotEncodingOf(requireNonNull(allPossibleElements)), requireNonNull(elements));
         return this;
     }
 

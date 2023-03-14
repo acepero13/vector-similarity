@@ -3,6 +3,8 @@ package com.acepero13.research.profilesimilarity.api.features;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Objects;
+
 /**
  * An abstract class that implements the NumericalFeature interface and extends the Number class.
  * <p>
@@ -38,6 +40,7 @@ public abstract class AbstractNumericalFeature<T extends Number> extends Number 
      * @param value  the value of the numerical feature.
      * @param name   the name of the numerical feature.
      * @param weight the weight of the numerical feature.
+     * @implNote Null values are allowed
      */
     public AbstractNumericalFeature(T value, String name, double weight) {
         this.value = value;

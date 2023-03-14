@@ -6,7 +6,10 @@ import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
 
 
 /**
@@ -31,8 +34,8 @@ public class MixedSample {
      * @param features the categorical features of the mixed sample.
      */
     private MixedSample(NormalizedVector vector, List<CategoricalFeature<?>> features) {
-        this.vector = vector;
-        this.features = features;
+        this.vector = requireNonNull(vector);
+        this.features = requireNonNull(features);
     }
 
     /**
@@ -44,16 +47,17 @@ public class MixedSample {
      * @return a new MixedSample object with the given numerical and categorical features.
      */
     public static MixedSample of(NormalizedVector sample, List<CategoricalFeature<?>> features) {
-        return new MixedSample(sample, features);
+        return new MixedSample(requireNonNull(sample), requireNonNull(features));
     }
 
     /**
      * Returns true if a sample has a given {@link CategoricalFeature}
+     *
      * @param feat the feature we want to know if is present
      * @return true in case the feature exists, false otherwise
      */
     public boolean hasFeature(CategoricalFeature<?> feat) {
-        return features.stream().map(Feature::featureName).anyMatch(n -> n.equals(feat.featureName()));
+        return features.stream().map(Feature::featureName).anyMatch(n -> n.equals(Objects.requireNonNull(feat).featureName()));
     }
 
     /**
@@ -64,7 +68,7 @@ public class MixedSample {
      * @return an Optional containing the matching CategoricalFeature, or an empty Optional if no matching feature is found
      */
     public Optional<CategoricalFeature<?>> feature(CategoricalFeature<?> feat) {
-        return features.stream().filter(f -> f.featureName().equals(feat.featureName())).findFirst();
+        return features.stream().filter(f -> f.featureName().equals(requireNonNull(feat).featureName())).findFirst();
     }
 
     /**
@@ -75,7 +79,7 @@ public class MixedSample {
      */
     public int numberOfMatches(MixedSample another) {
 
-        return (int) another.features.stream()
+        return (int) requireNonNull(another).features.stream()
                 .filter(another::hasFeature)
                 .map(a -> feature(a).filter(thisFeat -> thisFeat.matches(a)))
                 .map(Optional::isPresent)
@@ -93,7 +97,7 @@ public class MixedSample {
      */
     public int numberOfMatchingFeatures(MixedSample another) {
         // Use stream to count the number of features that exist in both MixedSamples
-        return (int) another.getFeatures().stream()
+        return (int) requireNonNull(another).getFeatures().stream()
                 .filter(another::hasFeature)
                 .count();
     }

@@ -38,6 +38,9 @@ final class DataSet {
     }
 
     public static Double calculateScore(Metric metric, NormalizedVector normalizedTarget, NormalizedVector v) {
+        Objects.requireNonNull(metric);
+        Objects.requireNonNull(normalizedTarget);
+        Objects.requireNonNull(v);
         return metric.similarityScore(normalizedTarget, v);
     }
 
