@@ -7,10 +7,12 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.vectors.DoubleVector;
+import com.acepero13.research.profilesimilarity.exceptions.ArgumentException;
 import com.acepero13.research.profilesimilarity.testmodels.User;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -76,6 +78,11 @@ class VectorizableProxyTest {
         assertThat(actual.equals(default2), equalTo(true));
     }
 
+    @Test void classWithoutVectorizableAnnotationRaisesException(){
+        var t = assertThrows(ArgumentException.class, () -> VectorizableProxy.of(new ClassWithoutAnnotation(10, new ArrayList<>())));
+        assertThat(t.getMessage(), containsString("Missing annotation. Please, make sure to add the @Vectorizable annotation to ClassWithoutAnnotation"));
+    }
+
     @Test
     void twoDifferentObjectsAreDifferent() {
 
@@ -84,6 +91,15 @@ class VectorizableProxyTest {
 
     private enum TAG {
         SPORT, FAMILY, ECO, SAFETY, MUSIC, EVENTS, READING, EMAIL
+    }
+
+    @Data
+    private static class ClassWithoutAnnotation {
+        @Numerical
+        private final int age;
+        @Categorical(name = "my-tags", oneHotEncoding = true, enumClass = TAG.class, values = {"SPORT", "FAMILY", "ECO"})
+        private final List<TAG> tags;
+
     }
 
     @com.acepero13.research.profilesimilarity.annotations.Vectorizable

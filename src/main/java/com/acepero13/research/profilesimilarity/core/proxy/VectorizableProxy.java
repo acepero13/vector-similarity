@@ -10,6 +10,7 @@ import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.OneHotEncodingExtractor;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.exceptions.ArgumentException;
 import com.acepero13.research.profilesimilarity.exceptions.VectorizableProxyException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
@@ -94,7 +95,7 @@ public class VectorizableProxy implements InvocationHandler {
             addNumericalFeatures(target, wrapper);
             addCategoricalFeatures(target, wrapper);
         } else {
-            wrapper = new VectorizableProxyWrapper(target);
+            throw new ArgumentException("Missing annotation. Please, make sure to add the @Vectorizable annotation to " + target.getClass().getSimpleName() );
         }
         return wrapper;
     }
