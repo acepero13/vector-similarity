@@ -64,8 +64,8 @@ public @interface Categorical {
      * @return true if the feature should be one-hot encoded
      * @implNote This is only used for clarity. It has no consequences in the calculations
      */
-    // TODO: Infer target in classify. based on this field
-    //TODO: Instead of calling: classifier.classify(featureName). I could call: classifier.classify()
+
+
 
     boolean target() default false;
 

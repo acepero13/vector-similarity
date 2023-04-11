@@ -65,6 +65,9 @@ public interface Result {
      */
     Double predict(String featureName);
 
+    /** Returns a numerical feature that represents the predicted value of the input feature vector. */
+    Double predict();
+
     /**
      * Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector. The feature name
      * is specified as a string parameter.
@@ -74,6 +77,9 @@ public interface Result {
      */
 
     Prediction predictWithScore(String featureName);
+
+    /** Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector. */
+    Prediction predictWithScore();
 
     /**
      * Returns a list of categorical features that represent the predicted classes of the input feature vector,

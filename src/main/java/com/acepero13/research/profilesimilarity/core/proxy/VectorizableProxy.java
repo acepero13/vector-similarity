@@ -169,12 +169,12 @@ public class VectorizableProxy implements InvocationHandler {
             Field field = tuple.first();
 
             var metadata = MetaData.of(annotation, field);
-            tryToAddNumericalFeature(annotation, field, metadata);
+            tryToAddNumericalFeature(annotation, field, metadata, annotation.target());
         }
 
-        private void tryToAddNumericalFeature(Numerical annotation, Field field, MetaData metadata) {
+        private void tryToAddNumericalFeature(Numerical annotation, Field field, MetaData metadata, boolean isTarget) {
             try {
-                create(field, metadata);
+                create(field, metadata, isTarget);
             } catch (IllegalAccessException e) {
                 throw new VectorizableProxyException("Error while creating numerical feature: " + annotation.name(), e);
             }
@@ -220,15 +220,15 @@ public class VectorizableProxy implements InvocationHandler {
             }
         }
 
-        private void create(Field field, MetaData metadata) throws IllegalAccessException {
+        private void create(Field field, MetaData metadata, boolean isTarget) throws IllegalAccessException {
             Class<?> fieldType = field.getType();
             field.setAccessible(true);
             if (fieldType.equals(Integer.class) || fieldType.equals(int.class)) {
-                addNonNullFeature(Features.integerFeature((Integer) field.get(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.integerFeature((Integer) field.get(target), metadata.name, metadata.weight, isTarget) );
             } else if (fieldType.equals(Double.class) || fieldType.equals(double.class)) {
-                addNonNullFeature(Features.doubleFeature((Double) field.get(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.doubleFeature((Double) field.get(target), metadata.name, metadata.weight, isTarget));
             } else if (fieldType.equals(Boolean.class) || fieldType.equals(boolean.class)) {
-                addNonNullFeature(Features.booleanFeature((Boolean) field.get(target), metadata.name, metadata.weight));
+                addNonNullFeature(Features.booleanFeature((Boolean) field.get(target), metadata.name, metadata.weight, isTarget));
             }
         }
 

@@ -230,7 +230,15 @@ public class MostSimilar {
 
         @Override
         public CategoricalFeature<?> classify() {
-            throw new ArgumentException("classify method without feature name is not supported by MostSimilar");
+            return classify(extractFeatureName());
+        }
+
+        private String extractFeatureName() {
+            return mostSimilar.sample.toFeatureVector().getFeatures().stream()
+                    .filter(Feature::isTarget)
+                    .findFirst()
+                    .map(Feature::featureName)
+                    .orElseThrow(() -> new ArgumentException("Could not find a suitable target feature. Check if you added the target argument in the @Categorical annotation. Or implement the boolean isTarget() method is implmented"));
         }
 
         @Override
@@ -247,7 +255,8 @@ public class MostSimilar {
 
         @Override
         public Classification classifyWithScore() {
-            throw new ArgumentException("classify method without feature name is not supported by MostSimilar");
+            CategoricalFeature<?> classification = classify(extractFeatureName());
+            return new Classification(classification, Probability.of(mostSimilar.score));
         }
 
         @Override
@@ -258,10 +267,20 @@ public class MostSimilar {
         }
 
         @Override
+        public Double predict() {
+            return predict(extractFeatureName());
+        }
+
+        @Override
         public Prediction predictWithScore(String featureName) {
             double prediction = predict(featureName);
 
             return new Prediction(prediction, mostSimilar.score * 100); // TODO: To rethink this part
+        }
+
+        @Override
+        public Prediction predictWithScore() {
+            return predictWithScore(extractFeatureName());
         }
     }
 

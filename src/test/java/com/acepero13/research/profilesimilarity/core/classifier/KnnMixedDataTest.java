@@ -81,6 +81,8 @@ class KnnMixedDataTest {
         assertThat(actual, equalTo(PERSON_LIST.get(4)));
     }
 
+
+
     @Test
     void findMostSimilarAnnotatedProfile() {
         var target = new AnnotatedPerson(40, 60_000, new ArrayList<>());

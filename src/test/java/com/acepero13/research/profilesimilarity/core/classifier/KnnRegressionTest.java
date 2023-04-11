@@ -78,7 +78,7 @@ public class KnnRegressionTest {
         Knn classifier = Knn.ofObjectsWithDefaultNormalizer(3, samples);
 
         var result = classifier.fit(test)
-                .predict(WEIGHT);
+                .predict();
 
         assertThat(result, closeTo(57.666666666666664, 0.01));
 
@@ -93,7 +93,7 @@ public class KnnRegressionTest {
         private final Double height;
         @Numerical
         private final int age;
-        @Numerical
+        @Numerical(name = WEIGHT, target = true)
         private final Integer weight;
     }
 

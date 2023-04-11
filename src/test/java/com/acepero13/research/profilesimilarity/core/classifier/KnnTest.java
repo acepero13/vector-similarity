@@ -7,6 +7,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Features;
 import com.acepero13.research.profilesimilarity.core.AbstractVectorizable;
 import com.acepero13.research.profilesimilarity.core.classifier.result.Classification;
+import com.acepero13.research.profilesimilarity.core.classifier.result.Prediction;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +58,25 @@ class KnnTest {
         assertThat(result.probability().value(), closeTo(0.67, 0.1));
     }
 
-    private enum CLASSIFICATION_CAT {
+    @Test
+    void predictionUsingAnnotation() {
+        var sample1 = new AnnotatedAcidDurabilityPrediction(7, 7, CLASSIFICATION_CAT.BAD);
+        var sample2 = new AnnotatedAcidDurabilityPrediction(7, 4, CLASSIFICATION_CAT.BAD);
+        var sample3 = new AnnotatedAcidDurabilityPrediction(3, 4, CLASSIFICATION_CAT.GOOD);
+        var sample4 = new AnnotatedAcidDurabilityPrediction(1, 4, CLASSIFICATION_CAT.GOOD);
+
+
+        var classifier = Knn.ofObjectsWithDefaultNormalizer(3, List.of(sample1, sample2, sample3, sample4));
+
+        var test = new AnnotatedAcidDurabilityPrediction(null, 7, CLASSIFICATION_CAT.BAD);
+
+        Prediction result = classifier.fit(test).predictWithScore();
+
+        assertThat(result.prediction(), closeTo(5.6, 0.1));
+        assertThat(result.score(), closeTo(0.5, 0.1));
+    }
+
+    public enum CLASSIFICATION_CAT {
         GOOD, BAD, UNKNOWN;
     }
 
@@ -84,12 +103,23 @@ class KnnTest {
 
     @Data
     @Vectorizable
-    private static class AnnotatedAcidDurabilityWithTarget {
+    public static class AnnotatedAcidDurabilityWithTarget {
         @Numerical
-        private final int durabilitySeconds;
+        private final Integer durabilitySeconds;
         @Numerical
         private final int strengthKgSqM;
-        @Categorical(target = true)
+        @Categorical(target = true, name = "classification-cat")
+        private final CLASSIFICATION_CAT classification;
+    }
+
+    @Data
+    @Vectorizable
+    public static class AnnotatedAcidDurabilityPrediction {
+        @Numerical(target = true, name = "durability-seconds")
+        private final Integer durabilitySeconds;
+        @Numerical
+        private final int strengthKgSqM;
+        @Categorical(name = "classification-cat")
         private final CLASSIFICATION_CAT classification;
 
 

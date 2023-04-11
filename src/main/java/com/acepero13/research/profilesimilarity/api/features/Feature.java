@@ -52,6 +52,9 @@ public interface Feature<T> {
                 .anyMatch(n -> n.equals(featureName()));
     }
 
+    /**
+     * Returns true if the feature is a target feature, false otherwise.
+     */
     default boolean isTarget() {
         return false;
     }

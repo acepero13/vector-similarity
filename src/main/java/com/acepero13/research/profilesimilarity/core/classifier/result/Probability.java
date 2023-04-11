@@ -1,11 +1,15 @@
 package com.acepero13.research.profilesimilarity.core.classifier.result;
 
 import com.acepero13.research.profilesimilarity.utils.CalculationUtils;
+import lombok.EqualsAndHashCode;
+
+import java.util.Objects;
 
 
 /**
  * A class representing a probability value, typically used for classification problems.
  */
+
 public class Probability {
 
     /** The value of the probability. */
@@ -64,5 +68,18 @@ public class Probability {
     @Override
     public String toString() {
         return "Probability: " + asPercentage() + "%";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Probability that = (Probability) o;
+        return Double.compare(that.value, value) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

@@ -27,9 +27,13 @@ final class GowersMetric implements Metric {
     @Override
     public Double similarityScore(MixedSample sample, MixedSample another) {
         double numericalScore = this.numericalMetric.similarityScore(sample.getVector(), another.getVector());
-        double categoricalScore = this.categoricalMetric.similarityScore(
+        Double categoricalScore = this.categoricalMetric.similarityScore(
                 Metric.from(sample.getFeatures()),
                 Metric.from(another.getFeatures()));
+
+        if(categoricalScore.isNaN()) {
+            categoricalScore = 0.0;
+        }
 
         return (numericalScore + categoricalScore) / 2;
     }

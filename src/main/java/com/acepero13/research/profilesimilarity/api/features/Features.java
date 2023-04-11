@@ -28,7 +28,7 @@ public final class Features {
      * @return a new boolean {@link Feature} instance with the specified value, name and default weight.
      */
     public static Feature<Boolean> booleanFeature(Boolean value, String name) {
-        return new BooleanFeature(value, name, DEFAULT_WEIGHT);
+        return new BooleanFeature(value, name, DEFAULT_WEIGHT, false);
     }
 
     /**
@@ -40,7 +40,7 @@ public final class Features {
      * @return a new boolean {@link Feature} instance with the specified value, name and weight.
      */
     public static Feature<Boolean> booleanFeature(Boolean value, String name, double weight) {
-        return new BooleanFeature(value, name, weight);
+        return new BooleanFeature(value, name, weight, false);
     }
 
     /**
@@ -86,7 +86,7 @@ public final class Features {
      * @return a new double {@link AbstractNumericalFeature} instance with the specified value, name and default weight.
      */
     public static AbstractNumericalFeature<Double> doubleFeature(double value, String name) {
-        return new DoubleFeature(value, name, DEFAULT_WEIGHT);
+        return new DoubleFeature(value, name, DEFAULT_WEIGHT, false);
     }
 
     /**
@@ -98,7 +98,7 @@ public final class Features {
      * @return a new instance of {@link DoubleFeature}
      */
     public static AbstractNumericalFeature<Double> doubleFeature(double value, String name, double weight) {
-        return new DoubleFeature(value, name, weight);
+        return new DoubleFeature(value, name, weight, false);
     }
 
     /**
@@ -110,7 +110,43 @@ public final class Features {
      * @return a new instance of {@link DoubleFeature}
      */
     public static AbstractNumericalFeature<Double> doubleFeature(Double value, String name, double weight) {
-        return new DoubleFeature(value, name, weight);
+        return new DoubleFeature(value, name, weight, false);
+    }
+
+    /**
+     * Creates a new {@link DoubleFeature} with the given {@code value}, {@code name}, and {@code weight}.
+     *
+     * @param value  the double value of the feature
+     * @param name   the name of the feature
+     * @param weight the weight of the feature
+     * @return a new instance of {@link DoubleFeature}
+     */
+    public static Feature<?> integerFeature(Integer value, String name, double weight, boolean isTarget) {
+        return new IntegerFeature(value, name, weight, isTarget);
+    }
+    /**
+     * Creates a new {@link DoubleFeature} with the given {@code value}, {@code name}, and {@code weight}.
+     *
+     * @param value  the double value of the feature
+     * @param name   the name of the feature
+     * @param weight the weight of the feature
+     * @return a new instance of {@link DoubleFeature}
+     */
+
+    public static Feature<?> doubleFeature(Double value, String name, double weight, boolean isTarget) {
+        return new DoubleFeature(value, name, weight, isTarget);
+    }
+
+    /**
+     * Creates a new {@link DoubleFeature} with the given {@code value}, {@code name}, and {@code weight}.
+     *
+     * @param value  the double value of the feature
+     * @param name   the name of the feature
+     * @param weight the weight of the feature
+     * @return a new instance of {@link DoubleFeature}
+     */
+    public static Feature<?> booleanFeature(Boolean value, String name, double weight, boolean isTarget) {
+        return new BooleanFeature(value, name, weight, isTarget);
     }
 
 
@@ -135,8 +171,8 @@ public final class Features {
     private static class DoubleFeature extends AbstractNumericalFeature<Double> {
 
 
-        public DoubleFeature(Double value, String featureName, double weight) {
-            super(value, featureName, weight);
+        public DoubleFeature(Double value, String featureName, double weight, boolean isTarget) {
+            super(value, featureName, weight, isTarget);
         }
 
         @Override
@@ -151,7 +187,11 @@ public final class Features {
 
 
         public IntegerFeature(Integer value, String featureName, double weight) {
-            super(value, featureName, weight);
+            super(value, featureName, weight, false);
+        }
+
+        public IntegerFeature(Integer value, String name, double weight, boolean isTarget) {
+            super(value, name, weight, isTarget);
         }
 
         @Override
@@ -168,12 +208,14 @@ public final class Features {
         private final Boolean value;
         private final String featureName;
         private final double weight;
+        private final boolean isTarget;
 
-        public BooleanFeature(Boolean value, String featureName, double weight) {
+        public BooleanFeature(Boolean value, String featureName, double weight, boolean isTarget) {
             // super(value, featureName, weight);
             this.value = value;
             this.featureName = featureName;
             this.weight = weight;
+            this.isTarget = isTarget;
         }
 
         @Override
@@ -194,6 +236,11 @@ public final class Features {
         @Override
         public String featureName() {
             return featureName;
+        }
+
+        @Override
+        public boolean isTarget() {
+            return isTarget;
         }
     }
 }
