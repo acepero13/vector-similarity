@@ -13,6 +13,7 @@ import com.acepero13.research.profilesimilarity.core.classifier.result.Result;
 import com.acepero13.research.profilesimilarity.core.proxy.VectorizableProxy;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
 import com.acepero13.research.profilesimilarity.core.vectors.NormalizedVector;
+import com.acepero13.research.profilesimilarity.exceptions.ArgumentException;
 import com.acepero13.research.profilesimilarity.exceptions.PredictionException;
 import com.acepero13.research.profilesimilarity.scores.Metrics;
 import com.acepero13.research.profilesimilarity.utils.ListUtils;
@@ -228,6 +229,11 @@ public class MostSimilar {
         }
 
         @Override
+        public CategoricalFeature<?> classify() {
+            throw new ArgumentException("classify method without feature name is not supported by MostSimilar");
+        }
+
+        @Override
         public CategoricalFeature<?> classify(Class<? extends CategoricalFeature<?>> type) {
             return mostSimilar.sample.toFeatureVector().getCategoricalFeatureBy(type)
                     .orElseThrow(() -> new PredictionException("Could not find a suitable category for: " + type));
@@ -237,6 +243,11 @@ public class MostSimilar {
         public Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type) {
             CategoricalFeature<?> classification = classify(type);
             return new Classification(classification, Probability.of(mostSimilar.score));
+        }
+
+        @Override
+        public Classification classifyWithScore() {
+            throw new ArgumentException("classify method without feature name is not supported by MostSimilar");
         }
 
         @Override

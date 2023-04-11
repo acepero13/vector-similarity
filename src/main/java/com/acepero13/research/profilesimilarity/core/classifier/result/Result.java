@@ -34,6 +34,8 @@ public interface Result {
      */
     CategoricalFeature<?> classify(String featureName);
 
+    CategoricalFeature<?> classify();
+
     /**
      * Returns a categorical feature that represents the predicted class of the input feature vector. The feature type
      * is specified as a {@code Class} parameter.
@@ -51,6 +53,8 @@ public interface Result {
      * @return Classification that represents the predicted class of the input feature vector and a score.
      */
     Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type);
+
+    Classification classifyWithScore();
 
     /**
      * Returns a numerical feature that represents the predicted value of the input feature vector. The feature name

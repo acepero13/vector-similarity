@@ -77,6 +77,7 @@ public class UserProfile extends AbstractVectorizable {
         public String featureName() {
             return "gender";
         }
+
     }
 
     public static class Builder {

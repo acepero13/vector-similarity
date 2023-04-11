@@ -65,17 +65,18 @@ public class OneHotEncodingExtractor<T extends CategoricalFeature<?>> {
      *
      * @param annotation the categorical annotation
      * @param constants  the possible values of the categorical annotation
+     * @param isTarget
      * @return a list of CategoricalFeature objects for all possible values of the given categorical annotation
      */
 
-    public static List<CategoricalFeature<?>> allValuesForOneHot(Categorical annotation, Object[] constants) {
+    public static List<CategoricalFeature<?>> allValuesForOneHot(Categorical annotation, Object[] constants, boolean isTarget) {
 
         List<CategoricalFeature<?>> features = new ArrayList<>();
         for (Object value : constants) {
             if (value == null) {
                 continue;
             }
-            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(requireNonNull(value), annotation.name());
+            CategoricalFeature<?> feature = CategoricalFeatureProxy.of(requireNonNull(value), annotation.name(), isTarget);
             features.add(feature);
         }
         return features;

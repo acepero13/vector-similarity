@@ -51,6 +51,10 @@ public interface Feature<T> {
                 .map(Feature::featureName)
                 .anyMatch(n -> n.equals(featureName()));
     }
+
+    default boolean isTarget() {
+        return false;
+    }
 }
 
 

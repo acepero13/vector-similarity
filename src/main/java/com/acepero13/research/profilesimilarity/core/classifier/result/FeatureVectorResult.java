@@ -4,6 +4,7 @@ import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
 import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Score;
 import com.acepero13.research.profilesimilarity.core.vectors.FeatureVector;
+import com.acepero13.research.profilesimilarity.exceptions.ArgumentException;
 import com.acepero13.research.profilesimilarity.exceptions.PredictionException;
 import com.acepero13.research.profilesimilarity.utils.Tuple;
 import lombok.Data;
@@ -24,6 +25,7 @@ final class FeatureVectorResult implements Result {
     public FeatureVectorResult(List<Score> scoredVectors) {
         this.vectors = scoredVectors.stream().map(Score::sample).collect(Collectors.toList());
         this.scoredVectors = scoredVectors;
+
     }
 
     private Classification classify(Map<CategoricalFeature<?>, Long> groups) {
@@ -42,8 +44,20 @@ final class FeatureVectorResult implements Result {
     @Override
     public CategoricalFeature<?> classify(String featureName) {
         Map<CategoricalFeature<?>, Long> groups = groupResultsByCategory(featureName);
-
         return classify(groups).classification();
+    }
+
+    public CategoricalFeature<?> classify() {
+
+        return classify(extractFeatureName());
+    }
+
+    private String extractFeatureName() {
+        return vectors.stream().flatMap(v -> v.getCategorical().stream())
+                      .filter(Feature::isTarget)
+                      .findFirst()
+                      .map(Feature::featureName)
+                      .orElseThrow(() -> new ArgumentException("Could not find a suitable target feature. Check if you added the target argument in the @Categorical annotation. Or implement the boolean isTarget() method is implmented"));
     }
 
     @Override
@@ -64,6 +78,22 @@ final class FeatureVectorResult implements Result {
 
         return classify(groups);
     }
+
+    @Override
+    public Classification classifyWithScore() {
+        Map<CategoricalFeature<?>, Long> groups = groupResultsByName(extractFeatureName());
+
+        return classify(groups);
+    }
+
+    private Map<CategoricalFeature<?>, Long> groupResultsByName(String name) {
+        return vectors.stream()
+                      .map(v -> Tuple.of(v.getCategoricalFeatureBy(name), v))
+                      .filter(t -> t.first().isPresent())
+                      .map(t -> t.mapFirst(Optional::get))
+                      .collect(Collectors.groupingBy(Tuple::first, Collectors.counting()));
+    }
+
 
     private Map<CategoricalFeature<?>, Long> groupResultsByCategory(Class<? extends CategoricalFeature<?>> type) {
         return vectors.stream()
@@ -104,9 +134,9 @@ final class FeatureVectorResult implements Result {
         Double value = predict(featureName);
 
         var sum = scoredVectors.stream()
-                     .map(sv -> Math.pow(sv.score(), 2))
-                .mapToDouble(Double::doubleValue)
-                .sum();
+                               .map(sv -> Math.pow(sv.score(), 2))
+                               .mapToDouble(Double::doubleValue)
+                               .sum();
 
         double score = sum == 0 ? 0.0 : (1 / sum);
 

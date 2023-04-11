@@ -41,21 +41,24 @@ class KnnTest {
 
     @Test
     void classificationUsingAnnotation() {
-        var sample1 = new AnnotatedAcidDurability(7, 7, CLASSIFICATION.BAD);
-        var sample2 = new AnnotatedAcidDurability(7, 4, CLASSIFICATION.BAD);
-        var sample3 = new AnnotatedAcidDurability(3, 4, CLASSIFICATION.GOOD);
-        var sample4 = new AnnotatedAcidDurability(1, 4, CLASSIFICATION.GOOD);
+        var sample1 = new AnnotatedAcidDurabilityWithTarget(7, 7, CLASSIFICATION_CAT.BAD);
+        var sample2 = new AnnotatedAcidDurabilityWithTarget(7, 4, CLASSIFICATION_CAT.BAD);
+        var sample3 = new AnnotatedAcidDurabilityWithTarget(3, 4, CLASSIFICATION_CAT.GOOD);
+        var sample4 = new AnnotatedAcidDurabilityWithTarget(1, 4, CLASSIFICATION_CAT.GOOD);
 
 
         var classifier = Knn.ofObjectsWithDefaultNormalizer(3, List.of(sample1, sample2, sample3, sample4));
 
-        var test = new AnnotatedAcidDurability(3, 7, null);
+        var test = new AnnotatedAcidDurabilityWithTarget(3, 7, null);
 
-        Classification result = classifier.fit(test)
-                                          .classifyWithScore(CLASSIFICATION.class);
+        Classification result = classifier.fit(test).classifyWithScore();
 
-        assertThat(result.classification(), equalTo(CLASSIFICATION.GOOD));
+        assertThat(result.classification(), equalTo(CLASSIFICATION_CAT.GOOD));
         assertThat(result.probability().value(), closeTo(0.67, 0.1));
+    }
+
+    private enum CLASSIFICATION_CAT {
+        GOOD, BAD, UNKNOWN;
     }
 
     private enum CLASSIFICATION implements CategoricalFeature<CLASSIFICATION> {
@@ -71,17 +74,23 @@ class KnnTest {
         public String featureName() {
             return "classification";
         }
+
+        @Override
+        public boolean isTarget() {
+            return true;
+        }
     }
+
 
     @Data
     @Vectorizable
-    private static class AnnotatedAcidDurability {
+    private static class AnnotatedAcidDurabilityWithTarget {
         @Numerical
         private final int durabilitySeconds;
         @Numerical
         private final int strengthKgSqM;
-        @Categorical
-        private final CLASSIFICATION classification;
+        @Categorical(target = true)
+        private final CLASSIFICATION_CAT classification;
 
 
     }

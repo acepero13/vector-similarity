@@ -35,4 +35,6 @@ public @interface Numerical {
      */
 
     double weight() default 1.0;
+
+    boolean target() default false;
 }

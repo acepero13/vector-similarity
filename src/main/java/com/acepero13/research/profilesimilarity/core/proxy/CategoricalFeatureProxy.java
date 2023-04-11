@@ -14,18 +14,18 @@ public class CategoricalFeatureProxy implements InvocationHandler {
 
     private final CategoricalWrapper wrapper;
 
-    public CategoricalFeatureProxy(Object target, String name) {
-        this.wrapper = new CategoricalWrapper(target, name);
+    public CategoricalFeatureProxy(Object target, String name, boolean isTarget) {
+        this.wrapper = new CategoricalWrapper(target, name, isTarget);
     }
 
-    public static <A> CategoricalFeature<A> of(Object object, String name) {
+    public static <A> CategoricalFeature<A> of(Object object, String name, boolean isTarget) {
         if (object instanceof CategoricalFeature) {
             return (CategoricalFeature<A>) object;
         }
         return (CategoricalFeature<A>) Proxy.newProxyInstance(
                 CategoricalFeature.class.getClassLoader(),
                 new Class[]{CategoricalFeature.class},
-                new CategoricalFeatureProxy(object, name)
+                new CategoricalFeatureProxy(object, name, isTarget)
         );
     }
 
@@ -63,6 +63,8 @@ public class CategoricalFeatureProxy implements InvocationHandler {
             case "matches":
                 FeaturesHelper.checkArguments(args, FeaturesHelper.exactly(CategoricalFeature.class));
                 return objectEquals(args[0]);
+            case "isTarget":
+                return wrapper.isTarget;
             default:
                 throw new VectorizableProxyException("Error calling undefined method for Categorical Feature: " + methodName);
 
@@ -84,7 +86,7 @@ public class CategoricalFeatureProxy implements InvocationHandler {
         } else if (o instanceof CategoricalFeature) {
             return equalToRealTarget((CategoricalFeature) o);
         }
-        return false;
+        return wrapper.target.equals(o);
     }
 
     private boolean equalToRealTarget(CategoricalFeature another) {
@@ -100,10 +102,12 @@ public class CategoricalFeatureProxy implements InvocationHandler {
     private static class CategoricalWrapper implements CategoricalFeature {
         private final String name;
         private final Object target;
+        private final boolean isTarget;
 
-        CategoricalWrapper(Object target, String name) {
+        CategoricalWrapper(Object target, String name, boolean isTarget) {
             this.name = name;
             this.target = target;
+            this.isTarget = isTarget;
         }
 
         @Override
@@ -119,6 +123,31 @@ public class CategoricalFeatureProxy implements InvocationHandler {
         @Override
         public String toString() {
             return target.toString();
+        }
+
+        @Override
+        public boolean isTarget() {
+            return isTarget;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CategoricalWrapper that = (CategoricalWrapper) o;
+
+            if (!name.equals(that.name)) return false;
+
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = name.hashCode();
+            result = 31 * result + target.hashCode();
+            return result;
         }
     }
 }
