@@ -61,12 +61,9 @@ public @interface Categorical {
     /**
      * a boolean indicating whether or not the categorical feature is the Target feature
      *
-     * @return true if the feature should be one-hot encoded
-     * @implNote This is only used for clarity. It has no consequences in the calculations
+     * @return true if the feature is the target feature
+     *
      */
 
-
-
-    boolean target() default false;
-
+    boolean isTargetFeature() default false;
 }

@@ -3,12 +3,15 @@ plugins {
     id 'maven-publish'
 }
 
+// Set the Java version
+sourceCompatibility = 11
+targetCompatibility = 11
 
 def groupIdPrefix = project.findProperty('groupIdPrefix')
 def groupId = groupIdPrefix != null ? "${groupIdPrefix}.profilesimilarity" : "com.example.profilesimilarity"
 
 
-def myVersion = '3.2.0'
+def myVersion = '3.0.1'
 version myVersion
 group = groupId
 repositories {

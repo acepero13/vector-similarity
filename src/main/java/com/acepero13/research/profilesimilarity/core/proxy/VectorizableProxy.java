@@ -169,7 +169,7 @@ public class VectorizableProxy implements InvocationHandler {
             Field field = tuple.first();
 
             var metadata = MetaData.of(annotation, field);
-            tryToAddNumericalFeature(annotation, field, metadata, annotation.target());
+            tryToAddNumericalFeature(annotation, field, metadata, annotation.isTargetFeature());
         }
 
         private void tryToAddNumericalFeature(Numerical annotation, Field field, MetaData metadata, boolean isTarget) {
@@ -189,9 +189,9 @@ public class VectorizableProxy implements InvocationHandler {
 
         private void tryToAddCategoricalFeature(Categorical annotation, Field field) {
             if (annotation.oneHotEncoding()) {
-                addAsOneHotEncoding(annotation, field, annotation.target());
+                addAsOneHotEncoding(annotation, field, annotation.isTargetFeature());
             } else {
-                addSingleFeatureCategorical(annotation, field, annotation.target());
+                addSingleFeatureCategorical(annotation, field, annotation.isTargetFeature());
             }
         }
 

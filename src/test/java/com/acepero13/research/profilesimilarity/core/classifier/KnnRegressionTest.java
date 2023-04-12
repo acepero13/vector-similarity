@@ -93,7 +93,7 @@ public class KnnRegressionTest {
         private final Double height;
         @Numerical
         private final int age;
-        @Numerical(name = WEIGHT, target = true)
+        @Numerical(name = WEIGHT, isTargetFeature = true)
         private final Integer weight;
     }
 

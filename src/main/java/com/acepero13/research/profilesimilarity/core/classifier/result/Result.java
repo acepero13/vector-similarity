@@ -1,6 +1,8 @@
 package com.acepero13.research.profilesimilarity.core.classifier.result;
 
+import com.acepero13.research.profilesimilarity.annotations.Categorical;
 import com.acepero13.research.profilesimilarity.api.features.CategoricalFeature;
+import com.acepero13.research.profilesimilarity.api.features.Feature;
 import com.acepero13.research.profilesimilarity.core.Score;
 
 import java.util.List;
@@ -54,6 +56,14 @@ public interface Result {
      */
     Classification classifyWithScore(Class<? extends CategoricalFeature<?>> type);
 
+    /**
+     * Returns a the classification result that represents the predicted class and a score of the classification of the input feature vector. The feature type
+     * is specified as a {@code Class} parameter.
+     *
+     * @return Classification that represents the predicted class of the input feature vector and a score.
+     * @implNote When using the annotated Vectorized class, the target feature is marked using {@link Categorical#isTargetFeature()}
+     * When using the instanced-based from the Categorical feature, the target feature should implement {@link Feature#isTarget()} method. (return true for the target feature)
+     */
     Classification classifyWithScore();
 
     /**
@@ -65,7 +75,11 @@ public interface Result {
      */
     Double predict(String featureName);
 
-    /** Returns a numerical feature that represents the predicted value of the input feature vector. */
+    /** Returns a numerical feature that represents the predicted value of the input feature vector.
+     *  @implNote When using the annotated Vectorized class, the target feature is marked using {@link com.acepero13.research.profilesimilarity.annotations.Numerical#isTargetFeature()}
+     *  When using the instanced-based from the Categorical feature, the target feature should implement {@link Feature#isTarget()} method. (return true for the target feature)
+
+     * */
     Double predict();
 
     /**
@@ -78,7 +92,12 @@ public interface Result {
 
     Prediction predictWithScore(String featureName);
 
-    /** Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector. */
+    /** Returns a numerical feature that represents the predicted value  and a score of the prediction of the input feature vector.
+     *
+     *  @implNote When using the annotated Vectorized class, the target feature is marked using {@link com.acepero13.research.profilesimilarity.annotations.Numerical#isTargetFeature()}
+     *  When using the instanced-based from the Categorical feature, the target feature should implement {@link Feature#isTarget()} method. (return true for the target feature)
+     *
+     * */
     Prediction predictWithScore();
 
     /**

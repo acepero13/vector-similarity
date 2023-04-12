@@ -108,14 +108,14 @@ class KnnTest {
         private final Integer durabilitySeconds;
         @Numerical
         private final int strengthKgSqM;
-        @Categorical(target = true, name = "classification-cat")
+        @Categorical(isTargetFeature = true, name = "classification-cat")
         private final CLASSIFICATION_CAT classification;
     }
 
     @Data
     @Vectorizable
     public static class AnnotatedAcidDurabilityPrediction {
-        @Numerical(target = true, name = "durability-seconds")
+        @Numerical(isTargetFeature = true, name = "durability-seconds")
         private final Integer durabilitySeconds;
         @Numerical
         private final int strengthKgSqM;
